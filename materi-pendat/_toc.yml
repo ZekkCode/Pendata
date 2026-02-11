@@ -4,6 +4,17 @@
 format: jb-book
 root: intro
 chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+- file: pertemuan1
+- file: pertemuan2
+- file: pertemuan3
+- file: pertemuan4
+- file: pertemuan5
+- file: pertemuan6
+- file: pertemuan7
+- file: pertemuan8
+- file: pertemuan9
+- file: pertemuan10
+- file: pertemuan11
+- file: pertemuan12
+- file: pertemuan13
+- file: pertemuan14

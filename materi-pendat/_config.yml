@@ -4,6 +4,8 @@
 title: Penambangan Data A - Materi Perkuliahan
 subtitle: Buku Materi Perkuliahan Penambangan Data Kelas A
 author: Zakaria Mujur Prasetyo
+copyright: Copyright 2026 Zakaria Mujur Prasetyo
+description: Buku materi perkuliahan untuk mata kuliah Penambangan Data Kelas A
 logo: logo.png
 
 # Force re-execution of notebooks on each build.

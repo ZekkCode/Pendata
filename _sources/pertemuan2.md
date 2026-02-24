@@ -24,7 +24,7 @@ Referensi: [Mulaab - Memahami Data](https://mulaab.github.io/datamining/memahami
 ## Implementasi
 
 Implementasi lengkap tersedia di notebook **Penambangan_Data_A_Pertemuan_2.ipynb** 
-Klik Link Disini (https://colab.research.google.com/drive/1E3Q08hfZdSmWzxCUESfMqbEiIOpIxSuUusp=sharing)
+Klik link di sini: [Buka di Google Colab](https://colab.research.google.com/drive/1E3Q08hfZdSmWzxCUESfMqbEiIOpIxSuU?usp=sharing)
 yang mencakup:
 
 1. Distribusi Data (distribusi normal, histogram, density plot)
@@ -35,9 +35,9 @@ yang mencakup:
 6. Jarak Ordinal (normalisasi ranking)
 7. Jarak Campuran (gabungan semua tipe)
 
-atau bisa juga dilihat dibawah ini:
+Atau bisa juga dilihat di bawah ini:
 
-# **Import library visualisasi**
+### Import Library Visualisasi
 
 ```python
 %matplotlib inline
@@ -49,7 +49,7 @@ import seaborn as sns
 sns.set(style="whitegrid")
 ```
 
-# **KODE PROGRAM IMPLEMNETASI DATA *IRIS.CSV* DARI KAGGLE**
+### Kode Program Implementasi Data *IRIS.csv* dari Kaggle
 
 ```python
 import pandas as pd
@@ -106,11 +106,11 @@ Standar Deviasi   0.83
 Variansi          0.69
 ```
 
-# **Bar chart jumlah data per species**
+### Bar Chart Jumlah Data per Spesies
 
 **Interpretasi singkat**
-* Setiap species memiliki jumlah data yang seimbang (masing-masing 50).
-* Dataset termasuk balanced dataset, sehingga tidak ada ketimpangan kelas.
+* Setiap spesies memiliki jumlah data yang seimbang (masing-masing 50).
+* Dataset termasuk *balanced dataset*, sehingga tidak ada ketimpangan kelas.
 
 ```python
 plt.figure(figsize=(8,5))
@@ -124,7 +124,7 @@ plt.show()
 
 ![Bar Chart Species](Assets/Pertemuan_2/Bar_Chart.png)
 
-# **Histogram semua fitur numerik**
+### Histogram Semua Fitur Numerik
 
 **Interpretasi singkat**
 * Histogram menunjukkan pola distribusi masing-masing fitur.
@@ -139,7 +139,7 @@ plt.show()
 
 ![Histogram Fitur](Assets/Pertemuan_2/Histogram.png)
 
-# **Boxplot semua fitur numerik (deteksi outlier)**
+### Boxplot Semua Fitur Numerik (Deteksi Outlier)
 
 **Interpretasi singkat**
 * Boxplot membantu melihat median, kuartil, dan potensi outlier.
@@ -157,10 +157,10 @@ plt.show()
 
 ![Boxplot Semua Fitur](Assets/Pertemuan_2/Boxplot.png)
 
-# **Scatter plot petal_length vs petal_width**
+### Scatter Plot `petal_length` vs `petal_width`
 
 **Interpretasi singkat**
-* Iris-setosa biasanya terpisah jelas dari dua species lain.
+* Iris-setosa biasanya terpisah jelas dari dua spesies lain.
 * petal_length dan petal_width merupakan fitur yang sangat informatif untuk klasifikasi.
 
 ```python
@@ -175,7 +175,7 @@ plt.show()
 
 ![Scatter Petal](Assets/Pertemuan_2/ScatterPlotPetal.png)
 
-# **Scatter plot sepal_length vs sepal_width**
+### Scatter Plot `sepal_length` vs `sepal_width`
 
 **Interpretasi singkat**
 * Titik antar kelas lebih banyak overlap dibanding fitur petal.
@@ -193,9 +193,9 @@ plt.show()
 
 ![Scatter Sepal](Assets/Pertemuan_2/ScatterPlotSepal.png)
 
-# **Distribusi satu fitur (histogram + KDE) per species**
+### Distribusi Satu Fitur (Histogram + KDE) per Spesies
 
-## **Distribusi Petal Length**
+#### Distribusi Petal Length
 
 ```python
 plt.figure(figsize=(9,6))
@@ -208,7 +208,7 @@ plt.show()
 
 ![Distribusi Petal Length](Assets/Pertemuan_2/DistribusiTepalLength.png)
 
-## **Distribusi Petal Width**
+#### Distribusi Petal Width
 
 ```python
 plt.figure(figsize=(9,6))
@@ -221,7 +221,7 @@ plt.show()
 
 ![Distribusi Petal Width](Assets/Pertemuan_2/DistribusiTepalWidth.png)
 
-## **Distribusi Sepal Length**
+#### Distribusi Sepal Length
 
 ```python
 plt.figure(figsize=(9,6))
@@ -234,7 +234,7 @@ plt.show()
 
 ![Distribusi Sepal Length](Assets/Pertemuan_2/DistribusiSepalLength.png)
 
-## **Distribusi Sepal Width**
+#### Distribusi Sepal Width
 
 ```python
 plt.figure(figsize=(9,6))
@@ -247,9 +247,9 @@ plt.show()
 
 ![Distribusi Sepal Width](Assets/Pertemuan_2/DistribusiSepalWidth.png)
 
-# **Boxplot per species**
+### Boxplot per Spesies
 
-## **Petal Length per species**
+#### Petal Length per Spesies
 
 ```python
 plt.figure(figsize=(8,6))
@@ -263,7 +263,7 @@ plt.show()
 
 ![Boxplot Petal Length](Assets/Pertemuan_2/BoxplotPetalLength.png)
 
-# **Petal Width per species**
+#### Petal Width per Spesies
 
 ```python
 plt.figure(figsize=(8,6))
@@ -277,7 +277,7 @@ plt.show()
 
 ![Boxplot Petal Width](Assets/Pertemuan_2/BoxplotPetalWidth.png)
 
-# **Pairplot**
+### Pairplot
 
 ```python
 sns.pairplot(df, hue='species')
@@ -286,11 +286,11 @@ plt.show()
 
 ![Pairplot](Assets/Pertemuan_2/Pairplot.png)
 
-# **Implementasi Menggunakan Orange Data Mining**
+### Implementasi Menggunakan Orange Data Mining
 
 Selain menggunakan Python, eksplorasi data Iris juga dapat dilakukan dengan **Orange Data Mining** (visual programming, tanpa coding penuh).
 
-## **Lampiran File & Screenshot**
+#### Lampiran File & Screenshot
 
 - Download dataset Iris (CSV): [IRIS.csv](Assets/Pertemuan_2/IRIS.csv)
 - Download workflow Orange: [OrangeIrisFlower.ows](Assets/Pertemuan_2/OrangeIrisFlower.ows)
@@ -298,7 +298,7 @@ Selain menggunakan Python, eksplorasi data Iris juga dapat dilakukan dengan **Or
 
 ![Workflow Orange Iris](Assets/Pertemuan_2/ScreenshotOrangeIrisFlower.png)
 
-## **Struktur Workflow Orange (sesuai file .ows)**
+#### Struktur Workflow Orange (sesuai file .ows)
 
 Urutan koneksi widget pada workflow:
 
@@ -320,22 +320,22 @@ Urutan koneksi widget pada workflow:
 
 5. **CSV File Import → Distributions**
     - Menampilkan distribusi nilai setiap atribut (histogram/density).
-    - Membantu membandingkan pola sebaran antar species.
+    - Membantu membandingkan pola sebaran antar spesies.
 
 6. **CSV File Import → Bar Plot**
-    - Menampilkan jumlah data per kategori (species).
+    - Menampilkan jumlah data per kategori (spesies).
     - Pada Iris terlihat komposisi kelas seimbang (masing-masing 50).
 
 7. **CSV File Import → Box Plot**
     - Menampilkan median, kuartil, whisker, dan potensi outlier.
-    - Membantu analisis sebaran fitur antar species secara ringkas.
+    - Membantu analisis sebaran fitur antar spesies secara ringkas.
 
-## **Penjelasan Hasil Implementasi di Orange**
+#### Penjelasan Hasil Implementasi di Orange
 
 - **Scatter Plot** menunjukkan pemisahan kelas paling jelas pada fitur petal, terutama `Iris-setosa` yang cenderung terpisah dari dua kelas lainnya.
 - **Distributions** memperlihatkan pola distribusi tiap fitur; fitur petal biasanya lebih diskriminatif dibanding sepal.
 - **Bar Plot** menegaskan distribusi kelas seimbang (balanced dataset), sehingga tidak ada bias jumlah kelas pada analisis awal.
-- **Box Plot** memudahkan identifikasi rentang nilai dan outlier, sekaligus perbandingan median antar species.
+- **Box Plot** memudahkan identifikasi rentang nilai dan outlier, sekaligus perbandingan median antar spesies.
 - **Column Statistics** melengkapi visualisasi dengan angka statistik deskriptif untuk validasi interpretasi grafik.
 
 Dengan workflow ini, proses EDA pada Iris dapat dilakukan cepat, terstruktur, dan konsisten dengan analisis Python di bagian sebelumnya.

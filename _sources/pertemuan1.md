@@ -288,5 +288,3 @@ SELECT * FROM iris_flower WHERE species = 'Iris-setosa';
 3. [CRISP-DM](http://crisp-dm.eu/home/about-crisp-dm/)
 4. [Situs Dosen: mulaab.github.io/datamining](https://mulaab.github.io/datamining/)
 
----
-

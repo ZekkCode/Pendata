@@ -408,14 +408,14 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi">Implementasi</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library-visualisasi"><strong>Import library visualisasi</strong></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-program-implemnetasi-data-iris-csv-dari-kaggle"><strong>KODE PROGRAM IMPLEMNETASI DATA <em>IRIS.CSV</em> DARI KAGGLE</strong></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bar-chart-jumlah-data-per-species"><strong>Bar chart jumlah data per species</strong></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-semua-fitur-numerik"><strong>Histogram semua fitur numerik</strong></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-semua-fitur-numerik-deteksi-outlier"><strong>Boxplot semua fitur numerik (deteksi outlier)</strong></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-petal-length-vs-petal-width"><strong>Scatter plot petal_length vs petal_width</strong></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-sepal-length-vs-sepal-width"><strong>Scatter plot sepal_length vs sepal_width</strong></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-satu-fitur-histogram-kde-per-species"><strong>Distribusi satu fitur (histogram + KDE) per species</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library-visualisasi"><strong>Import Library Visualisasi</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-program-implementasi-data-iris-csv-dari-kaggle"><strong>KODE PROGRAM IMPLEMENTASI DATA <em>IRIS.CSV</em> DARI KAGGLE</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bar-chart-jumlah-data-per-spesies"><strong>Bar Chart Jumlah Data per Spesies</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-semua-fitur-numerik"><strong>Histogram Semua Fitur Numerik</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-semua-fitur-numerik-deteksi-outlier"><strong>Boxplot Semua Fitur Numerik (Deteksi Outlier)</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-petal-length-vs-petal-width"><strong>Scatter Plot <code class="docutils literal notranslate"><span class="pre">petal_length</span></code> vs <code class="docutils literal notranslate"><span class="pre">petal_width</span></code></strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-sepal-length-vs-sepal-width"><strong>Scatter Plot <code class="docutils literal notranslate"><span class="pre">sepal_length</span></code> vs <code class="docutils literal notranslate"><span class="pre">sepal_width</span></code></strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-satu-fitur-histogram-kde-per-spesies"><strong>Distribusi Satu Fitur (Histogram + KDE) per Spesies</strong></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-petal-length"><strong>Distribusi Petal Length</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-petal-width"><strong>Distribusi Petal Width</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-sepal-length"><strong>Distribusi Sepal Length</strong></a></li>
@@ -423,10 +423,10 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-per-species"><strong>Boxplot per species</strong></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#petal-length-per-species"><strong>Petal Length per species</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#petal-length-per-spesies"><strong>Petal Length per Spesies</strong></a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#petal-width-per-species"><strong>Petal Width per species</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#petal-width-per-spesies"><strong>Petal Width per Spesies</strong></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pairplot"><strong>Pairplot</strong></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-menggunakan-orange-data-mining"><strong>Implementasi Menggunakan Orange Data Mining</strong></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lampiran-file-screenshot"><strong>Lampiran File &amp; Screenshot</strong></a></li>
@@ -494,7 +494,7 @@ document.write(`
 <section id="implementasi">
 <h2>Implementasi<a class="headerlink" href="#implementasi" title="Link to this heading">#</a></h2>
 <p>Implementasi lengkap tersedia di notebook <strong>Penambangan_Data_A_Pertemuan_2.ipynb</strong>
-Klik Link Disini (<a class="reference external" href="https://colab.research.google.com/drive/1E3Q08hfZdSmWzxCUESfMqbEiIOpIxSuUusp=sharing">https://colab.research.google.com/drive/1E3Q08hfZdSmWzxCUESfMqbEiIOpIxSuUusp=sharing</a>)
+Klik link di sini: <a class="reference external" href="https://colab.research.google.com/drive/1E3Q08hfZdSmWzxCUESfMqbEiIOpIxSuU?usp=sharing">Buka di Google Colab</a>
 yang mencakup:</p>
 <ol class="arabic simple">
 <li><p>Distribusi Data (distribusi normal, histogram, density plot)</p></li>
@@ -505,11 +505,11 @@ yang mencakup:</p>
 <li><p>Jarak Ordinal (normalisasi ranking)</p></li>
 <li><p>Jarak Campuran (gabungan semua tipe)</p></li>
 </ol>
-<p>atau bisa juga dilihat dibawah ini:</p>
+<p>Atau bisa juga dilihat di bawah ini:</p>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="import-library-visualisasi">
-<h1><strong>Import library visualisasi</strong><a class="headerlink" href="#import-library-visualisasi" title="Link to this heading">#</a></h1>
+<h1><strong>Import Library Visualisasi</strong><a class="headerlink" href="#import-library-visualisasi" title="Link to this heading">#</a></h1>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
@@ -520,8 +520,8 @@ yang mencakup:</p>
 </pre></div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="kode-program-implemnetasi-data-iris-csv-dari-kaggle">
-<h1><strong>KODE PROGRAM IMPLEMNETASI DATA <em>IRIS.CSV</em> DARI KAGGLE</strong><a class="headerlink" href="#kode-program-implemnetasi-data-iris-csv-dari-kaggle" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="kode-program-implementasi-data-iris-csv-dari-kaggle">
+<h1><strong>KODE PROGRAM IMPLEMENTASI DATA <em>IRIS.CSV</em> DARI KAGGLE</strong><a class="headerlink" href="#kode-program-implementasi-data-iris-csv-dari-kaggle" title="Link to this heading">#</a></h1>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
 
@@ -576,8 +576,8 @@ yang mencakup:</p>
 </pre></div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="bar-chart-jumlah-data-per-species">
-<h1><strong>Bar chart jumlah data per species</strong><a class="headerlink" href="#bar-chart-jumlah-data-per-species" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="bar-chart-jumlah-data-per-spesies">
+<h1><strong>Bar Chart Jumlah Data per Spesies</strong><a class="headerlink" href="#bar-chart-jumlah-data-per-spesies" title="Link to this heading">#</a></h1>
 <p><strong>Interpretasi singkat</strong></p>
 <ul class="simple">
 <li><p>Setiap species memiliki jumlah data yang seimbang (masing-masing 50).</p></li>
@@ -595,7 +595,7 @@ yang mencakup:</p>
 <p><img alt="Bar Chart Species" src="_images/Bar_Chart.png" /></p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="histogram-semua-fitur-numerik">
-<h1><strong>Histogram semua fitur numerik</strong><a class="headerlink" href="#histogram-semua-fitur-numerik" title="Link to this heading">#</a></h1>
+<h1><strong>Histogram Semua Fitur Numerik</strong><a class="headerlink" href="#histogram-semua-fitur-numerik" title="Link to this heading">#</a></h1>
 <p><strong>Interpretasi singkat</strong></p>
 <ul class="simple">
 <li><p>Histogram menunjukkan pola distribusi masing-masing fitur.</p></li>
@@ -610,7 +610,7 @@ yang mencakup:</p>
 <p><img alt="Histogram Fitur" src="_images/Histogram.png" /></p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="boxplot-semua-fitur-numerik-deteksi-outlier">
-<h1><strong>Boxplot semua fitur numerik (deteksi outlier)</strong><a class="headerlink" href="#boxplot-semua-fitur-numerik-deteksi-outlier" title="Link to this heading">#</a></h1>
+<h1><strong>Boxplot Semua Fitur Numerik (Deteksi Outlier)</strong><a class="headerlink" href="#boxplot-semua-fitur-numerik-deteksi-outlier" title="Link to this heading">#</a></h1>
 <p><strong>Interpretasi singkat</strong></p>
 <ul class="simple">
 <li><p>Boxplot membantu melihat median, kuartil, dan potensi outlier.</p></li>
@@ -628,7 +628,7 @@ yang mencakup:</p>
 <p><img alt="Boxplot Semua Fitur" src="_images/Boxplot.png" /></p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="scatter-plot-petal-length-vs-petal-width">
-<h1><strong>Scatter plot petal_length vs petal_width</strong><a class="headerlink" href="#scatter-plot-petal-length-vs-petal-width" title="Link to this heading">#</a></h1>
+<h1><strong>Scatter Plot <code class="docutils literal notranslate"><span class="pre">petal_length</span></code> vs <code class="docutils literal notranslate"><span class="pre">petal_width</span></code></strong><a class="headerlink" href="#scatter-plot-petal-length-vs-petal-width" title="Link to this heading">#</a></h1>
 <p><strong>Interpretasi singkat</strong></p>
 <ul class="simple">
 <li><p>Iris-setosa biasanya terpisah jelas dari dua species lain.</p></li>
@@ -646,7 +646,7 @@ yang mencakup:</p>
 <p><img alt="Scatter Petal" src="_images/ScatterPlotPetal.png" /></p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="scatter-plot-sepal-length-vs-sepal-width">
-<h1><strong>Scatter plot sepal_length vs sepal_width</strong><a class="headerlink" href="#scatter-plot-sepal-length-vs-sepal-width" title="Link to this heading">#</a></h1>
+<h1><strong>Scatter Plot <code class="docutils literal notranslate"><span class="pre">sepal_length</span></code> vs <code class="docutils literal notranslate"><span class="pre">sepal_width</span></code></strong><a class="headerlink" href="#scatter-plot-sepal-length-vs-sepal-width" title="Link to this heading">#</a></h1>
 <p><strong>Interpretasi singkat</strong></p>
 <ul class="simple">
 <li><p>Titik antar kelas lebih banyak overlap dibanding fitur petal.</p></li>
@@ -663,8 +663,8 @@ yang mencakup:</p>
 </div>
 <p><img alt="Scatter Sepal" src="_images/ScatterPlotSepal.png" /></p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="distribusi-satu-fitur-histogram-kde-per-species">
-<h1><strong>Distribusi satu fitur (histogram + KDE) per species</strong><a class="headerlink" href="#distribusi-satu-fitur-histogram-kde-per-species" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="distribusi-satu-fitur-histogram-kde-per-spesies">
+<h1><strong>Distribusi Satu Fitur (Histogram + KDE) per Spesies</strong><a class="headerlink" href="#distribusi-satu-fitur-histogram-kde-per-spesies" title="Link to this heading">#</a></h1>
 <section id="distribusi-petal-length">
 <h2><strong>Distribusi Petal Length</strong><a class="headerlink" href="#distribusi-petal-length" title="Link to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
@@ -716,8 +716,8 @@ yang mencakup:</p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="boxplot-per-species">
 <h1><strong>Boxplot per species</strong><a class="headerlink" href="#boxplot-per-species" title="Link to this heading">#</a></h1>
-<section id="petal-length-per-species">
-<h2><strong>Petal Length per species</strong><a class="headerlink" href="#petal-length-per-species" title="Link to this heading">#</a></h2>
+<section id="petal-length-per-spesies">
+<h2><strong>Petal Length per Spesies</strong><a class="headerlink" href="#petal-length-per-spesies" title="Link to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;petal_length&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Boxplot Petal Length per Species&quot;</span><span class="p">)</span>
@@ -730,8 +730,8 @@ yang mencakup:</p>
 <p><img alt="Boxplot Petal Length" src="_images/BoxplotPetalLength.png" /></p>
 </section>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="petal-width-per-species">
-<h1><strong>Petal Width per species</strong><a class="headerlink" href="#petal-width-per-species" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="petal-width-per-spesies">
+<h1><strong>Petal Width per Spesies</strong><a class="headerlink" href="#petal-width-per-spesies" title="Link to this heading">#</a></h1>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;petal_width&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Boxplot Petal Width per Species&quot;</span><span class="p">)</span>
@@ -894,14 +894,14 @@ yang mencakup:</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi">Implementasi</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library-visualisasi"><strong>Import library visualisasi</strong></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-program-implemnetasi-data-iris-csv-dari-kaggle"><strong>KODE PROGRAM IMPLEMNETASI DATA <em>IRIS.CSV</em> DARI KAGGLE</strong></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bar-chart-jumlah-data-per-species"><strong>Bar chart jumlah data per species</strong></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-semua-fitur-numerik"><strong>Histogram semua fitur numerik</strong></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-semua-fitur-numerik-deteksi-outlier"><strong>Boxplot semua fitur numerik (deteksi outlier)</strong></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-petal-length-vs-petal-width"><strong>Scatter plot petal_length vs petal_width</strong></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-sepal-length-vs-sepal-width"><strong>Scatter plot sepal_length vs sepal_width</strong></a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-satu-fitur-histogram-kde-per-species"><strong>Distribusi satu fitur (histogram + KDE) per species</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library-visualisasi"><strong>Import Library Visualisasi</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-program-implementasi-data-iris-csv-dari-kaggle"><strong>KODE PROGRAM IMPLEMENTASI DATA <em>IRIS.CSV</em> DARI KAGGLE</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bar-chart-jumlah-data-per-spesies"><strong>Bar Chart Jumlah Data per Spesies</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-semua-fitur-numerik"><strong>Histogram Semua Fitur Numerik</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-semua-fitur-numerik-deteksi-outlier"><strong>Boxplot Semua Fitur Numerik (Deteksi Outlier)</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-petal-length-vs-petal-width"><strong>Scatter Plot <code class="docutils literal notranslate"><span class="pre">petal_length</span></code> vs <code class="docutils literal notranslate"><span class="pre">petal_width</span></code></strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot-sepal-length-vs-sepal-width"><strong>Scatter Plot <code class="docutils literal notranslate"><span class="pre">sepal_length</span></code> vs <code class="docutils literal notranslate"><span class="pre">sepal_width</span></code></strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-satu-fitur-histogram-kde-per-spesies"><strong>Distribusi Satu Fitur (Histogram + KDE) per Spesies</strong></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-petal-length"><strong>Distribusi Petal Length</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-petal-width"><strong>Distribusi Petal Width</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-sepal-length"><strong>Distribusi Sepal Length</strong></a></li>
@@ -909,10 +909,10 @@ yang mencakup:</p>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#boxplot-per-species"><strong>Boxplot per species</strong></a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#petal-length-per-species"><strong>Petal Length per species</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#petal-length-per-spesies"><strong>Petal Length per Spesies</strong></a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#petal-width-per-species"><strong>Petal Width per species</strong></a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#petal-width-per-spesies"><strong>Petal Width per Spesies</strong></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pairplot"><strong>Pairplot</strong></a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-menggunakan-orange-data-mining"><strong>Implementasi Menggunakan Orange Data Mining</strong></a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lampiran-file-screenshot"><strong>Lampiran File &amp; Screenshot</strong></a></li>

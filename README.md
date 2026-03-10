@@ -1,69 +1,108 @@
 # Penambangan Data - A
-## Repository ini dibuat untuk Mata Kuliah Penambangan Data Kelas A di Semester 4 Program Studi Teknik Informatika
----
-### Nama : Zakaria Mujur Prasetyo
-### NIM : 240411100144
 
-## Panduan Penggunaan Jupyter Book
+Repository ini dibuat untuk Mata Kuliah Penambangan Data Kelas A Semester 4, Program Studi Teknik Informatika.
 
-### 1. Persiapan Lingkungan (Virtual Environment)
-Pastikan Anda sudah memiliki dan mengaktifkan virtual environment sebelum menjalankan perintah-perintah di bawah ini.
+- Nama: Zakaria Mujur Prasetyo
+- NIM: 240411100144
 
-**Cara Mengaktifkan (PowerShell):**
+## Panduan Cepat Jupyter Book (`materi-pendat`)
+
+### 1. Persiapan Environment (PowerShell)
+
 ```powershell
-# Jika Anda berada di folder Pendata:
+# Dari folder Pendata
 ..\.venv\Scripts\Activate.ps1
 
-# Jika terminal menolak karena kebijakan keamanan, jalankan command ini dulu:
+# Jika terkendala execution policy
 # Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 ```
 
-### 2. Instalasi Jupyter Book (Versi Klasik/v1)
-Untuk mengikuti tutorial yang menggunakan perintah `create` (standar lama), kita perlu menggunakan Jupyter Book versi klasik (di bawah versi 2.0). Versi terbaru (2.x) menggunakan perintah `init` yang berbeda.
+### 2. Instalasi Dependensi
 
 ```bash
-pip install "jupyter-book<2.0.0"
+pip install "jupyter-book<2.0.0" ghp-import
 ```
 
+Catatan:
+- `jupyter-book<2.0.0` dipakai agar perintah `jupyter-book create` tetap tersedia.
+- `ghp-import` dipakai untuk deploy GitHub Pages dari hasil build HTML.
+
 ### 3. Membuat Struktur Buku Baru
-Untuk membuat kerangka buku baru (misalnya folder `materi-pendat`):
 
 ```bash
 jupyter-book create materi-pendat
 ```
 
-### 4. Membangun Buku (Build)
-Setelah membuat konten, bangun buku menjadi format HTML agar bisa dilihat di browser.
+### 4. Menambahkan Halaman Baru
+
+1. Buat file markdown, misalnya `materi-pendat/logika.md`.
+2. Daftarkan ke daftar isi di `materi-pendat/_toc.yml`.
+
+Contoh:
+
+```yaml
+format: jb-book
+root: intro
+chapters:
+	- file: pertemuan1
+	- file: Penambangan_Data_A_Pertemuan_2
+	- file: pertemuan3
+	- file: logika
+```
+
+### 5. Build Website
 
 ```bash
 jupyter-book build materi-pendat
 ```
-Hasil build akan berada di folder `materi-pendat/_build/html/index.html`.
 
-### 5. Panduan Git (Push ke GitHub)
-Berikut adalah langkah-langkah untuk menyimpan perubahan ke repository GitHub.
+Hasil website ada di:
 
-**Cek Status Perubahan:**
-Melihat file mana saja yang berubah.
+`materi-pendat/_build/html/index.html`
+
+## Panduan Git (Push ke `origin`)
+
+### 1. Cek perubahan
+
 ```bash
 git status
 ```
 
-**Menambahkan Semua Perubahan:**
-Menyiapkan semua file yang berubah untuk disimpan.
+### 2. Stage semua perubahan
+
 ```bash
 git add .
 ```
 
-**Membuat Commit (Menyimpan Perubahan):**
-Memberikan pesan catatan tentang apa yang Anda ubah.
+### 3. Commit
+
 ```bash
-git commit -m "Deskripsi perubahan Anda di sini (misal: update materi bab 1)"
+git commit -m "update materi pertemuan 3"
 ```
 
-**Mengirim ke GitHub (Push):**
-Mengirim commit lokal Anda ke server GitHub (remote origin).
+### 4. Push ke branch utama
+
 ```bash
 git push origin main
-# Catatan: Sesuaikan 'main' dengan nama branch utama Anda (bisa 'master' atau 'main')
 ```
+
+## Deploy GitHub Pages
+
+Setelah build berhasil, deploy folder HTML ke branch `gh-pages`:
+
+```bash
+ghp-import -n -p -f materi-pendat/_build/html
+```
+
+Keterangan opsi:
+- `-n`: membuat file `.nojekyll`
+- `-p`: langsung push ke remote
+- `-f`: force overwrite branch `gh-pages`
+
+URL situs biasanya:
+
+`https://username-kamu.github.io/nama-repo-kamu/`
+
+Untuk repo ini formatnya umumnya:
+
+`https://zekkcode.github.io/Pendata/`

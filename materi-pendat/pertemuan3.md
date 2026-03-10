@@ -200,7 +200,7 @@ Workflow Orange untuk dataset Iris dimulai dari **CSV File Import**, dilanjutkan
 
 ### 10.2 Bukti Data CSV ke PostgreSQL
 
-![Bukti data CSV telah dimasukkan ke PostgreSQL](Assets/Pertemuan3/Gambar%20Csv%20ke%20PostgreeSQL.png)
+![Bukti data CSV telah dimasukkan ke PostgreSQL](Assets/Pertemuan3/Gambar-Csv-ke-PostgreeSQL.png)
 
 Dataset Iris telah berhasil dimasukkan ke PostgreSQL dan dapat diakses melalui query `SELECT * FROM public.iris`. Total data: 150 baris.
 

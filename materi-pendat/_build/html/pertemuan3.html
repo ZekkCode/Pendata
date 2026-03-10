@@ -746,7 +746,7 @@
 </section>
 <section id="bukti-data-csv-ke-postgresql">
 <h3>10.2 Bukti Data CSV ke PostgreSQL<a class="headerlink" href="#bukti-data-csv-ke-postgresql" title="Link to this heading">#</a></h3>
-<p><img alt="Bukti data CSV telah dimasukkan ke PostgreSQL" src="Assets/Pertemuan3/Gambar%20Csv%20ke%20PostgreeSQL.png" /></p>
+<p><img alt="Bukti data CSV telah dimasukkan ke PostgreSQL" src="_images/Gambar-Csv-ke-PostgreeSQL.png" /></p>
 <p>Dataset Iris telah berhasil dimasukkan ke PostgreSQL dan dapat diakses melalui query <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">*</span> <span class="pre">FROM</span> <span class="pre">public.iris</span></code>. Total data: 150 baris.</p>
 </section>
 <section id="histogram-fitur-iris-sebelum-scaling">
@@ -1162,7 +1162,7 @@ d(5,10) = \sqrt{(5.4-5.4)^2 + (3.9-3.7)^2 + (1.7-1.5)^2} = \sqrt{0 + 0.04 + 0.04
 <section id="bukti-pemeriksaan-missing-value-dataset-iris">
 <h3>13.7 Bukti Pemeriksaan Missing Value — Dataset Iris<a class="headerlink" href="#bukti-pemeriksaan-missing-value-dataset-iris" title="Link to this heading">#</a></h3>
 <p>Berikut adalah bukti grafik yang dihasilkan notebook saat memeriksa missing value pada dataset Iris <strong>sebelum</strong> dibuat missing value buatan:</p>
-<p><img alt="Cek Missing Value Iris — Semua kolom bernilai 0" src="Assets/Pertemuan3/cek-missing-value-iris.png" /></p>
+<p><img alt="Cek Missing Value Iris — Semua kolom bernilai 0" src="_images/cek-missing-value-iris.png" /></p>
 <p><strong>Penjelasan:</strong></p>
 <ul class="simple">
 <li><p>Grafik bar menunjukkan jumlah missing value per kolom pada dataset Iris.</p></li>
@@ -1173,13 +1173,13 @@ d(5,10) = \sqrt{(5.4-5.4)^2 + (3.9-3.7)^2 + (1.7-1.5)^2} = \sqrt{0 + 0.04 + 0.04
 <hr class="docutils" />
 <section id="bukti-baris-dengan-missing-value-buatan-iris">
 <h3>13.8 Bukti Baris dengan Missing Value Buatan — Iris<a class="headerlink" href="#bukti-baris-dengan-missing-value-buatan-iris" title="Link to this heading">#</a></h3>
-<p><img alt="Baris 5 dengan missing value buatan pada petal_width" src="Assets/Pertemuan3/baris-missing-iris.png" /></p>
+<p><img alt="Baris 5 dengan missing value buatan pada petal_width" src="_images/baris-missing-iris.png" /></p>
 <p>Tabel di atas menunjukkan bahwa baris 5 kini memiliki <code class="docutils literal notranslate"><span class="pre">petal_width</span> <span class="pre">=</span> <span class="pre">NaN</span></code> (missing), sementara kolom lainnya tetap utuh. Kolom <code class="docutils literal notranslate"><span class="pre">petal_width</span></code> inilah yang akan diisi menggunakan KNN Imputation.</p>
 </section>
 <hr class="docutils" />
 <section id="bukti-tabel-10-jarak-terkecil-iris">
 <h3>13.9 Bukti Tabel 10 Jarak Terkecil — Iris<a class="headerlink" href="#bukti-tabel-10-jarak-terkecil-iris" title="Link to this heading">#</a></h3>
-<p><img alt="10 Jarak Terkecil Dataset Iris — 3 hijau adalah tetangga terpilih" src="Assets/Pertemuan3/tabel-jarak-iris.png" /></p>
+<p><img alt="10 Jarak Terkecil Dataset Iris — 3 hijau adalah tetangga terpilih" src="_images/tabel-jarak-iris.png" /></p>
 <p><strong>Penjelasan:</strong></p>
 <ul class="simple">
 <li><p>Tabel menampilkan <strong>10 baris dengan jarak terkecil</strong> dari baris 5 (yang memiliki missing value).</p></li>
@@ -1196,7 +1196,7 @@ d(5,10) = \sqrt{(5.4-5.4)^2 + (3.9-3.7)^2 + (1.7-1.5)^2} = \sqrt{0 + 0.04 + 0.04
 <hr class="docutils" />
 <section id="bukti-hasil-imputasi-knn-iris">
 <h3>13.10 Bukti Hasil Imputasi KNN — Iris<a class="headerlink" href="#bukti-hasil-imputasi-knn-iris" title="Link to this heading">#</a></h3>
-<p><img alt="Baris 5 setelah imputasi KNN — petal_width = 0.2333" src="Assets/Pertemuan3/hasil-imputasi-iris.png" /></p>
+<p><img alt="Baris 5 setelah imputasi KNN — petal_width = 0.2333" src="_images/hasil-imputasi-iris.png" /></p>
 <p><strong>Penjelasan:</strong></p>
 <ul class="simple">
 <li><p>Setelah KNN Imputation dilakukan, kolom <code class="docutils literal notranslate"><span class="pre">petal_width</span></code> pada baris 5 terisi dengan nilai <strong>0.2333</strong>.</p></li>
@@ -1781,7 +1781,7 @@ d_{total} = 0.1081 + 0.3333 = \boxed{0.4414}
 <section id="bukti-pemeriksaan-missing-value-dataset-bank">
 <h3>14.9 Bukti Pemeriksaan Missing Value — Dataset Bank<a class="headerlink" href="#bukti-pemeriksaan-missing-value-dataset-bank" title="Link to this heading">#</a></h3>
 <p>Berikut adalah bukti grafik yang dihasilkan notebook saat memeriksa missing value pada dataset Bank <strong>sebelum</strong> dibuat missing value buatan:</p>
-<p><img alt="Cek Missing Value Bank — Semua kolom bernilai 0" src="Assets/Pertemuan3/cek-missing-value-bank.png" /></p>
+<p><img alt="Cek Missing Value Bank — Semua kolom bernilai 0" src="_images/cek-missing-value-bank.png" /></p>
 <p><strong>Penjelasan:</strong></p>
 <ul class="simple">
 <li><p>Grafik bar menunjukkan jumlah missing value per kolom pada dataset Bank (17 kolom).</p></li>
@@ -1792,7 +1792,7 @@ d_{total} = 0.1081 + 0.3333 = \boxed{0.4414}
 <hr class="docutils" />
 <section id="bukti-baris-dengan-missing-value-buatan-bank">
 <h3>14.10 Bukti Baris dengan Missing Value Buatan — Bank<a class="headerlink" href="#bukti-baris-dengan-missing-value-buatan-bank" title="Link to this heading">#</a></h3>
-<p><img alt="Baris 5 dengan missing value buatan pada balance" src="Assets/Pertemuan3/baris-missing-bank.png" /></p>
+<p><img alt="Baris 5 dengan missing value buatan pada balance" src="_images/baris-missing-bank.png" /></p>
 <p>Tabel di atas menunjukkan data baris 5 setelah kolom <code class="docutils literal notranslate"><span class="pre">balance</span></code> dihilangkan (NaN). Kolom lain tetap utuh:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">age</span> <span class="pre">=</span> <span class="pre">42</span></code>, <code class="docutils literal notranslate"><span class="pre">job</span> <span class="pre">=</span> <span class="pre">management</span></code>, <code class="docutils literal notranslate"><span class="pre">marital</span> <span class="pre">=</span> <span class="pre">single</span></code>, <code class="docutils literal notranslate"><span class="pre">education</span> <span class="pre">=</span> <span class="pre">tertiary</span></code>, <code class="docutils literal notranslate"><span class="pre">housing</span> <span class="pre">=</span> <span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">loan</span> <span class="pre">=</span> <span class="pre">yes</span></code>, <code class="docutils literal notranslate"><span class="pre">deposit</span> <span class="pre">=</span> <span class="pre">yes</span></code></p></li>
@@ -1802,7 +1802,7 @@ d_{total} = 0.1081 + 0.3333 = \boxed{0.4414}
 <hr class="docutils" />
 <section id="bukti-tabel-10-jarak-terkecil-bank">
 <h3>14.11 Bukti Tabel 10 Jarak Terkecil — Bank<a class="headerlink" href="#bukti-tabel-10-jarak-terkecil-bank" title="Link to this heading">#</a></h3>
-<p><img alt="10 Jarak Terkecil Dataset Bank — 3 hijau adalah tetangga terpilih" src="Assets/Pertemuan3/tabel-jarak-bank.png" /></p>
+<p><img alt="10 Jarak Terkecil Dataset Bank — 3 hijau adalah tetangga terpilih" src="_images/tabel-jarak-bank.png" /></p>
 <p><strong>Penjelasan:</strong></p>
 <ul class="simple">
 <li><p>Tabel menampilkan <strong>10 baris dengan jarak terkecil</strong> dari baris 5 (yang memiliki missing value <code class="docutils literal notranslate"><span class="pre">balance</span></code>).</p></li>
@@ -1857,7 +1857,7 @@ d_{total} = 0.1081 + 0.3333 = \boxed{0.4414}
 <hr class="docutils" />
 <section id="bukti-hasil-imputasi-knn-bank">
 <h3>14.12 Bukti Hasil Imputasi KNN — Bank<a class="headerlink" href="#bukti-hasil-imputasi-knn-bank" title="Link to this heading">#</a></h3>
-<p><img alt="Baris 5 setelah imputasi KNN — balance = 1154.67" src="Assets/Pertemuan3/hasil-imputasi-bank.png" /></p>
+<p><img alt="Baris 5 setelah imputasi KNN — balance = 1154.67" src="_images/hasil-imputasi-bank.png" /></p>
 <p><strong>Penjelasan:</strong></p>
 <ul class="simple">
 <li><p>Setelah KNN Imputation dilakukan, kolom <code class="docutils literal notranslate"><span class="pre">balance</span></code> pada baris 5 terisi dengan nilai <strong>1154.67</strong>.</p></li>

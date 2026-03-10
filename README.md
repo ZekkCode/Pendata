@@ -2,8 +2,8 @@
 
 Repository ini dibuat untuk Mata Kuliah Penambangan Data Kelas A Semester 4, Program Studi Teknik Informatika.
 
-- Nama: Zakaria Mujur Prasetyo
-- NIM: 240411100144
+Nama: Zakaria Mujur Prasetyo
+NIM: 240411100144
 
 ## Panduan Cepat Jupyter Book (`materi-pendat`)
 

@@ -1,5 +1,21 @@
-# PERTEMUAN 3 — DATA PREPARATION (EXTENSI)
+# Materi Pertemuan 3 — Data Preparation (Extensi)
 ## Studi Kasus: Iris + Data Campuran (Mixed-Type)
+
+## Daftar Isi
+```{dropdown} Klik untuk membuka Daftar Isi
+:open:
+
+1. [Persiapan Lingkungan](#1-persiapan-lingkungan)
+2. [Memuat Dataset Iris](#2-memuat-dataset-iris)
+3. [Penjelasan: Fitur vs Kelas (Target)](#3-penjelasan-fitur-vs-kelas-target)
+4. [Identifikasi Missing Value (Lebih Lengkap)](#4-identifikasi-missing-value-lebih-lengkap)
+5. [Statistik Deskriptif](#5-statistik-deskriptif)
+6. [Cara Menarik Data dari Database (MySQL/PostgreSQL) ke Orange](#6-cara-menarik-data-dari-database-mysqlpostgresql-ke-orange)
+7. [Cara Mengukur Jarak untuk Data Iris](#7-cara-mengukur-jarak-untuk-data-iris)
+8. [Distance Matrix di Orange (Workflow)](#8-distance-matrix-di-orange-workflow)
+9. [Checklist Output Pertemuan 3 (Untuk Laporan)](#9-checklist-output-pertemuan-3-untuk-laporan)
+10. [Bukti Gambar Dataset dan Workflow Orange](#10-bukti-gambar-dataset-dan-workflow-orange)
+```
 
 Dokumen ini melanjutkan materi Data Preparation (CRISP-DM) yang kamu buat sebelumnya, lalu **ditambah**:
 1) Identifikasi missing value (lebih lengkap)

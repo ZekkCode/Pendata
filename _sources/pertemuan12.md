@@ -1,4 +1,12 @@
-# Pertemuan 12 - Regresi
+# Materi Pertemuan 12 — Regresi
+
+## Daftar Isi
+```{dropdown} Klik untuk membuka Daftar Isi
+:open:
+
+- Status materi: Segera diperbarui
+- Topik utama: Regresi
+```
 
 ```{admonition} Segera Diperbarui
 :class: warning

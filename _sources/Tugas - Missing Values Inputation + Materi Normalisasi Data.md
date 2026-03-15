@@ -8,23 +8,25 @@
 
 Lampiran gambar soal:
 
-![Soal WKNN Normalisasi](Assets/Pertemuan4/Soal Missing Values Inputation WKKN.png)
+<img alt="Soal WKNN Normalisasi" src="Pertemuan4/Soal%20Missing%20Values%20Inputation%20WKKN.png" />
 
-![Soal WKNN Normalisasi (Lampiran Tambahan)](Assets/Tugas/Missing%20Values%20%26%20Normalisasi/Soal%20Missing%20Values%20Inputation%20WKKN.png)
+<img alt="Soal WKNN Normalisasi (Lampiran Tambahan)" src="Tugas/Missing%20Values%20%26%20Normalisasi/Soal%20Missing%20Values%20Inputation%20WKKN.png" />
 
 Lampiran file Excel (siap diunduh/dibagikan):
 
-- [Download Excel - Missing Value Metode WKKN dan Normalisasi](Assets/Tugas/Missing%20Values%20%26%20Normalisasi/Missing%20Value%20Metode%20WKKN%20dan%20Normalisasi.xlsx)
+```{download} Download Excel - Missing Value Metode WKKN dan Normalisasi
+Tugas/Missing Values & Normalisasi/Missing Value Metode WKKN dan Normalisasi.xlsx
+```
 
 Preview sheet perhitungan manual (sesuai file Excel):
 
-![Sheet WKNN dan 3 normalisasi](Assets/Tugas/Missing%20Values%20%26%20Normalisasi/%7B08731576-79E4-47C6-B15D-8614811B6232%7D.png)
+<img alt="Sheet WKNN dan 3 normalisasi" src="Tugas/Missing%20Values%20%26%20Normalisasi/%7B08731576-79E4-47C6-B15D-8614811B6232%7D.png" />
 
-![Sheet parameter kontrol WKNN](Assets/Tugas/Missing%20Values%20%26%20Normalisasi/%7B92225BFD-2920-4144-A7E3-FCB8297CC627%7D.png)
+<img alt="Sheet parameter kontrol WKNN" src="Tugas/Missing%20Values%20%26%20Normalisasi/%7B92225BFD-2920-4144-A7E3-FCB8297CC627%7D.png" />
 
-![Sheet normalisasi Min-Max](Assets/Tugas/Missing%20Values%20%26%20Normalisasi/%7B9772C413-1BB5-45DC-876B-90A3F1BA2C97%7D.png)
+<img alt="Sheet normalisasi Min-Max" src="Tugas/Missing%20Values%20%26%20Normalisasi/%7B9772C413-1BB5-45DC-876B-90A3F1BA2C97%7D.png" />
 
-![Sheet tabel tetangga terdekat WKNN](Assets/Tugas/Missing%20Values%20%26%20Normalisasi/%7BBDD39292-E751-4943-9B4D-2584C2046196%7D.png)
+<img alt="Sheet tabel tetangga terdekat WKNN" src="Tugas/Missing%20Values%20%26%20Normalisasi/%7BBDD39292-E751-4943-9B4D-2584C2046196%7D.png" />
 
 Diberikan dataset berikut:
 

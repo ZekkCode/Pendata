@@ -1,0 +1,1711 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Materi Pertemuan 3.1 — Imputasi Missing Value dengan KNN &#8212; Penambangan Data A - Materi Perkuliahan</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pertemuan_3.1';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lampiran Materi Pertemuan 3.1 — Bukti Gambar dan Identifikasi Missing Value" href="pertemuan_3.1.1.html" />
+    <link rel="prev" title="Materi Pertemuan 3 — Data Preparation (Extensi)" href="pertemuan3.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data A - Materi Perkuliahan - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Penambangan Data A - Materi Perkuliahan - Home"/>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Penambangan Data (Data Mining)
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pertemuan1.html">Materi Pertemuan 1 — Pengantar Data Mining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="pertemuan2.html">Materi Pertemuan 2 — Memahami Data</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="pertemuan3.html">Materi Pertemuan 3 — Data Preparation (Extensi)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Materi Pertemuan 3.1 — Imputasi Missing Value dengan KNN</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan_3.1.1.html">Lampiran Materi Pertemuan 3.1 — Bukti Gambar dan Identifikasi Missing Value</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan4.html">Materi Pertemuan 4 — Preprocessing &amp; Normalisasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas%20-%20Missing%20Values%20Inputation%20%2B%20Materi%20Normalisasi%20Data.html">Tugas — Missing Values (WKNN) &amp; Normalisasi Data</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="pertemuan5.html">Materi Pertemuan 5 — Mengukur Jarak/Similaritas Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan6.html">Materi Pertemuan 6 — Praproses Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan7.html">Materi Pertemuan 7 — Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan8.html">Materi Pertemuan 8 — UTS (Ujian Tengah Semester)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan9.html">Materi Pertemuan 9 — Klasifikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan10.html">Materi Pertemuan 10 — Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan11.html">Materi Pertemuan 11 — Asosiasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan12.html">Materi Pertemuan 12 — Regresi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan13.html">Materi Pertemuan 13 — Evaluasi Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan14.html">Materi Pertemuan 14 — Studi Kasus &amp; Review</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ZekkCode/Pendata.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ZekkCode/Pendata.git/issues/new?title=Issue%20on%20page%20%2Fpertemuan_3.1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/pertemuan_3.1.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Materi Pertemuan 3.1 — Imputasi Missing Value dengan KNN</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daftar-isi">Daftar Isi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konsep-knn-untuk-mengisi-missing-value">1. Konsep KNN untuk Mengisi Missing Value</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-knn-imputation">1.1 Apa itu KNN Imputation?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aturan-pengisian">1.2 Aturan Pengisian</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catatan-penting">1.3 Catatan Penting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aturan-menghitung-jarak-berdasarkan-tipe-data">2. Aturan Menghitung Jarak Berdasarkan Tipe Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jarak-untuk-data-numerik-euclidean-distance">2.1 Jarak untuk Data Numerik — Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konversi-data-ordinal-ke-numerik">2.2 Konversi Data Ordinal ke Numerik</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jarak-untuk-data-kategorikal">2.3 Jarak untuk Data Kategorikal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jarak-total-untuk-data-campuran">2.4 Jarak Total untuk Data Campuran</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penerapan-pada-dataset-iris-data-numerik">3. Penerapan pada Dataset Iris (Data Numerik)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cek-missing-value-awal">3.1 Cek Missing Value Awal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-missing-value-buatan">3.2 Membuat Missing Value Buatan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-jarak-manual-euclidean">3.3 Perhitungan Jarak Manual (Euclidean)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-0">Baris 5 vs Baris 0</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-1">Baris 5 vs Baris 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-2">Baris 5 vs Baris 2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-3">Baris 5 vs Baris 3</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-4">Baris 5 vs Baris 4</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-3-tetangga-terdekat-k-3">3.4 Menentukan 3 Tetangga Terdekat (k = 3)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imputasi-missing-value-knn-regression">3.5 Imputasi Missing Value (KNN Regression)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-python-imputasi-knn-pada-iris">3.6 Kode Python — Imputasi KNN pada Iris</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-gambar-dataset-iris">3.7 Hasil Gambar — Dataset Iris</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-fitur-iris-sebelum-scaling">Histogram Fitur Iris (Sebelum Scaling)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-fitur-iris-sesudah-scaling">Histogram Fitur Iris (Sesudah Scaling)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-pengukuran-jarak-di-orange">Workflow Pengukuran Jarak di Orange</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penerapan-pada-dataset-bank-data-campuran">4. Penerapan pada Dataset Bank (Data Campuran)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-tipe-variabel">4.1 Menentukan Tipe Variabel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.2 Membuat Missing Value Buatan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-konversi-ordinal-ke-numerik">4.3 Langkah 1 — Konversi Ordinal ke Numerik</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-normalisasi-data-numerik-min-max">4.4 Langkah 2 — Normalisasi Data Numerik (Min-Max)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-perhitungan-jarak-manual">4.5 Langkah 3 — Perhitungan Jarak Manual</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-21">Baris 5 vs Baris 21</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-96">Baris 5 vs Baris 96</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-51">Baris 5 vs Baris 51</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-76">Baris 5 vs Baris 76</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-13">Baris 5 vs Baris 13</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.6 Menentukan 3 Tetangga Terdekat (k = 3)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.7 Imputasi Missing Value (KNN Regression)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-python-imputasi-knn-pada-data-campuran-bank">4.8 Kode Python — Imputasi KNN pada Data Campuran Bank</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-gambar-dataset-bank">4.9 Hasil Gambar — Dataset Bank</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-iris-di-orange-dengan-pengukuran-jarak">Data Iris di Orange dengan Pengukuran Jarak</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bukti-data-csv-ke-postgresql">Bukti Data CSV ke PostgreSQL</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-langkah-knn-imputation">5. Ringkasan Langkah KNN Imputation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#untuk-data-numerik-iris">5.1 Untuk Data Numerik (Iris)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#untuk-data-campuran-bank">5.2 Untuk Data Campuran (Bank)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">6. Kesimpulan</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="materi-pertemuan-3-1-imputasi-missing-value-dengan-knn">
+<h1>Materi Pertemuan 3.1 — Imputasi Missing Value dengan KNN<a class="headerlink" href="#materi-pertemuan-3-1-imputasi-missing-value-dengan-knn" title="Link to this heading">#</a></h1>
+<section id="daftar-isi">
+<h2>Daftar Isi<a class="headerlink" href="#daftar-isi" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Klik untuk membuka Daftar Isi</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic simple">
+<li><p class="sd-card-text"><a class="reference internal" href="#1-konsep-knn-untuk-mengisi-missing-value"><span class="xref myst">Konsep KNN untuk Mengisi Missing Value</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#2-aturan-menghitung-jarak-berdasarkan-tipe-data"><span class="xref myst">Aturan Menghitung Jarak Berdasarkan Tipe Data</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#3-contoh-knn-pada-dataset-iris-data-numerik"><span class="xref myst">Contoh KNN pada Dataset Iris (Data Numerik)</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#4-contoh-knn-pada-dataset-bank-data-campuran"><span class="xref myst">Contoh KNN pada Dataset Bank (Data Campuran)</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#5-verifikasi-dengan-python"><span class="xref myst">Verifikasi dengan Python</span></a></p></li>
+</ol>
+</div>
+</details><p>Dokumen ini merupakan <strong>lanjutan dari Pertemuan 3 (Data Preparation)</strong>, yang membahas secara lengkap cara mengisi missing value menggunakan metode <strong>K-Nearest Neighbors (KNN)</strong> pada dua jenis dataset:</p>
+<ol class="arabic simple">
+<li><p><strong>Dataset Iris</strong> — data numerik murni</p></li>
+<li><p><strong>Dataset Bank</strong> — data campuran (numerik, ordinal, kategorikal)</p></li>
+</ol>
+<p>Seluruh perhitungan dilakukan secara <strong>manual langkah demi langkah</strong>, kemudian diverifikasi dengan kode Python.</p>
+</section>
+<hr class="docutils" />
+<section id="konsep-knn-untuk-mengisi-missing-value">
+<h2>1. Konsep KNN untuk Mengisi Missing Value<a class="headerlink" href="#konsep-knn-untuk-mengisi-missing-value" title="Link to this heading">#</a></h2>
+<section id="apa-itu-knn-imputation">
+<h3>1.1 Apa itu KNN Imputation?<a class="headerlink" href="#apa-itu-knn-imputation" title="Link to this heading">#</a></h3>
+<p>KNN Imputation adalah metode untuk mengisi nilai yang hilang (missing value) dengan cara:</p>
+<ol class="arabic simple">
+<li><p>Mengukur <strong>jarak</strong> dari baris yang memiliki missing value ke semua baris lain</p></li>
+<li><p>Memilih <strong>k baris terdekat</strong> (tetangga terdekat)</p></li>
+<li><p>Mengisi missing value berdasarkan nilai dari tetangga terdekat tersebut</p></li>
+</ol>
+</section>
+<section id="aturan-pengisian">
+<h3>1.2 Aturan Pengisian<a class="headerlink" href="#aturan-pengisian" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tipe Nilai yang Hilang</p></th>
+<th class="head"><p>Cara Pengisian</p></th>
+<th class="head"><p>Metode</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Numerik</strong></p></td>
+<td><p>Rata-rata dari k tetangga terdekat</p></td>
+<td><p>KNN Regression</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Kategorikal</strong></p></td>
+<td><p>Modus (voting mayoritas) dari k tetangga</p></td>
+<td><p>KNN Classification</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Pada pertemuan ini digunakan <strong>KNN Regression</strong> karena nilai yang diisi berupa angka.</p>
+</section>
+<section id="catatan-penting">
+<h3>1.3 Catatan Penting<a class="headerlink" href="#catatan-penting" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Jika satu kolom memiliki missing value, maka <strong>kolom tersebut tidak diikutkan</strong> dalam perhitungan jarak</p></li>
+<li><p>Contoh: jika kolom ke-4 kosong, maka jarak hanya dihitung dari kolom 1, 2, dan 3</p></li>
+<li><p>Setelah jarak dihitung, diambil <strong>k data terdekat</strong> (pada contoh ini k = 3)</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="aturan-menghitung-jarak-berdasarkan-tipe-data">
+<h2>2. Aturan Menghitung Jarak Berdasarkan Tipe Data<a class="headerlink" href="#aturan-menghitung-jarak-berdasarkan-tipe-data" title="Link to this heading">#</a></h2>
+<section id="jarak-untuk-data-numerik-euclidean-distance">
+<h3>2.1 Jarak untuk Data Numerik — Euclidean Distance<a class="headerlink" href="#jarak-untuk-data-numerik-euclidean-distance" title="Link to this heading">#</a></h3>
+<p>Untuk data numerik digunakan <strong>Euclidean Distance</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+d(i,j) = \sqrt{(x_1 - y_1)^2 + (x_2 - y_2)^2 + \cdots + (x_p - y_p)^2}
+\]</div>
+<p><strong>Aturan:</strong> Jika ada kolom yang missing, kolom tersebut <strong>dilewati</strong> dan tidak masuk perhitungan.</p>
+<p>Contoh: Baris A = <code class="docutils literal notranslate"><span class="pre">[5.4,</span> <span class="pre">3.9,</span> <span class="pre">1.7,</span> <span class="pre">?]</span></code> dan Baris B = <code class="docutils literal notranslate"><span class="pre">[5.1,</span> <span class="pre">3.5,</span> <span class="pre">1.4,</span> <span class="pre">0.2]</span></code></p>
+<p>Karena kolom ke-4 kosong, jarak hanya dihitung dari 3 kolom pertama:</p>
+<div class="math notranslate nohighlight">
+\[
+d = \sqrt{(5.4-5.1)^2 + (3.9-3.5)^2 + (1.7-1.4)^2} = \sqrt{0.09 + 0.16 + 0.09} = \sqrt{0.34} = 0.5831
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="konversi-data-ordinal-ke-numerik">
+<h3>2.2 Konversi Data Ordinal ke Numerik<a class="headerlink" href="#konversi-data-ordinal-ke-numerik" title="Link to this heading">#</a></h3>
+<p>Data ordinal memiliki urutan (ranking), tetapi tidak bisa langsung dimasukkan ke Euclidean. Harus diubah dulu menjadi numerik menggunakan rumus:</p>
+<div class="math notranslate nohighlight">
+\[
+z = \frac{r - 1}{m - 1}
+\]</div>
+<p>Keterangan:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(r\)</span> = urutan level ordinal (dimulai dari 1)</p></li>
+<li><p><span class="math notranslate nohighlight">\(m\)</span> = jumlah seluruh level</p></li>
+</ul>
+<p><strong>Contoh:</strong> Kolom <code class="docutils literal notranslate"><span class="pre">education</span></code> memiliki 3 level:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Level</p></th>
+<th class="head"><p>Urutan (<span class="math notranslate nohighlight">\(r\)</span>)</p></th>
+<th class="head"><p>Hasil Konversi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>primary</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\((1-1)/(3-1) = 0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>secondary</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\((2-1)/(3-1) = 0.5\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>tertiary</p></td>
+<td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\((3-1)/(3-1) = 1\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Setelah dikonversi, kolom ordinal <strong>bisa digabungkan</strong> dengan data numerik lain dan dihitung menggunakan Euclidean distance.</p>
+</section>
+<hr class="docutils" />
+<section id="jarak-untuk-data-kategorikal">
+<h3>2.3 Jarak untuk Data Kategorikal<a class="headerlink" href="#jarak-untuk-data-kategorikal" title="Link to this heading">#</a></h3>
+<p>Untuk data kategorikal (nominal) digunakan rumus <strong>ketidaksamaan</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+d_{kat} = \frac{P - M}{P}
+\]</div>
+<p>Keterangan:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(P\)</span> = banyaknya kolom kategorikal yang dibandingkan</p></li>
+<li><p><span class="math notranslate nohighlight">\(M\)</span> = jumlah kolom yang <strong>nilainya sama</strong></p></li>
+</ul>
+<p><strong>Contoh:</strong> Dibandingkan 3 kolom kategorikal (<code class="docutils literal notranslate"><span class="pre">marital</span></code>, <code class="docutils literal notranslate"><span class="pre">housing</span></code>, <code class="docutils literal notranslate"><span class="pre">loan</span></code>):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kolom</p></th>
+<th class="head"><p>Baris A</p></th>
+<th class="head"><p>Baris B</p></th>
+<th class="head"><p>Sama?</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>marital</p></td>
+<td><p>single</p></td>
+<td><p>single</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>housing</p></td>
+<td><p>yes</p></td>
+<td><p>yes</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>loan</p></td>
+<td><p>yes</p></td>
+<td><p>no</p></td>
+<td><p>✗</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Maka <span class="math notranslate nohighlight">\(P = 3\)</span>, <span class="math notranslate nohighlight">\(M = 2\)</span> (dua kolom sama):</p>
+<div class="math notranslate nohighlight">
+\[
+d_{kat} = \frac{3 - 2}{3} = \frac{1}{3} = 0.3333
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="jarak-total-untuk-data-campuran">
+<h3>2.4 Jarak Total untuk Data Campuran<a class="headerlink" href="#jarak-total-untuk-data-campuran" title="Link to this heading">#</a></h3>
+<p>Untuk data campuran, langkah-langkahnya adalah:</p>
+<ol class="arabic simple">
+<li><p><strong>Hitung jarak numerik + ordinal</strong> → konversi ordinal ke numerik, lalu hitung Euclidean</p></li>
+<li><p><strong>Hitung jarak kategorikal</strong> → gunakan rumus <span class="math notranslate nohighlight">\((P-M)/P\)</span></p></li>
+<li><p><strong>Jumlahkan keduanya</strong> sebagai jarak total</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+d_{total} = d_{num+ord} + d_{kat}
+\]</div>
+<p>Inilah inti dari perhitungan jarak pada data campuran: <strong>ordinal dijadikan numerik → dihitung Euclidean, kategorikal dihitung sendiri → lalu keduanya dijumlahkan</strong>.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="penerapan-pada-dataset-iris-data-numerik">
+<h2>3. Penerapan pada Dataset Iris (Data Numerik)<a class="headerlink" href="#penerapan-pada-dataset-iris-data-numerik" title="Link to this heading">#</a></h2>
+<p>Dataset Iris seluruhnya numerik (kecuali kolom <code class="docutils literal notranslate"><span class="pre">species</span></code>), sehingga perhitungan jarak menggunakan <strong>Euclidean distance</strong> saja.</p>
+<section id="cek-missing-value-awal">
+<h3>3.1 Cek Missing Value Awal<a class="headerlink" href="#cek-missing-value-awal" title="Link to this heading">#</a></h3>
+<p>Dataset Iris asli <strong>tidak memiliki missing value</strong>, sehingga perlu dibuat missing value buatan untuk simulasi.</p>
+</section>
+<section id="membuat-missing-value-buatan">
+<h3>3.2 Membuat Missing Value Buatan<a class="headerlink" href="#membuat-missing-value-buatan" title="Link to this heading">#</a></h3>
+<p>Nilai yang dihilangkan:</p>
+<ul class="simple">
+<li><p><strong>Baris indeks 5</strong> (baris ke-6)</p></li>
+<li><p><strong>Kolom <code class="docutils literal notranslate"><span class="pre">petal_width</span></code></strong></p></li>
+</ul>
+<p>Data asli baris 5:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>sepal_length</p></th>
+<th class="head"><p>sepal_width</p></th>
+<th class="head"><p>petal_length</p></th>
+<th class="head"><p>petal_width</p></th>
+<th class="head"><p>species</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>5.4</p></td>
+<td><p>3.9</p></td>
+<td><p>1.7</p></td>
+<td><p><strong>0.4</strong></p></td>
+<td><p>Iris-setosa</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Setelah dihilangkan:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>sepal_length</p></th>
+<th class="head"><p>sepal_width</p></th>
+<th class="head"><p>petal_length</p></th>
+<th class="head"><p>petal_width</p></th>
+<th class="head"><p>species</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>5.4</p></td>
+<td><p>3.9</p></td>
+<td><p>1.7</p></td>
+<td><p><strong>?</strong></p></td>
+<td><p>Iris-setosa</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Karena <code class="docutils literal notranslate"><span class="pre">petal_width</span></code> kosong, maka jarak dihitung hanya dari 3 kolom: <code class="docutils literal notranslate"><span class="pre">sepal_length</span></code>, <code class="docutils literal notranslate"><span class="pre">sepal_width</span></code>, <code class="docutils literal notranslate"><span class="pre">petal_length</span></code>.</p>
+</section>
+<hr class="docutils" />
+<section id="perhitungan-jarak-manual-euclidean">
+<h3>3.3 Perhitungan Jarak Manual (Euclidean)<a class="headerlink" href="#perhitungan-jarak-manual-euclidean" title="Link to this heading">#</a></h3>
+<p>Berikut perhitungan jarak dari <strong>baris 5</strong> ke beberapa baris lain:</p>
+<section id="baris-5-vs-baris-0">
+<h4>Baris 5 vs Baris 0<a class="headerlink" href="#baris-5-vs-baris-0" title="Link to this heading">#</a></h4>
+<p>Baris 0: <code class="docutils literal notranslate"><span class="pre">[5.1,</span> <span class="pre">3.5,</span> <span class="pre">1.4]</span></code></p>
+<div class="math notranslate nohighlight">
+\[
+d(5,0) = \sqrt{(5.4-5.1)^2 + (3.9-3.5)^2 + (1.7-1.4)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{0.3^2 + 0.4^2 + 0.3^2} = \sqrt{0.09 + 0.16 + 0.09} = \sqrt{0.34} = 0.5831
+\]</div>
+</section>
+<section id="baris-5-vs-baris-1">
+<h4>Baris 5 vs Baris 1<a class="headerlink" href="#baris-5-vs-baris-1" title="Link to this heading">#</a></h4>
+<p>Baris 1: <code class="docutils literal notranslate"><span class="pre">[4.9,</span> <span class="pre">3.0,</span> <span class="pre">1.4]</span></code></p>
+<div class="math notranslate nohighlight">
+\[
+d(5,1) = \sqrt{(5.4-4.9)^2 + (3.9-3.0)^2 + (1.7-1.4)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{0.5^2 + 0.9^2 + 0.3^2} = \sqrt{0.25 + 0.81 + 0.09} = \sqrt{1.15} = 1.0724
+\]</div>
+</section>
+<section id="baris-5-vs-baris-2">
+<h4>Baris 5 vs Baris 2<a class="headerlink" href="#baris-5-vs-baris-2" title="Link to this heading">#</a></h4>
+<p>Baris 2: <code class="docutils literal notranslate"><span class="pre">[4.7,</span> <span class="pre">3.2,</span> <span class="pre">1.3]</span></code></p>
+<div class="math notranslate nohighlight">
+\[
+d(5,2) = \sqrt{(5.4-4.7)^2 + (3.9-3.2)^2 + (1.7-1.3)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{0.7^2 + 0.7^2 + 0.4^2} = \sqrt{0.49 + 0.49 + 0.16} = \sqrt{1.14} = 1.0677
+\]</div>
+</section>
+<section id="baris-5-vs-baris-3">
+<h4>Baris 5 vs Baris 3<a class="headerlink" href="#baris-5-vs-baris-3" title="Link to this heading">#</a></h4>
+<p>Baris 3: <code class="docutils literal notranslate"><span class="pre">[4.6,</span> <span class="pre">3.1,</span> <span class="pre">1.5]</span></code></p>
+<div class="math notranslate nohighlight">
+\[
+d(5,3) = \sqrt{(5.4-4.6)^2 + (3.9-3.1)^2 + (1.7-1.5)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{0.8^2 + 0.8^2 + 0.2^2} = \sqrt{0.64 + 0.64 + 0.04} = \sqrt{1.32} = 1.1489
+\]</div>
+</section>
+<section id="baris-5-vs-baris-4">
+<h4>Baris 5 vs Baris 4<a class="headerlink" href="#baris-5-vs-baris-4" title="Link to this heading">#</a></h4>
+<p>Baris 4: <code class="docutils literal notranslate"><span class="pre">[5.0,</span> <span class="pre">3.6,</span> <span class="pre">1.4]</span></code></p>
+<div class="math notranslate nohighlight">
+\[
+d(5,4) = \sqrt{(5.4-5.0)^2 + (3.9-3.6)^2 + (1.7-1.4)^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \sqrt{0.4^2 + 0.3^2 + 0.3^2} = \sqrt{0.16 + 0.09 + 0.09} = \sqrt{0.34} = 0.5831
+\]</div>
+<p>Perhitungan yang sama dilakukan untuk <strong>seluruh 149 baris lainnya</strong>.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="menentukan-3-tetangga-terdekat-k-3">
+<h3>3.4 Menentukan 3 Tetangga Terdekat (k = 3)<a class="headerlink" href="#menentukan-3-tetangga-terdekat-k-3" title="Link to this heading">#</a></h3>
+<p>Setelah seluruh jarak dihitung dan diurutkan dari terkecil, diperoleh <strong>3 tetangga terdekat</strong>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Peringkat</p></th>
+<th class="head"><p>Baris</p></th>
+<th class="head"><p>Jarak</p></th>
+<th class="head"><p>Data (SL, SW, PL)</p></th>
+<th class="head"><p>petal_width</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Baris 10</p></td>
+<td><p>0.2828</p></td>
+<td><p>[5.4, 3.7, 1.5]</p></td>
+<td><p>0.2</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Baris 48</p></td>
+<td><p>0.3000</p></td>
+<td><p>[5.3, 3.7, 1.5]</p></td>
+<td><p>0.2</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Baris 18</p></td>
+<td><p>0.3162</p></td>
+<td><p>[5.7, 3.8, 1.7]</p></td>
+<td><p>0.3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Verifikasi manual baris 5 vs baris 10:</strong></p>
+<p>Baris 10: <code class="docutils literal notranslate"><span class="pre">[5.4,</span> <span class="pre">3.7,</span> <span class="pre">1.5]</span></code></p>
+<div class="math notranslate nohighlight">
+\[
+d(5,10) = \sqrt{(5.4-5.4)^2 + (3.9-3.7)^2 + (1.7-1.5)^2} = \sqrt{0 + 0.04 + 0.04} = \sqrt{0.08} = 0.2828
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="imputasi-missing-value-knn-regression">
+<h3>3.5 Imputasi Missing Value (KNN Regression)<a class="headerlink" href="#imputasi-missing-value-knn-regression" title="Link to this heading">#</a></h3>
+<p>Karena nilai yang diisi berupa numerik, digunakan <strong>rata-rata</strong> dari <code class="docutils literal notranslate"><span class="pre">petal_width</span></code> ketiga tetangga:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{x} = \frac{0.2 + 0.2 + 0.3}{3} = \frac{0.7}{3} = 0.2333
+\]</div>
+<p><strong>Hasil:</strong> Missing value <code class="docutils literal notranslate"><span class="pre">petal_width</span></code> pada baris 5 diisi dengan <span class="math notranslate nohighlight">\(\boxed{0.2333}\)</span></p>
+<p>Nilai asli sebelum dihilangkan: <strong>0.4</strong></p>
+</section>
+<hr class="docutils" />
+<section id="kode-python-imputasi-knn-pada-iris">
+<h3>3.6 Kode Python — Imputasi KNN pada Iris<a class="headerlink" href="#kode-python-imputasi-knn-pada-iris" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Load data</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;IRIS.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Simpan nilai asli sebelum dihilangkan</span>
+<span class="n">target_idx</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">col_missing</span> <span class="o">=</span> <span class="s1">&#39;petal_width&#39;</span>
+<span class="n">nilai_asli</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">target_idx</span><span class="p">,</span> <span class="n">col_missing</span><span class="p">]</span>
+
+<span class="c1"># Buat missing value buatan</span>
+<span class="n">iris_knn</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">iris_knn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">target_idx</span><span class="p">,</span> <span class="n">col_missing</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+<span class="c1"># Fitur yang dipakai untuk menghitung jarak (tanpa kolom yang missing)</span>
+<span class="n">fitur</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal_width&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_length&#39;</span><span class="p">]</span>
+
+<span class="c1"># Hitung jarak ke semua baris lain</span>
+<span class="n">hasil_jarak</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">iris_knn</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">target_idx</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(((</span><span class="n">iris_knn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">target_idx</span><span class="p">,</span> <span class="n">fitur</span><span class="p">]</span> <span class="o">-</span> <span class="n">iris_knn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">fitur</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="n">hasil_jarak</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">col_missing</span><span class="p">]))</span>
+
+<span class="c1"># Urutkan berdasarkan jarak terkecil</span>
+<span class="n">hasil_jarak</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">hasil_jarak</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Ambil 3 tetangga terdekat</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">tetangga</span> <span class="o">=</span> <span class="n">hasil_jarak</span><span class="p">[:</span><span class="n">k</span><span class="p">]</span>
+
+<span class="c1"># Imputasi dengan rata-rata (KNN Regression)</span>
+<span class="n">imputasi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tetangga</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nilai asli petal_width:&quot;</span><span class="p">,</span> <span class="n">nilai_asli</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">3 tetangga terdekat:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tetangga</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Baris </span><span class="si">{</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">: jarak = </span><span class="si">{</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, petal_width = </span><span class="si">{</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Hasil imputasi KNN (k=3): </span><span class="si">{</span><span class="n">imputasi</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output yang diharapkan:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Nilai</span> <span class="n">asli</span> <span class="n">petal_width</span><span class="p">:</span> <span class="mf">0.4</span>
+
+<span class="mi">3</span> <span class="n">tetangga</span> <span class="n">terdekat</span><span class="p">:</span>
+  <span class="n">Baris</span> <span class="mi">10</span><span class="p">:</span> <span class="n">jarak</span> <span class="o">=</span> <span class="mf">0.2828</span><span class="p">,</span> <span class="n">petal_width</span> <span class="o">=</span> <span class="mf">0.2</span>
+  <span class="n">Baris</span> <span class="mi">48</span><span class="p">:</span> <span class="n">jarak</span> <span class="o">=</span> <span class="mf">0.3000</span><span class="p">,</span> <span class="n">petal_width</span> <span class="o">=</span> <span class="mf">0.2</span>
+  <span class="n">Baris</span> <span class="mi">18</span><span class="p">:</span> <span class="n">jarak</span> <span class="o">=</span> <span class="mf">0.3162</span><span class="p">,</span> <span class="n">petal_width</span> <span class="o">=</span> <span class="mf">0.3</span>
+
+<span class="n">Hasil</span> <span class="n">imputasi</span> <span class="n">KNN</span> <span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span> <span class="mf">0.2333</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="hasil-gambar-dataset-iris">
+<h3>3.7 Hasil Gambar — Dataset Iris<a class="headerlink" href="#hasil-gambar-dataset-iris" title="Link to this heading">#</a></h3>
+<section id="histogram-fitur-iris-sebelum-scaling">
+<h4>Histogram Fitur Iris (Sebelum Scaling)<a class="headerlink" href="#histogram-fitur-iris-sebelum-scaling" title="Link to this heading">#</a></h4>
+<p><img alt="Histogram Iris sebelum scaling" src="_images/SebelumScalling.png" /></p>
+</section>
+<section id="histogram-fitur-iris-sesudah-scaling">
+<h4>Histogram Fitur Iris (Sesudah Scaling)<a class="headerlink" href="#histogram-fitur-iris-sesudah-scaling" title="Link to this heading">#</a></h4>
+<p><img alt="Histogram Iris sesudah scaling" src="_images/SesudahScalling.png" /></p>
+</section>
+<section id="workflow-pengukuran-jarak-di-orange">
+<h4>Workflow Pengukuran Jarak di Orange<a class="headerlink" href="#workflow-pengukuran-jarak-di-orange" title="Link to this heading">#</a></h4>
+<p><img alt="Workflow pengukuran jarak Iris di Orange" src="_images/DataIrisOrangePengukuranJarak.png" /></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="penerapan-pada-dataset-bank-data-campuran">
+<h2>4. Penerapan pada Dataset Bank (Data Campuran)<a class="headerlink" href="#penerapan-pada-dataset-bank-data-campuran" title="Link to this heading">#</a></h2>
+<p>Dataset Bank merupakan <strong>data campuran</strong> karena memiliki kolom numerik, ordinal, dan kategorikal. Oleh karena itu, jarak <strong>tidak bisa langsung</strong> dihitung dengan Euclidean untuk semua kolom — setiap tipe data harus diperlakukan sesuai jenisnya.</p>
+<section id="menentukan-tipe-variabel">
+<h3>4.1 Menentukan Tipe Variabel<a class="headerlink" href="#menentukan-tipe-variabel" title="Link to this heading">#</a></h3>
+<p>Kolom-kolom yang digunakan dalam perhitungan jarak:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kolom</p></th>
+<th class="head"><p>Tipe Data</p></th>
+<th class="head"><p>Keterangan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">age</span></code></p></td>
+<td><p><strong>Numerik</strong></p></td>
+<td><p>Usia nasabah</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">education</span></code></p></td>
+<td><p><strong>Ordinal</strong></p></td>
+<td><p>primary &lt; secondary &lt; tertiary</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">marital</span></code></p></td>
+<td><p><strong>Kategorikal</strong></p></td>
+<td><p>married, single, divorced</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">housing</span></code></p></td>
+<td><p><strong>Kategorikal</strong></p></td>
+<td><p>yes, no</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">loan</span></code></p></td>
+<td><p><strong>Kategorikal</strong></p></td>
+<td><p>yes, no</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">balance</span></code></p></td>
+<td><p><strong>Numerik (target)</strong></p></td>
+<td><p>Saldo — <strong>kolom yang akan diimputasi</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Karena <code class="docutils literal notranslate"><span class="pre">balance</span></code> berupa numerik, maka pengisian missing value menggunakan <strong>KNN Regression</strong>.</p>
+</section>
+<section id="id1">
+<h3>4.2 Membuat Missing Value Buatan<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Dataset Bank tidak memiliki missing value, sehingga dibuat satu missing value buatan:</p>
+<ul class="simple">
+<li><p><strong>Baris indeks 5</strong></p></li>
+<li><p><strong>Kolom <code class="docutils literal notranslate"><span class="pre">balance</span></code></strong></p></li>
+</ul>
+<p>Data asli baris 5:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>age</p></th>
+<th class="head"><p>education</p></th>
+<th class="head"><p>marital</p></th>
+<th class="head"><p>housing</p></th>
+<th class="head"><p>loan</p></th>
+<th class="head"><p>balance</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>42</p></td>
+<td><p>tertiary</p></td>
+<td><p>single</p></td>
+<td><p>yes</p></td>
+<td><p>yes</p></td>
+<td><p><strong>0</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Setelah dihilangkan:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>age</p></th>
+<th class="head"><p>education</p></th>
+<th class="head"><p>marital</p></th>
+<th class="head"><p>housing</p></th>
+<th class="head"><p>loan</p></th>
+<th class="head"><p>balance</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>42</p></td>
+<td><p>tertiary</p></td>
+<td><p>single</p></td>
+<td><p>yes</p></td>
+<td><p>yes</p></td>
+<td><p><strong>?</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Karena <code class="docutils literal notranslate"><span class="pre">balance</span></code> kosong, maka perhitungan jarak menggunakan kolom: <code class="docutils literal notranslate"><span class="pre">age</span></code>, <code class="docutils literal notranslate"><span class="pre">education</span></code>, <code class="docutils literal notranslate"><span class="pre">marital</span></code>, <code class="docutils literal notranslate"><span class="pre">housing</span></code>, <code class="docutils literal notranslate"><span class="pre">loan</span></code>.</p>
+</section>
+<hr class="docutils" />
+<section id="langkah-1-konversi-ordinal-ke-numerik">
+<h3>4.3 Langkah 1 — Konversi Ordinal ke Numerik<a class="headerlink" href="#langkah-1-konversi-ordinal-ke-numerik" title="Link to this heading">#</a></h3>
+<p>Kolom <code class="docutils literal notranslate"><span class="pre">education</span></code> (ordinal) dikonversi menjadi numerik:</p>
+<div class="math notranslate nohighlight">
+\[
+z = \frac{r - 1}{m - 1}
+\]</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Level</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(r\)</span></p></th>
+<th class="head"><p>Hasil</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>primary</p></td>
+<td><p>1</p></td>
+<td><p><span class="math notranslate nohighlight">\((1-1)/(3-1) = 0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>secondary</p></td>
+<td><p>2</p></td>
+<td><p><span class="math notranslate nohighlight">\((2-1)/(3-1) = 0.5\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>tertiary</p></td>
+<td><p>3</p></td>
+<td><p><span class="math notranslate nohighlight">\((3-1)/(3-1) = 1\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Baris 5 memiliki <code class="docutils literal notranslate"><span class="pre">education</span> <span class="pre">=</span> <span class="pre">tertiary</span></code>, maka nilai numeriknya = <strong>1.0</strong>.</p>
+</section>
+<hr class="docutils" />
+<section id="langkah-2-normalisasi-data-numerik-min-max">
+<h3>4.4 Langkah 2 — Normalisasi Data Numerik (Min-Max)<a class="headerlink" href="#langkah-2-normalisasi-data-numerik-min-max" title="Link to this heading">#</a></h3>
+<p>Kolom <code class="docutils literal notranslate"><span class="pre">age</span></code> dinormalisasi agar skalanya setara dengan kolom ordinal:</p>
+<div class="math notranslate nohighlight">
+\[
+x' = \frac{x - x_{min}}{x_{max} - x_{min}}
+\]</div>
+<p>Dari dataset Bank: <code class="docutils literal notranslate"><span class="pre">age_min</span> <span class="pre">=</span> <span class="pre">23</span></code>, <code class="docutils literal notranslate"><span class="pre">age_max</span> <span class="pre">=</span> <span class="pre">60</span></code>.</p>
+<p>Baris 5: <code class="docutils literal notranslate"><span class="pre">age</span> <span class="pre">=</span> <span class="pre">42</span></code></p>
+<div class="math notranslate nohighlight">
+\[
+age'_5 = \frac{42 - 23}{60 - 23} = \frac{19}{37} = 0.5135
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="langkah-3-perhitungan-jarak-manual">
+<h3>4.5 Langkah 3 — Perhitungan Jarak Manual<a class="headerlink" href="#langkah-3-perhitungan-jarak-manual" title="Link to this heading">#</a></h3>
+<p>Sekarang kita hitung jarak baris 5 ke beberapa baris lain, dengan menggabungkan:</p>
+<ul class="simple">
+<li><p><strong>Jarak numerik + ordinal</strong> (Euclidean) dari kolom <code class="docutils literal notranslate"><span class="pre">age</span></code> dan <code class="docutils literal notranslate"><span class="pre">education</span></code></p></li>
+<li><p><strong>Jarak kategorikal</strong> dari kolom <code class="docutils literal notranslate"><span class="pre">marital</span></code>, <code class="docutils literal notranslate"><span class="pre">housing</span></code>, <code class="docutils literal notranslate"><span class="pre">loan</span></code></p></li>
+</ul>
+<section id="baris-5-vs-baris-21">
+<h4>Baris 5 vs Baris 21<a class="headerlink" href="#baris-5-vs-baris-21" title="Link to this heading">#</a></h4>
+<p>Baris 21: <code class="docutils literal notranslate"><span class="pre">age=43,</span> <span class="pre">education=tertiary,</span> <span class="pre">marital=single,</span> <span class="pre">housing=yes,</span> <span class="pre">loan=no</span></code></p>
+<p><strong>Numerik + Ordinal:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+age'_{21} = \frac{43-23}{37} = 0.5405 \quad;\quad edu'_{21} = 1.0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+d_{num+ord} = \sqrt{(0.5135 - 0.5405)^2 + (1.0 - 1.0)^2} = \sqrt{0.0007 + 0} = 0.0270
+\]</div>
+<p><strong>Kategorikal:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kolom</p></th>
+<th class="head"><p>Baris 5</p></th>
+<th class="head"><p>Baris 21</p></th>
+<th class="head"><p>Sama?</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>marital</p></td>
+<td><p>single</p></td>
+<td><p>single</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>housing</p></td>
+<td><p>yes</p></td>
+<td><p>yes</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>loan</p></td>
+<td><p>yes</p></td>
+<td><p>no</p></td>
+<td><p>✗</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math notranslate nohighlight">\(P = 3\)</span>, <span class="math notranslate nohighlight">\(M = 2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+d_{kat} = \frac{3-2}{3} = 0.3333
+\]</div>
+<p><strong>Jarak Total:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+d_{total} = 0.0270 + 0.3333 = \boxed{0.3604}
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="baris-5-vs-baris-96">
+<h4>Baris 5 vs Baris 96<a class="headerlink" href="#baris-5-vs-baris-96" title="Link to this heading">#</a></h4>
+<p>Baris 96: <code class="docutils literal notranslate"><span class="pre">age=30,</span> <span class="pre">education=tertiary,</span> <span class="pre">marital=single,</span> <span class="pre">housing=yes,</span> <span class="pre">loan=yes</span></code></p>
+<p><strong>Numerik + Ordinal:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+age'_{96} = \frac{30-23}{37} = 0.1892 \quad;\quad edu'_{96} = 1.0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+d_{num+ord} = \sqrt{(0.5135 - 0.1892)^2 + (1.0 - 1.0)^2} = \sqrt{0.1052 + 0} = 0.3243
+\]</div>
+<p><strong>Kategorikal:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kolom</p></th>
+<th class="head"><p>Baris 5</p></th>
+<th class="head"><p>Baris 96</p></th>
+<th class="head"><p>Sama?</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>marital</p></td>
+<td><p>single</p></td>
+<td><p>single</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>housing</p></td>
+<td><p>yes</p></td>
+<td><p>yes</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>loan</p></td>
+<td><p>yes</p></td>
+<td><p>yes</p></td>
+<td><p>✓</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math notranslate nohighlight">\(P = 3\)</span>, <span class="math notranslate nohighlight">\(M = 3\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+d_{kat} = \frac{3-3}{3} = 0
+\]</div>
+<p><strong>Jarak Total:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+d_{total} = 0.3243 + 0 = \boxed{0.3243}
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="baris-5-vs-baris-51">
+<h4>Baris 5 vs Baris 51<a class="headerlink" href="#baris-5-vs-baris-51" title="Link to this heading">#</a></h4>
+<p>Baris 51: <code class="docutils literal notranslate"><span class="pre">age=39,</span> <span class="pre">education=tertiary,</span> <span class="pre">marital=divorced,</span> <span class="pre">housing=yes,</span> <span class="pre">loan=yes</span></code></p>
+<p><strong>Numerik + Ordinal:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+age'_{51} = \frac{39-23}{37} = 0.4324 \quad;\quad edu'_{51} = 1.0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+d_{num+ord} = \sqrt{(0.5135 - 0.4324)^2 + (1.0 - 1.0)^2} = \sqrt{0.0066 + 0} = 0.0811
+\]</div>
+<p><strong>Kategorikal:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kolom</p></th>
+<th class="head"><p>Baris 5</p></th>
+<th class="head"><p>Baris 51</p></th>
+<th class="head"><p>Sama?</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>marital</p></td>
+<td><p>single</p></td>
+<td><p>divorced</p></td>
+<td><p>✗</p></td>
+</tr>
+<tr class="row-odd"><td><p>housing</p></td>
+<td><p>yes</p></td>
+<td><p>yes</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>loan</p></td>
+<td><p>yes</p></td>
+<td><p>yes</p></td>
+<td><p>✓</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math notranslate nohighlight">\(P = 3\)</span>, <span class="math notranslate nohighlight">\(M = 2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+d_{kat} = \frac{3-2}{3} = 0.3333
+\]</div>
+<p><strong>Jarak Total:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+d_{total} = 0.0811 + 0.3333 = \boxed{0.4144}
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="baris-5-vs-baris-76">
+<h4>Baris 5 vs Baris 76<a class="headerlink" href="#baris-5-vs-baris-76" title="Link to this heading">#</a></h4>
+<p>Baris 76: <code class="docutils literal notranslate"><span class="pre">age=39,</span> <span class="pre">education=tertiary,</span> <span class="pre">marital=married,</span> <span class="pre">housing=yes,</span> <span class="pre">loan=yes</span></code></p>
+<p><strong>Numerik + Ordinal:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+age'_{76} = \frac{39-23}{37} = 0.4324 \quad;\quad edu'_{76} = 1.0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+d_{num+ord} = \sqrt{(0.5135 - 0.4324)^2 + (1.0 - 1.0)^2} = \sqrt{0.0066 + 0} = 0.0811
+\]</div>
+<p><strong>Kategorikal:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kolom</p></th>
+<th class="head"><p>Baris 5</p></th>
+<th class="head"><p>Baris 76</p></th>
+<th class="head"><p>Sama?</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>marital</p></td>
+<td><p>single</p></td>
+<td><p>married</p></td>
+<td><p>✗</p></td>
+</tr>
+<tr class="row-odd"><td><p>housing</p></td>
+<td><p>yes</p></td>
+<td><p>yes</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>loan</p></td>
+<td><p>yes</p></td>
+<td><p>yes</p></td>
+<td><p>✓</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math notranslate nohighlight">\(P = 3\)</span>, <span class="math notranslate nohighlight">\(M = 2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+d_{kat} = \frac{3-2}{3} = 0.3333
+\]</div>
+<p><strong>Jarak Total:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+d_{total} = 0.0811 + 0.3333 = \boxed{0.4144}
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="baris-5-vs-baris-13">
+<h4>Baris 5 vs Baris 13<a class="headerlink" href="#baris-5-vs-baris-13" title="Link to this heading">#</a></h4>
+<p>Baris 13: <code class="docutils literal notranslate"><span class="pre">age=46,</span> <span class="pre">education=tertiary,</span> <span class="pre">marital=single,</span> <span class="pre">housing=yes,</span> <span class="pre">loan=no</span></code></p>
+<p><strong>Numerik + Ordinal:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+age'_{13} = \frac{46-23}{37} = 0.6216 \quad;\quad edu'_{13} = 1.0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+d_{num+ord} = \sqrt{(0.5135 - 0.6216)^2 + (1.0 - 1.0)^2} = \sqrt{0.0117 + 0} = 0.1081
+\]</div>
+<p><strong>Kategorikal:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kolom</p></th>
+<th class="head"><p>Baris 5</p></th>
+<th class="head"><p>Baris 13</p></th>
+<th class="head"><p>Sama?</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>marital</p></td>
+<td><p>single</p></td>
+<td><p>single</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-odd"><td><p>housing</p></td>
+<td><p>yes</p></td>
+<td><p>yes</p></td>
+<td><p>✓</p></td>
+</tr>
+<tr class="row-even"><td><p>loan</p></td>
+<td><p>yes</p></td>
+<td><p>no</p></td>
+<td><p>✗</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span class="math notranslate nohighlight">\(P = 3\)</span>, <span class="math notranslate nohighlight">\(M = 2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+d_{kat} = \frac{3-2}{3} = 0.3333
+\]</div>
+<p><strong>Jarak Total:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+d_{total} = 0.1081 + 0.3333 = \boxed{0.4414}
+\]</div>
+<hr class="docutils" />
+<p>Perhitungan yang sama dilakukan untuk <strong>seluruh baris lainnya</strong>.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id2">
+<h3>4.6 Menentukan 3 Tetangga Terdekat (k = 3)<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Setelah seluruh jarak dihitung dan diurutkan:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Peringkat</p></th>
+<th class="head"><p>Baris</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(d_{num+ord}\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(d_{kat}\)</span></p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(d_{total}\)</span></p></th>
+<th class="head"><p>balance</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Baris 96</p></td>
+<td><p>0.3243</p></td>
+<td><p>0</p></td>
+<td><p><strong>0.3243</strong></p></td>
+<td><p>880</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Baris 21</p></td>
+<td><p>0.0270</p></td>
+<td><p>0.3333</p></td>
+<td><p><strong>0.3604</strong></p></td>
+<td><p>2067</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Baris 51</p></td>
+<td><p>0.0811</p></td>
+<td><p>0.3333</p></td>
+<td><p><strong>0.4144</strong></p></td>
+<td><p>517</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Perhatikan:</strong></p>
+<ul class="simple">
+<li><p>Baris 96 memiliki jarak numerik+ordinal besar (0.3243) tapi kategorikal semua sama (d_kat = 0), sehingga total jarak kecil</p></li>
+<li><p>Baris 21 memiliki jarak numerik+ordinal kecil (0.0270) tapi ada 1 kolom kategorikal berbeda (d_kat = 0.3333)</p></li>
+</ul>
+<p>Ini menunjukkan pentingnya <strong>memperhitungkan kedua tipe jarak</strong> pada data campuran.</p>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h3>4.7 Imputasi Missing Value (KNN Regression)<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\hat{balance} = \frac{880 + 2067 + 517}{3} = \frac{3464}{3} = 1154.67
+\]</div>
+<p><strong>Hasil:</strong> Missing value <code class="docutils literal notranslate"><span class="pre">balance</span></code> pada baris 5 diisi dengan <span class="math notranslate nohighlight">\(\boxed{1154.67}\)</span></p>
+<p>Nilai asli sebelum dihilangkan: <strong>0</strong></p>
+</section>
+<hr class="docutils" />
+<section id="kode-python-imputasi-knn-pada-data-campuran-bank">
+<h3>4.8 Kode Python — Imputasi KNN pada Data Campuran Bank<a class="headerlink" href="#kode-python-imputasi-knn-pada-data-campuran-bank" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Load data</span>
+<span class="n">bank</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;bank.csv&quot;</span><span class="p">)</span>
+
+<span class="c1"># Simpan nilai asli sebelum dihilangkan</span>
+<span class="n">target_idx</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">col_missing</span> <span class="o">=</span> <span class="s1">&#39;balance&#39;</span>
+<span class="n">nilai_asli</span> <span class="o">=</span> <span class="n">bank</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">target_idx</span><span class="p">,</span> <span class="n">col_missing</span><span class="p">]</span>
+
+<span class="c1"># Buat missing value buatan</span>
+<span class="n">bank_knn</span> <span class="o">=</span> <span class="n">bank</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">bank_knn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">target_idx</span><span class="p">,</span> <span class="n">col_missing</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+<span class="c1"># === KONVERSI ORDINAL ===</span>
+<span class="n">edu_order</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;primary&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;secondary&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;tertiary&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="n">m_edu</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">ord_norm</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">edu_order</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">m_edu</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Filter baris yang education-nya valid</span>
+<span class="n">bank_knn</span> <span class="o">=</span> <span class="n">bank_knn</span><span class="p">[</span><span class="n">bank_knn</span><span class="p">[</span><span class="s1">&#39;education&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">edu_order</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">bank_knn</span> <span class="o">=</span> <span class="n">bank_knn</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Cari ulang indeks target setelah reset</span>
+<span class="n">missing_idx</span> <span class="o">=</span> <span class="n">bank_knn</span><span class="p">[</span><span class="n">bank_knn</span><span class="p">[</span><span class="n">col_missing</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># === NORMALISASI NUMERIK (Min-Max) ===</span>
+<span class="n">age_min</span> <span class="o">=</span> <span class="n">bank_knn</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="n">age_max</span> <span class="o">=</span> <span class="n">bank_knn</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">age_norm</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">val</span> <span class="o">-</span> <span class="n">age_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">age_max</span> <span class="o">-</span> <span class="n">age_min</span><span class="p">)</span>
+
+<span class="c1"># === PERHITUNGAN JARAK ===</span>
+<span class="n">cat_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;marital&#39;</span><span class="p">,</span> <span class="s1">&#39;housing&#39;</span><span class="p">,</span> <span class="s1">&#39;loan&#39;</span><span class="p">]</span>
+<span class="n">hasil_jarak</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bank_knn</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">missing_idx</span><span class="p">:</span>
+        <span class="k">continue</span>
+
+    <span class="c1"># Jarak numerik + ordinal (Euclidean)</span>
+    <span class="n">d_numord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">age_norm</span><span class="p">(</span><span class="n">bank_knn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">missing_idx</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">age_norm</span><span class="p">(</span><span class="n">bank_knn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">]))</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
+        <span class="p">(</span><span class="n">ord_norm</span><span class="p">(</span><span class="n">bank_knn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">missing_idx</span><span class="p">,</span> <span class="s1">&#39;education&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">ord_norm</span><span class="p">(</span><span class="n">bank_knn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;education&#39;</span><span class="p">]))</span><span class="o">**</span><span class="mi">2</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Jarak kategorikal</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cat_cols</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">bank_knn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">missing_idx</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="n">bank_knn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cat_cols</span><span class="p">)</span>
+    <span class="n">d_cat</span> <span class="o">=</span> <span class="p">(</span><span class="n">P</span> <span class="o">-</span> <span class="n">M</span><span class="p">)</span> <span class="o">/</span> <span class="n">P</span>
+
+    <span class="c1"># Jarak total</span>
+    <span class="n">d_total</span> <span class="o">=</span> <span class="n">d_numord</span> <span class="o">+</span> <span class="n">d_cat</span>
+
+    <span class="n">hasil_jarak</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">d_total</span><span class="p">,</span> <span class="n">bank_knn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">col_missing</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">bank_knn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">col_missing</span><span class="p">])</span> <span class="k">else</span> <span class="mi">0</span><span class="p">))</span>
+
+<span class="c1"># Urutkan berdasarkan jarak terkecil</span>
+<span class="n">hasil_jarak</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">hasil_jarak</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Ambil 3 tetangga terdekat</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">tetangga</span> <span class="o">=</span> <span class="n">hasil_jarak</span><span class="p">[:</span><span class="n">k</span><span class="p">]</span>
+
+<span class="c1"># Imputasi dengan rata-rata (KNN Regression)</span>
+<span class="n">imputasi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tetangga</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nilai asli balance:&quot;</span><span class="p">,</span> <span class="n">nilai_asli</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">3 tetangga terdekat:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tetangga</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Baris </span><span class="si">{</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">: d_total = </span><span class="si">{</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, balance = </span><span class="si">{</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Hasil imputasi KNN (k=3): </span><span class="si">{</span><span class="n">imputasi</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="hasil-gambar-dataset-bank">
+<h3>4.9 Hasil Gambar — Dataset Bank<a class="headerlink" href="#hasil-gambar-dataset-bank" title="Link to this heading">#</a></h3>
+<section id="data-iris-di-orange-dengan-pengukuran-jarak">
+<h4>Data Iris di Orange dengan Pengukuran Jarak<a class="headerlink" href="#data-iris-di-orange-dengan-pengukuran-jarak" title="Link to this heading">#</a></h4>
+<p><img alt="Workflow pengukuran jarak di Orange" src="_images/DataIrisOrangePengukuranJarak.png" /></p>
+</section>
+<section id="bukti-data-csv-ke-postgresql">
+<h4>Bukti Data CSV ke PostgreSQL<a class="headerlink" href="#bukti-data-csv-ke-postgresql" title="Link to this heading">#</a></h4>
+<p><img alt="CSV ke PostgreSQL" src="Assets/Pertemuan3/Gambar%20Csv%20ke%20PostgreeSQL.png" /></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ringkasan-langkah-knn-imputation">
+<h2>5. Ringkasan Langkah KNN Imputation<a class="headerlink" href="#ringkasan-langkah-knn-imputation" title="Link to this heading">#</a></h2>
+<section id="untuk-data-numerik-iris">
+<h3>5.1 Untuk Data Numerik (Iris)<a class="headerlink" href="#untuk-data-numerik-iris" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1. Cek missing value → tidak ada → buat missing value buatan
+2. Tentukan baris target dan kolom yang kosong
+3. Hitung jarak Euclidean ke semua baris lain (tanpa kolom yang kosong)
+4. Urutkan jarak dari terkecil
+5. Ambil k=3 tetangga terdekat
+6. Isi missing value = rata-rata nilai kolom target dari 3 tetangga
+</pre></div>
+</div>
+</section>
+<section id="untuk-data-campuran-bank">
+<h3>5.2 Untuk Data Campuran (Bank)<a class="headerlink" href="#untuk-data-campuran-bank" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1. Cek missing value → tidak ada → buat missing value buatan
+2. Tentukan tipe setiap kolom: numerik, ordinal, atau kategorikal
+3. Konversi ordinal ke numerik dengan rumus z = (r-1)/(m-1)
+4. Normalisasi kolom numerik dengan Min-Max Scaling
+5. Hitung jarak numerik+ordinal menggunakan Euclidean
+6. Hitung jarak kategorikal menggunakan (P-M)/P
+7. Jumlahkan: d_total = d_num+ord + d_kat
+8. Urutkan jarak dari terkecil
+9. Ambil k=3 tetangga terdekat
+10. Isi missing value = rata-rata nilai target dari 3 tetangga (KNN Regression)
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="kesimpulan">
+<h2>6. Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Dataset Iris</strong> termasuk data numerik, sehingga missing value dapat diimputasi langsung menggunakan <strong>Euclidean distance</strong> → hasilnya: <code class="docutils literal notranslate"><span class="pre">petal_width</span> <span class="pre">=</span> <span class="pre">0.2333</span></code></p></li>
+<li><p><strong>Dataset Bank</strong> merupakan data campuran, sehingga:</p>
+<ul class="simple">
+<li><p>Data ordinal (<code class="docutils literal notranslate"><span class="pre">education</span></code>) harus diubah menjadi numerik terlebih dahulu menggunakan rumus <span class="math notranslate nohighlight">\(z = (r-1)/(m-1)\)</span></p></li>
+<li><p>Data kategorikal (<code class="docutils literal notranslate"><span class="pre">marital</span></code>, <code class="docutils literal notranslate"><span class="pre">housing</span></code>, <code class="docutils literal notranslate"><span class="pre">loan</span></code>) dihitung menggunakan rasio ketidaksamaan <span class="math notranslate nohighlight">\((P-M)/P\)</span></p></li>
+<li><p>Jarak total = jarak numerik/ordinal + jarak kategorikal</p></li>
+<li><p>Hasilnya: <code class="docutils literal notranslate"><span class="pre">balance</span> <span class="pre">=</span> <span class="pre">1154.67</span></code></p></li>
+</ul>
+</li>
+<li><p>Jika ada missing value pada satu kolom, maka <strong>kolom tersebut tidak diikutkan</strong> dalam perhitungan jarak</p></li>
+<li><p>Setelah semua jarak dihitung, dipilih <strong>k = 3 tetangga terdekat</strong></p></li>
+<li><p>Karena nilai yang diisi berupa numerik, maka digunakan <strong>KNN Regression</strong> (rata-rata dari tetangga terdekat)</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pertemuan3.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Materi Pertemuan 3 — Data Preparation (Extensi)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pertemuan_3.1.1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lampiran Materi Pertemuan 3.1 — Bukti Gambar dan Identifikasi Missing Value</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daftar-isi">Daftar Isi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#konsep-knn-untuk-mengisi-missing-value">1. Konsep KNN untuk Mengisi Missing Value</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-itu-knn-imputation">1.1 Apa itu KNN Imputation?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aturan-pengisian">1.2 Aturan Pengisian</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catatan-penting">1.3 Catatan Penting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aturan-menghitung-jarak-berdasarkan-tipe-data">2. Aturan Menghitung Jarak Berdasarkan Tipe Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jarak-untuk-data-numerik-euclidean-distance">2.1 Jarak untuk Data Numerik — Euclidean Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#konversi-data-ordinal-ke-numerik">2.2 Konversi Data Ordinal ke Numerik</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jarak-untuk-data-kategorikal">2.3 Jarak untuk Data Kategorikal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jarak-total-untuk-data-campuran">2.4 Jarak Total untuk Data Campuran</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penerapan-pada-dataset-iris-data-numerik">3. Penerapan pada Dataset Iris (Data Numerik)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cek-missing-value-awal">3.1 Cek Missing Value Awal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membuat-missing-value-buatan">3.2 Membuat Missing Value Buatan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-jarak-manual-euclidean">3.3 Perhitungan Jarak Manual (Euclidean)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-0">Baris 5 vs Baris 0</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-1">Baris 5 vs Baris 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-2">Baris 5 vs Baris 2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-3">Baris 5 vs Baris 3</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-4">Baris 5 vs Baris 4</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-3-tetangga-terdekat-k-3">3.4 Menentukan 3 Tetangga Terdekat (k = 3)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imputasi-missing-value-knn-regression">3.5 Imputasi Missing Value (KNN Regression)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-python-imputasi-knn-pada-iris">3.6 Kode Python — Imputasi KNN pada Iris</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-gambar-dataset-iris">3.7 Hasil Gambar — Dataset Iris</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-fitur-iris-sebelum-scaling">Histogram Fitur Iris (Sebelum Scaling)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-fitur-iris-sesudah-scaling">Histogram Fitur Iris (Sesudah Scaling)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#workflow-pengukuran-jarak-di-orange">Workflow Pengukuran Jarak di Orange</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penerapan-pada-dataset-bank-data-campuran">4. Penerapan pada Dataset Bank (Data Campuran)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menentukan-tipe-variabel">4.1 Menentukan Tipe Variabel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.2 Membuat Missing Value Buatan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-1-konversi-ordinal-ke-numerik">4.3 Langkah 1 — Konversi Ordinal ke Numerik</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-2-normalisasi-data-numerik-min-max">4.4 Langkah 2 — Normalisasi Data Numerik (Min-Max)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#langkah-3-perhitungan-jarak-manual">4.5 Langkah 3 — Perhitungan Jarak Manual</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-21">Baris 5 vs Baris 21</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-96">Baris 5 vs Baris 96</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-51">Baris 5 vs Baris 51</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-76">Baris 5 vs Baris 76</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#baris-5-vs-baris-13">Baris 5 vs Baris 13</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.6 Menentukan 3 Tetangga Terdekat (k = 3)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.7 Imputasi Missing Value (KNN Regression)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-python-imputasi-knn-pada-data-campuran-bank">4.8 Kode Python — Imputasi KNN pada Data Campuran Bank</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-gambar-dataset-bank">4.9 Hasil Gambar — Dataset Bank</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-iris-di-orange-dengan-pengukuran-jarak">Data Iris di Orange dengan Pengukuran Jarak</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bukti-data-csv-ke-postgresql">Bukti Data CSV ke PostgreSQL</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-langkah-knn-imputation">5. Ringkasan Langkah KNN Imputation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#untuk-data-numerik-iris">5.1 Untuk Data Numerik (Iris)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#untuk-data-campuran-bank">5.2 Untuk Data Campuran (Bank)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">6. Kesimpulan</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Zakaria Mujur Prasetyo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright Copyright 2026 Zakaria Mujur Prasetyo.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

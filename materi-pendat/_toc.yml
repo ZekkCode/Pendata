@@ -5,9 +5,12 @@ format: jb-book
 root: intro
 chapters:
 - file: pertemuan1
-- file: Penambangan_Data_A_Pertemuan_2
+- file: pertemuan2
 - file: pertemuan3
+- file: pertemuan_3.1
+- file: pertemuan_3.1.1
 - file: pertemuan4
+- file: "Tugas - Missing Values Inputation + Materi Normalisasi Data"
 - file: pertemuan5
 - file: pertemuan6
 - file: pertemuan7

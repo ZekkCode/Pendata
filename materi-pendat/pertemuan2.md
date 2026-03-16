@@ -1,4 +1,15 @@
-# Pertemuan 2 - Memahami Data
+# Materi Pertemuan 2 — Memahami Data
+
+## Daftar Isi
+```{dropdown} Klik untuk membuka Daftar Isi
+:open:
+
+1. [Macam-macam Data](#macam-macam-data)
+2. [Tipe Data Atribut](#tipe-data-atribut)
+3. [Implementasi](#implementasi)
+4. [Import library visualisasi](#import-library-visualisasi)
+5. [Kode Program Implementasi Data IRIS.CSV dari Kaggle](#kode-program-implemnetasi-data-iriscsv-dari-kaggle)
+```
 
 Referensi: [Mulaab - Memahami Data](https://mulaab.github.io/datamining/memahami-data/)
 

@@ -20,11 +20,11 @@ NIM: 240411100144
 ### 2. Instalasi Dependensi
 
 ```bash
-pip install "jupyter-book<2.0.0" ghp-import
+pip install "jupyter-book==1.0.0" ghp-import
 ```
 
 Catatan:
-- `jupyter-book<2.0.0` dipakai agar perintah `jupyter-book create` tetap tersedia.
+- `jupyter-book==1.0.0` dipakai agar versi Jupyter Book konsisten untuk mata kuliah ini dan tetap mendukung alur `jupyter-book create`.
 - `ghp-import` dipakai untuk deploy GitHub Pages dari hasil build HTML.
 
 ### 3. Membuat Struktur Buku Baru

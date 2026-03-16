@@ -1,4 +1,16 @@
-# Pertemuan 1 - Pengantar Data Mining
+# Materi Pertemuan 1 — Pengantar Data Mining
+
+## Daftar Isi
+```{dropdown} Klik untuk membuka Daftar Isi
+:open:
+
+1. [Tujuan Pembelajaran](#tujuan-pembelajaran)
+2. [Pengantar Data Mining](#pengantar-data-mining)
+3. [Pengertian Data Mining](#pengertian-data-mining)
+4. [Apa itu Data Mining?](#apa-itu-data-mining)
+5. [Catatan dan Tugas Perkuliahan Pertemuan 1](#catatan-dan-tugas-perkuliahan-pertemuan-1)
+6. [Dataset Iris Flower](#dataset-iris-flower)
+```
 
 ## Tujuan Pembelajaran
 ```{admonition} Tujuan

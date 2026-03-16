@@ -1,4 +1,12 @@
-# Pertemuan 13 - Evaluasi Model
+# Materi Pertemuan 13 — Evaluasi Model
+
+## Daftar Isi
+```{dropdown} Klik untuk membuka Daftar Isi
+:open:
+
+- Status materi: Segera diperbarui
+- Topik utama: Evaluasi Model
+```
 
 ```{admonition} Segera Diperbarui
 :class: warning

@@ -49,5 +49,20 @@ Berikut adalah topik-topik utama yang akan dibahas dalam mata kuliah ini:
 
 ## Daftar Pertemuan
 
-```{tableofcontents}
-```
+| No | Pertemuan | Topik |
+|----|-----------|-------|
+| 1 | [Pertemuan 1](pertemuan1) | Pengantar Data Mining |
+| 2 | [Pertemuan 2](pertemuan2) | Memahami Data |
+| 3 | [Pertemuan 3](pertemuan3) | Data Preparation (Extensi) |
+| 4 | [Pertemuan 4](pertemuan4) | Preprocessing & Normalisasi |
+| 5 | [Tugas](Tugas%20-%20Missing%20Values%20Inputation%20+%20Materi%20Normalisasi%20Data) | Missing Values Imputation + Normalisasi |
+| 6 | [Pertemuan 5](pertemuan5) | Mengukur Jarak / Similaritas Data |
+| 7 | [Pertemuan 6](pertemuan6) | Praproses Data |
+| 8 | [Pertemuan 7](pertemuan7) | Modeling |
+| 9 | [UTS](UTS_Analisa_Kesuburan_Tanah) | Analisa Data Kesuburan Tanah (KNN) |
+| 10 | [Pertemuan 9](pertemuan9) | Klasifikasi |
+| 11 | [Pertemuan 10](pertemuan10) | Clustering |
+| 12 | [Pertemuan 11](pertemuan11) | Asosiasi |
+| 13 | [Pertemuan 12](pertemuan12) | Regresi |
+| 14 | [Pertemuan 13](pertemuan13) | Evaluasi Model |
+| 15 | [Pertemuan 14](pertemuan14) | Studi Kasus & Review |

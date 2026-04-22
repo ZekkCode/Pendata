@@ -1,2 +1,4 @@
 # Ignore all Markdown files
 *.md
+# Exception: UTS material
+!materi-pendat/UTS_Analisa_Kesuburan_Tanah.md

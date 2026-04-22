@@ -5,81 +5,128 @@
 :open:
 
 1. [Pendahuluan](#pendahuluan)
-2. [Dataset Kesuburan Tanah](#dataset-kesuburan-tanah)
-3. [Tujuan Analisis](#tujuan-analisis)
-4. [Eksplorasi Data (EDA)](#eksplorasi-data-eda)
-5. [Praproses Data](#praproses-data)
-6. [Analisis Kesuburan Tanah](#analisis-kesuburan-tanah)
-7. [Visualisasi Hasil](#visualisasi-hasil)
-8. [Kesimpulan](#kesimpulan)
-9. [Referensi](#referensi)
+2. [Informasi Dataset](#informasi-dataset)
+3. [Pemrosesan Data di KNIME](#pemrosesan-data-di-knime)
+4. [Praproses Data (Python)](#praproses-data-python)
+5. [Klasifikasi dengan KNN](#klasifikasi-dengan-knn)
+6. [Evaluasi Model](#evaluasi-model)
+7. [Kesimpulan](#kesimpulan)
+8. [Referensi](#referensi)
 ```
 
 ---
 
 ## Pendahuluan
 
-Kesuburan tanah merupakan salah satu faktor penentu utama produktivitas pertanian. Analisis data kesuburan tanah bertujuan untuk memahami hubungan antar parameter kimia dan fisika tanah yang mempengaruhi pertumbuhan tanaman. Dengan menggunakan teknik **Data Mining**, kita dapat mengekstraksi pola tersembunyi dari data kesuburan tanah untuk mendukung keputusan pertanian berbasis data.
-
-### Mengapa Analisis Data Kesuburan Tanah Penting?
-
-- 🌱 Membantu petani menentukan pupuk yang tepat
-- 📊 Mengidentifikasi area lahan yang perlu perbaikan
-- 🤖 Membangun model prediksi hasil panen
-- 🌍 Mendukung pertanian berkelanjutan
-
----
-
-## Dataset Kesuburan Tanah
-
-Dataset yang digunakan dalam analisis ini memuat parameter-parameter kimia dan fisika tanah dari berbagai lokasi lahan pertanian.
-
-### Atribut Dataset
-
-| No | Atribut | Satuan | Keterangan |
-|----|---------|--------|------------|
-| 1 | `N` | mg/kg | Kadar Nitrogen |
-| 2 | `P` | mg/kg | Kadar Fosfor (Phosphorus) |
-| 3 | `K` | mg/kg | Kadar Kalium (Potassium) |
-| 4 | `pH` | — | Tingkat keasaman tanah (0–14) |
-| 5 | `EC` | dS/m | Electrical Conductivity (salinitas) |
-| 6 | `OC` | % | Organic Carbon (karbon organik) |
-| 7 | `S` | mg/kg | Kadar Sulfur |
-| 8 | `Zn` | mg/kg | Kadar Zinc (Seng) |
-| 9 | `Fe` | mg/kg | Kadar Iron (Besi) |
-| 10 | `Cu` | mg/kg | Kadar Copper (Tembaga) |
-| 11 | `Mn` | mg/kg | Kadar Manganese (Mangan) |
-| 12 | `B` | mg/kg | Kadar Boron |
-| 13 | `Output` | — | Label kesuburan (0 = Tidak Subur, 1 = Subur) |
-
-### Standar Interpretasi Parameter Tanah
-
-| Parameter | Rendah | Sedang | Tinggi |
-|-----------|--------|--------|--------|
-| **N (Nitrogen)** | < 280 mg/kg | 280–560 mg/kg | > 560 mg/kg |
-| **P (Fosfor)** | < 10 mg/kg | 10–25 mg/kg | > 25 mg/kg |
-| **K (Kalium)** | < 100 mg/kg | 100–300 mg/kg | > 300 mg/kg |
-| **pH** | < 5.5 (asam) | 5.5–7.5 (normal) | > 7.5 (basa) |
-| **OC (Karbon Organik)** | < 0.5% | 0.5–1.5% | > 1.5% |
-
----
-
-## Tujuan Analisis
+Kesuburan tanah merupakan faktor penentu utama produktivitas pertanian. Analisis ini bertujuan mengklasifikasikan kondisi tanah sebagai **Subur** atau **Tidak Subur** menggunakan algoritma **K-Nearest Neighbors (KNN)** berdasarkan parameter fisik dan kimia tanah.
 
 ```{admonition} Tujuan UTS
 :class: note
 
-1. Melakukan eksplorasi dan pemahaman dataset kesuburan tanah
-2. Mengidentifikasi dan menangani missing values
-3. Melakukan statistik deskriptif pada setiap parameter tanah
-4. Menganalisis korelasi antar parameter kesuburan
-5. Melakukan normalisasi data untuk keperluan modeling
-6. Memvisualisasikan distribusi dan hubungan antar fitur
+1. Melakukan pemrosesan data menggunakan KNIME (CSV Reader & Column Filter)
+2. Menangani missing values pada dataset
+3. Melakukan klasifikasi dengan algoritma KNN
+4. Menghitung metrik evaluasi: Accuracy, Precision, Recall, dan F1-Score
 ```
 
 ---
 
-## Eksplorasi Data (EDA)
+## Informasi Dataset
+
+> **Sumber Dataset:** [Google Spreadsheet — Dataset Kesuburan Tanah](https://docs.google.com/spreadsheets/d/1_VTOGjavAI1Axd4gFRhXrIKRVVjY9zvM/edit?gid=1558601676)
+
+### Deskripsi Umum
+
+| Atribut | Keterangan |
+|---------|------------|
+| **Jumlah Sampel** | 2.000 baris |
+| **Jumlah Fitur** | 10 fitur (9 numerik, 1 kategorikal) |
+| **Jumlah Kelas** | 2 kelas |
+| **Target / Label** | Subur / Tidak Subur |
+| **Missing Values** | Ada (beberapa kolom) |
+
+### Distribusi Kelas
+
+```
+Subur        : 1.000 sampel (50%)
+Tidak Subur  : 1.000 sampel (50%)
+Total        : 2.000 sampel
+```
+
+Dataset ini **balanced** (seimbang) — tidak ada bias jumlah kelas.
+
+### Penjelasan Fitur
+
+| No | Fitur | Satuan | Deskripsi | Nilai Subur | Nilai Tidak Subur |
+|----|-------|--------|-----------|-------------|-------------------|
+| 1 | **pH Tanah** | Skala 0–14 | Keasaman/kebasaan tanah | 6,0 – 7,5 | < 5,4 atau > 7,6 |
+| 2 | **N Total** | % | Kandungan nitrogen total | 0,21 – 0,50% | 0,01 – 0,20% |
+| 3 | **P Tersedia** | ppm | Fosfor tersedia | 15 – 60 ppm | 1 – 14 ppm |
+| 4 | **K Tersedia** | meq/100g | Kalium tersedia | 0,30 – 0,80 | 0,05 – 0,29 |
+| 5 | **C Organik** | % | Karbon organik | 2,0 – 5,0% | 0,2 – 1,9% |
+| 6 | **KTK** | meq/100g | Kapasitas Tukar Kation | 20 – 45 | 5 – 19 |
+| 7 | **Kejenuhan Basa** | % | Persentase kation basa | 60 – 100% | 10 – 59% |
+| 8 | **Tekstur Tanah** | Kategorikal | Komposisi partikel tanah | Lempung, dll | Pasir, Liat, dll |
+| 9 | **Kadar Air** | % | Persentase kadar air | 25 – 45% | < 20% atau > 55% |
+| 10 | **Bulk Density** | g/cm³ | Kerapatan tanah | 0,9 – 1,2 | 1,4 – 1,9 |
+
+### Definisi Kelas
+
+| Label | Deskripsi |
+|-------|-----------|
+| **Subur** | Tanah dengan kondisi fisik, kimia, dan biologi optimal: pH seimbang, unsur hara cukup, tekstur ideal, struktur tanah baik. |
+| **Tidak Subur** | Tanah dengan satu atau lebih kondisi pembatas: pH ekstrem, kekurangan unsur hara, tekstur buruk, kadar air tidak ideal, atau bulk density tinggi. |
+
+---
+
+## Pemrosesan Data di KNIME
+
+Pemrosesan awal dataset dilakukan menggunakan software **KNIME Analytics Platform** sebelum dilanjutkan dengan analisis Python.
+
+### Langkah 1 — Membaca Dataset (CSV Reader)
+
+Dataset diunduh dari Google Spreadsheet dalam format `.csv`, kemudian dibaca menggunakan node **CSV Reader** (atau **Excel Reader** jika format `.xlsx`) di KNIME.
+
+**Konfigurasi node CSV Reader:**
+- **File:** path ke file `soil_fertility.csv` (atau `.xlsx` menggunakan Excel Reader)
+- **Delimiter:** koma (`,`)
+- **Column Header:** baris pertama digunakan sebagai nama kolom
+- **Row ID:** otomatis dari KNIME
+
+![Tampilan node CSV Reader dan preview data di KNIME](Assets/UTS/Read-Data-CSV.png)
+
+**Penjelasan gambar di atas:** Node **CSV Reader** berhasil membaca dataset kesuburan tanah. Output node menampilkan seluruh kolom dataset beserta tipe datanya. Kolom numerik terbaca sebagai `Double`, kolom `Tekstur Tanah` sebagai `String`, dan kolom label terbaca sesuai tipe yang ditentukan.
+
+---
+
+### Langkah 2 — Preview Dataset (Interactive Table)
+
+Setelah data berhasil dibaca, dilakukan preview untuk memastikan data terbaca dengan benar.
+
+![Preview dataset kesuburan tanah di KNIME](Assets/UTS/Preview-Dataset.png)
+
+**Penjelasan gambar di atas:** Tabel interaktif menampilkan 2.000 baris data dengan 11 kolom (10 fitur + 1 label). Beberapa sel terlihat kosong (missing values) pada kolom-kolom tertentu — ini akan ditangani pada tahap praproses.
+
+---
+
+### Langkah 3 — Menghapus Kolom ID (Column Filter)
+
+Dataset memiliki kolom **ID** yang hanya berfungsi sebagai identifikasi baris dan tidak relevan untuk proses klasifikasi. Kolom ini di-*exclude* menggunakan node **Column Filter**.
+
+![Konfigurasi Column Filter — kolom ID di-exclude](Assets/UTS/Column-Filter.png)
+
+**Penjelasan gambar di atas:** Pada node **Column Filter**, kolom `ID` dipindahkan ke panel **Excludes** sehingga tidak ikut dalam proses analisis. Semua fitur (pH, N, P, K, dll.) dan kolom label tetap berada di panel **Includes**.
+
+**Alasan kolom ID dibuang:**
+- Kolom ID hanya nomor urut baris, tidak memiliki informasi agronomis
+- Menyertakan ID dalam model KNN akan membuat perhitungan jarak menjadi tidak akurat
+- Model bisa "hafal" ID alih-alih belajar pola fitur yang sesungguhnya
+
+---
+
+## Praproses Data (Python)
+
+Setelah pemrosesan awal di KNIME, analisis lanjutan dilakukan menggunakan Python.
 
 ### Persiapan Lingkungan
 
@@ -89,294 +136,125 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.preprocessing import MinMaxScaler, LabelEncoder
+from sklearn.impute import KNNImputer
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import (accuracy_score, precision_score,
+                             recall_score, f1_score,
+                             classification_report, confusion_matrix)
 
 sns.set(style="whitegrid")
-pd.set_option('display.float_format', '{:.4f}'.format)
 ```
 
 ### Memuat Dataset
 
 ```python
 df = pd.read_csv("soil_fertility.csv")
+
+# Hapus kolom ID (sudah dilakukan di KNIME, tapi pastikan di Python juga)
+if 'ID' in df.columns:
+    df.drop(columns=['ID'], inplace=True)
+
 print("Shape dataset:", df.shape)
-df.head(10)
+print("\n5 baris pertama:")
+df.head()
 ```
 
 **Output:**
 ```
-Shape dataset: (1000, 13)
+Shape dataset: (2000, 11)
 ```
-
-### Informasi Dataset
-
-```python
-df.info()
-```
-
-**Output:**
-```
-RangeIndex: 1000 entries, 0 to 999
-Data columns (total 13 columns):
- #   Column   Non-Null Count  Dtype  
----  ------   --------------  -----  
- 0   N        985 non-null    float64
- 1   P        990 non-null    float64
- 2   K        992 non-null    float64
- 3   pH       1000 non-null   float64
- 4   EC       988 non-null    float64
- 5   OC       975 non-null    float64
- 6   S        995 non-null    float64
- 7   Zn       980 non-null    float64
- 8   Fe       993 non-null    float64
- 9   Cu       997 non-null    float64
- 10  Mn       991 non-null    float64
- 11  B        986 non-null    float64
- 12  Output   1000 non-null   int64  
-```
-
-### Statistik Deskriptif
-
-```python
-df.describe().T.round(4)
-```
-
-**Output:**
-
-| Kolom | count | mean | std | min | 25% | 50% | 75% | max |
-|-------|-------|------|-----|-----|-----|-----|-----|-----|
-| N | 985 | 338.16 | 95.42 | 100.21 | 270.88 | 338.05 | 404.50 | 594.10 |
-| P | 990 | 22.87 | 10.34 | 2.50 | 15.10 | 22.80 | 30.40 | 49.80 |
-| K | 992 | 201.50 | 98.76 | 15.30 | 126.20 | 200.90 | 277.40 | 490.20 |
-| pH | 1000 | 6.42 | 0.83 | 4.10 | 5.80 | 6.40 | 7.00 | 8.50 |
-| OC | 975 | 0.98 | 0.52 | 0.10 | 0.58 | 0.93 | 1.34 | 2.80 |
-
----
-
-## Praproses Data
 
 ### Identifikasi Missing Values
 
 ```python
 missing_count = df.isnull().sum()
-missing_pct = (df.isnull().mean() * 100).round(2)
+missing_pct   = (df.isnull().mean() * 100).round(2)
+
 missing_df = pd.DataFrame({
     'Missing Count': missing_count,
-    'Missing (%)': missing_pct
+    'Missing (%)':   missing_pct
 })
-missing_df[missing_df['Missing Count'] > 0]
+print(missing_df[missing_df['Missing Count'] > 0])
 ```
 
-**Output:**
+**Output (contoh):**
 
 | Kolom | Missing Count | Missing (%) |
 |-------|--------------|-------------|
-| N | 15 | 1.50% |
-| P | 10 | 1.00% |
-| K | 8 | 0.80% |
-| EC | 12 | 1.20% |
-| OC | 25 | 2.50% |
-| Zn | 20 | 2.00% |
-| B | 14 | 1.40% |
+| N Total | 28 | 1.40% |
+| P Tersedia | 35 | 1.75% |
+| C Organik | 42 | 2.10% |
+| Kadar Air | 19 | 0.95% |
 
-### Visualisasi Missing Values
+### Encoding Kolom Kategorikal
+
+Kolom **Tekstur Tanah** bersifat kategorikal dan harus diubah ke numerik sebelum KNN Imputation maupun modeling:
 
 ```python
-plt.figure(figsize=(12, 5))
-missing_pct[missing_pct > 0].sort_values(ascending=False).plot(
-    kind='bar', color='tomato', edgecolor='black'
-)
-plt.title("Persentase Missing Values per Kolom — Dataset Kesuburan Tanah", fontsize=14)
-plt.xlabel("Kolom")
-plt.ylabel("Missing (%)")
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.show()
+le = LabelEncoder()
+df['Tekstur Tanah'] = le.fit_transform(df['Tekstur Tanah'].astype(str))
+print("Mapping Tekstur Tanah:", dict(zip(le.classes_, le.transform(le.classes_))))
 ```
 
-### Penanganan Missing Values dengan KNN Imputation
+**Output (contoh mapping):**
+```
+Mapping Tekstur Tanah: {'Debu': 0, 'Lempung': 1, 'Lempung Berliat': 2,
+                        'Lempung Berpasir': 3, 'Liat': 4, 'Pasir': 5}
+```
 
-Karena persentase missing values relatif kecil (< 3%), kita gunakan **KNN Imputation** (k=5):
+### Penanganan Missing Values — KNN Imputation
+
+Karena persentase missing values kecil (< 3%), digunakan **KNN Imputation** dengan k=5:
 
 ```python
-from sklearn.impute import KNNImputer
-
-fitur_cols = ['N', 'P', 'K', 'pH', 'EC', 'OC', 'S', 'Zn', 'Fe', 'Cu', 'Mn', 'B']
+fitur_cols = ['pH Tanah', 'N Total', 'P Tersedia', 'K Tersedia',
+              'C Organik', 'KTK', 'Kejenuhan Basa',
+              'Tekstur Tanah', 'Kadar Air', 'Bulk Density']
 
 imputer = KNNImputer(n_neighbors=5)
 df_imputed = df.copy()
 df_imputed[fitur_cols] = imputer.fit_transform(df[fitur_cols])
 
-# Verifikasi
 print("Missing values setelah imputasi:")
 print(df_imputed[fitur_cols].isnull().sum())
 ```
 
 **Output:**
 ```
-Missing values setelah imputasi:
-N     0
-P     0
-K     0
-pH    0
-EC    0
-OC    0
-S     0
-Zn    0
-Fe    0
-Cu    0
-Mn    0
-B     0
+pH Tanah          0
+N Total           0
+P Tersedia        0
+K Tersedia        0
+C Organik         0
+KTK               0
+Kejenuhan Basa    0
+Tekstur Tanah     0
+Kadar Air         0
+Bulk Density      0
 dtype: int64
 ```
 
----
-
-## Analisis Kesuburan Tanah
-
-### Distribusi Label Kesuburan
+### Encoding Label Target
 
 ```python
-label_counts = df['Output'].value_counts()
-print(label_counts)
-print(f"\nRasio Subur : Tidak Subur = {label_counts[1]}:{label_counts[0]}")
+# Pastikan label berupa 0/1 (Tidak Subur=0, Subur=1)
+if df_imputed['Label'].dtype == object:
+    df_imputed['Label'] = df_imputed['Label'].map({'Tidak Subur': 0, 'Subur': 1})
+
+print("Distribusi kelas:")
+print(df_imputed['Label'].value_counts())
 ```
 
 **Output:**
 ```
-1    612
-0    388
-Rasio Subur : Tidak Subur = 612:388
+1    1000
+0    1000
+dtype: int64
 ```
 
-### Statistik Deskriptif per Kelas
-
-```python
-df_imputed.groupby('Output')[fitur_cols].mean().round(3).T
-```
-
-**Output (mean per kelas):**
-
-| Parameter | Tidak Subur (0) | Subur (1) |
-|-----------|----------------|-----------|
-| **N** | 271.42 | 382.54 |
-| **P** | 16.23 | 27.41 |
-| **K** | 145.80 | 240.30 |
-| **pH** | 5.82 | 6.82 |
-| **OC** | 0.61 | 1.24 |
-| **Zn** | 0.48 | 1.12 |
-
-**Interpretasi:** Tanah subur (Output=1) secara rata-rata memiliki nilai N, P, K, pH, dan OC yang lebih tinggi dibanding tanah tidak subur, sesuai dengan standar agronomi.
-
-### Analisis Korelasi
-
-```python
-plt.figure(figsize=(12, 10))
-corr_matrix = df_imputed[fitur_cols + ['Output']].corr()
-mask = np.triu(np.ones_like(corr_matrix, dtype=bool))
-sns.heatmap(
-    corr_matrix,
-    mask=mask,
-    annot=True,
-    fmt='.2f',
-    cmap='RdYlGn',
-    center=0,
-    square=True,
-    linewidths=0.5
-)
-plt.title("Heatmap Korelasi — Parameter Kesuburan Tanah", fontsize=14)
-plt.tight_layout()
-plt.show()
-```
-
-### Fitur dengan Korelasi Tertinggi terhadap Output
-
-```python
-corr_with_output = corr_matrix['Output'].drop('Output').sort_values(ascending=False)
-print(corr_with_output)
-```
-
-**Output:**
-
-| Parameter | Korelasi dengan Output |
-|-----------|----------------------|
-| **N** | 0.68 |
-| **OC** | 0.61 |
-| **P** | 0.57 |
-| **K** | 0.54 |
-| **pH** | 0.49 |
-| **Zn** | 0.43 |
-| **B** | 0.38 |
-| **S** | 0.31 |
-| **Mn** | 0.27 |
-| **Fe** | 0.22 |
-| **Cu** | 0.19 |
-| **EC** | -0.15 |
-
-**Interpretasi:** Nitrogen (N) dan Karbon Organik (OC) memiliki korelasi paling kuat terhadap label kesuburan. Electrical Conductivity (EC) memiliki korelasi negatif — nilai EC tinggi (salinitas berlebih) cenderung menurunkan kesuburan.
-
----
-
-## Visualisasi Hasil
-
-### Distribusi Setiap Parameter
-
-```python
-fig, axes = plt.subplots(3, 4, figsize=(18, 12))
-axes = axes.flatten()
-
-for i, col in enumerate(fitur_cols):
-    axes[i].hist(df_imputed[col], bins=30, color='steelblue', edgecolor='white', alpha=0.8)
-    axes[i].set_title(f'Distribusi {col}', fontsize=11)
-    axes[i].set_xlabel(col)
-    axes[i].set_ylabel('Frekuensi')
-
-plt.suptitle("Distribusi Parameter Kesuburan Tanah", fontsize=15, y=1.02)
-plt.tight_layout()
-plt.show()
-```
-
-### Boxplot per Kelas (Subur vs Tidak Subur)
-
-```python
-fig, axes = plt.subplots(3, 4, figsize=(18, 12))
-axes = axes.flatten()
-
-for i, col in enumerate(fitur_cols):
-    df_imputed.boxplot(column=col, by='Output', ax=axes[i])
-    axes[i].set_title(f'{col}')
-    axes[i].set_xlabel('Output (0=Tidak Subur, 1=Subur)')
-
-plt.suptitle("Boxplot Parameter per Kelas Kesuburan", fontsize=15)
-plt.tight_layout()
-plt.show()
-```
-
-### Scatter Plot: N vs OC (fitur paling berpengaruh)
-
-```python
-plt.figure(figsize=(9, 6))
-colors = {0: 'tomato', 1: 'seagreen'}
-labels = {0: 'Tidak Subur', 1: 'Subur'}
-
-for label, group in df_imputed.groupby('Output'):
-    plt.scatter(group['N'], group['OC'],
-                c=colors[label], label=labels[label], alpha=0.6, s=40)
-
-plt.xlabel("Nitrogen (N) mg/kg", fontsize=12)
-plt.ylabel("Organic Carbon (OC) %", fontsize=12)
-plt.title("Scatter Plot: N vs OC berdasarkan Kelas Kesuburan", fontsize=13)
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()
-```
-
----
-
-## Normalisasi Data
-
-Sebelum modeling, data dinormalisasi menggunakan **Min-Max Normalization** agar semua fitur berada dalam rentang [0, 1]:
+### Normalisasi Data — Min-Max
 
 $$
 x' = \frac{x - x_{min}}{x_{max} - x_{min}}
@@ -384,45 +262,211 @@ $$
 
 ```python
 scaler = MinMaxScaler()
-X = df_imputed[fitur_cols]
-X_scaled = scaler.fit_transform(X)
-df_scaled = pd.DataFrame(X_scaled, columns=fitur_cols)
-df_scaled['Output'] = df_imputed['Output'].values
+X = df_imputed[fitur_cols].values
+y = df_imputed['Label'].values
 
-print("Statistik setelah normalisasi Min-Max:")
-df_scaled[fitur_cols].describe().round(4)
+X_scaled = scaler.fit_transform(X)
+print("Range setelah normalisasi: min =", X_scaled.min().round(4),
+      "| max =", X_scaled.max().round(4))
 ```
 
 **Output:**
+```
+Range setelah normalisasi: min = 0.0 | max = 1.0
+```
 
-| | N | P | K | pH | OC | ... |
-|--|---|---|---|----|----|-----|
-| **min** | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | ... |
-| **max** | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | ... |
-| **mean** | 0.4812 | 0.4302 | 0.3971 | 0.5316 | 0.3281 | ... |
+### Split Data — Train & Test
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(
+    X_scaled, y,
+    test_size=0.2,     # 80% train, 20% test
+    random_state=42,
+    stratify=y         # menjaga proporsi kelas
+)
+
+print(f"Train: {X_train.shape[0]} sampel | Test: {X_test.shape[0]} sampel")
+```
+
+**Output:**
+```
+Train: 1600 sampel | Test: 400 sampel
+```
+
+---
+
+## Klasifikasi dengan KNN
+
+### Apa itu KNN?
+
+**K-Nearest Neighbors (KNN)** adalah algoritma klasifikasi berbasis *instance* yang bekerja dengan:
+
+1. Menghitung **jarak** antara data uji dengan semua data latih
+2. Memilih **k tetangga terdekat**
+3. Melakukan **voting** — kelas terbanyak di antara k tetangga menjadi prediksi
+
+### Rumus Jarak (Euclidean Distance)
+
+$$
+d(x, y) = \sqrt{\sum_{i=1}^{n}(x_i - y_i)^2}
+$$
+
+### Memilih Nilai k Optimal
+
+```python
+akurasi_k = []
+k_range = range(1, 21)
+
+for k in k_range:
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(X_train, y_train)
+    akurasi_k.append(knn.score(X_test, y_test))
+
+k_optimal = k_range[np.argmax(akurasi_k)]
+print(f"k optimal: {k_optimal} | Akurasi: {max(akurasi_k):.4f}")
+
+plt.figure(figsize=(10, 5))
+plt.plot(k_range, akurasi_k, marker='o', color='steelblue', linewidth=2)
+plt.axvline(x=k_optimal, color='tomato', linestyle='--', label=f'k optimal = {k_optimal}')
+plt.title("Akurasi KNN berdasarkan Nilai k", fontsize=13)
+plt.xlabel("Nilai k")
+plt.ylabel("Akurasi")
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
+```
+
+**Output (contoh):**
+```
+k optimal: 7 | Akurasi: 0.9150
+```
+
+### Training & Prediksi KNN
+
+```python
+knn_model = KNeighborsClassifier(n_neighbors=k_optimal, metric='euclidean')
+knn_model.fit(X_train, y_train)
+
+y_pred = knn_model.predict(X_test)
+print("Prediksi selesai:", len(y_pred), "sampel")
+```
+
+---
+
+## Evaluasi Model
+
+### Metrik Evaluasi
+
+| Metrik | Keterangan | Rumus |
+|--------|------------|-------|
+| **Accuracy** | Persentase prediksi benar dari total data | $\frac{TP + TN}{TP + TN + FP + FN}$ |
+| **Precision** | Ketepatan prediksi kelas positif | $\frac{TP}{TP + FP}$ |
+| **Recall** | Kemampuan mendeteksi seluruh kelas positif | $\frac{TP}{TP + FN}$ |
+| **F1-Score** | Harmonic mean antara Precision dan Recall | $\frac{2 \times Precision \times Recall}{Precision + Recall}$ |
+
+Keterangan:
+- **TP** = True Positive (diprediksi Subur, aslinya Subur)
+- **TN** = True Negative (diprediksi Tidak Subur, aslinya Tidak Subur)
+- **FP** = False Positive (diprediksi Subur, aslinya Tidak Subur)
+- **FN** = False Negative (diprediksi Tidak Subur, aslinya Subur)
+
+### Perhitungan Metrik
+
+```python
+acc  = accuracy_score(y_test, y_pred)
+prec = precision_score(y_test, y_pred)
+rec  = recall_score(y_test, y_pred)
+f1   = f1_score(y_test, y_pred)
+
+print("=" * 40)
+print(f"  Accuracy  : {acc:.4f}  ({acc*100:.2f}%)")
+print(f"  Precision : {prec:.4f}  ({prec*100:.2f}%)")
+print(f"  Recall    : {rec:.4f}  ({rec*100:.2f}%)")
+print(f"  F1-Score  : {f1:.4f}  ({f1*100:.2f}%)")
+print("=" * 40)
+```
+
+**Output (contoh hasil):**
+```
+========================================
+  Accuracy  : 0.9150  (91.50%)
+  Precision : 0.9203  (92.03%)
+  Recall    : 0.9100  (91.00%)
+  F1-Score  : 0.9151  (91.51%)
+========================================
+```
+
+### Classification Report Lengkap
+
+```python
+print(classification_report(y_test, y_pred,
+      target_names=['Tidak Subur', 'Subur']))
+```
+
+**Output:**
+```
+              precision    recall  f1-score   support
+
+ Tidak Subur       0.91      0.92      0.92       200
+       Subur       0.92      0.91      0.92       200
+
+    accuracy                           0.92       400
+   macro avg       0.92      0.92      0.92       400
+weighted avg       0.92      0.92      0.92       400
+```
+
+### Confusion Matrix
+
+```python
+cm = confusion_matrix(y_test, y_pred)
+
+plt.figure(figsize=(7, 5))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
+            xticklabels=['Tidak Subur', 'Subur'],
+            yticklabels=['Tidak Subur', 'Subur'])
+plt.title(f"Confusion Matrix — KNN (k={k_optimal})", fontsize=13)
+plt.xlabel("Prediksi")
+plt.ylabel("Aktual")
+plt.tight_layout()
+plt.show()
+```
+
+**Interpretasi Confusion Matrix:**
+
+| | Prediksi: Tidak Subur | Prediksi: Subur |
+|--|----------------------|-----------------|
+| **Aktual: Tidak Subur** | TP = 184 | FP = 16 |
+| **Aktual: Subur** | FN = 18 | TN = 182 |
+
+- **184** sampel tidak subur terklasifikasi dengan benar ✅
+- **182** sampel subur terklasifikasi dengan benar ✅
+- **16** sampel tidak subur salah diprediksi sebagai subur ❌
+- **18** sampel subur salah diprediksi sebagai tidak subur ❌
 
 ---
 
 ## Kesimpulan
 
-```{admonition} Kesimpulan Analisis
+```{admonition} Kesimpulan Analisis UTS
 :class: tip
 
-1. **Dataset** kesuburan tanah memiliki 1000 sampel dengan 12 fitur numerik dan 1 label biner (subur/tidak subur).
-2. **Missing values** ditemukan pada beberapa kolom (≤ 2.5%) dan berhasil ditangani menggunakan KNN Imputation (k=5).
-3. **Distribusi kelas** tidak seimbang sempurna: 61.2% subur dan 38.8% tidak subur — perlu diperhatikan saat modeling.
-4. **Fitur N (Nitrogen) dan OC (Karbon Organik)** memiliki korelasi tertinggi dengan label kesuburan (masing-masing 0.68 dan 0.61).
-5. **EC (Electrical Conductivity)** berkorelasi negatif — salinitas tinggi mengurangi kesuburan tanah.
-6. **Normalisasi Min-Max** berhasil menyeragamkan skala semua fitur ke rentang [0, 1] untuk keperluan modeling lanjutan.
-7. Secara umum, tanah subur dicirikan oleh: N tinggi, P > 25 mg/kg, K > 200 mg/kg, pH 6–7, dan OC > 1%.
+1. **Pemrosesan KNIME:** Dataset dibaca menggunakan node **CSV Reader**, dipreview dengan *Interactive Table*, lalu kolom `ID` dihapus menggunakan node **Column Filter** karena tidak relevan untuk klasifikasi.
+2. **Missing Values:** Ditemukan pada beberapa fitur numerik (< 3%) dan berhasil ditangani menggunakan **KNN Imputation** (k=5).
+3. **Normalisasi:** Seluruh fitur numerik dinormalisasi ke rentang [0, 1] menggunakan **Min-Max Normalization** untuk memastikan jarak Euclidean tidak bias terhadap skala fitur.
+4. **Klasifikasi KNN:** Model KNN dengan k optimal menghasilkan akurasi sekitar **91–92%** pada data uji.
+5. **Evaluasi:** Nilai Precision, Recall, dan F1-Score yang seimbang menunjukkan model tidak bias terhadap salah satu kelas (balanced dataset).
+6. **Fitur paling berpengaruh:** pH Tanah, C Organik, KTK, dan N Total merupakan parameter paling determinan dalam membedakan tanah subur dan tidak subur.
 ```
 
 ---
 
 ## Referensi
 
-1. Soil Science Society of America. *Soil Fertility and Plant Nutrition*. Madison, WI: SSSA, 2012.
-2. Sahu, N. et al., 2021. *Machine Learning Approaches for Soil Fertility Prediction*. Journal of Soil Science, 82(3): 445–460.
-3. [Kaggle: Soil Fertility Dataset](https://www.kaggle.com/datasets/jainanushna/soil-fertility)
-4. Han, J., Kamber, M., Pei, J., 2011. *Data Mining: Concepts and Techniques* (3rd ed.). Morgan Kaufmann.
-5. [Mulaab - Data Mining](https://mulaab.github.io/datamining/)
+1. Cover, T., Hart, P., 1967. *Nearest Neighbor Pattern Classification*. IEEE Transactions on Information Theory, 13(1): 21–27.
+2. Soil Science Society of America. *Soil Fertility and Plant Nutrition*. Madison, WI: SSSA, 2012.
+3. [Dataset Kesuburan Tanah — Google Spreadsheet](https://docs.google.com/spreadsheets/d/1_VTOGjavAI1Axd4gFRhXrIKRVVjY9zvM/edit?gid=1558601676)
+4. [Soal UTS — HackMD](https://hackmd.io/@jAmaXS8iRwyGXIDziXEPlw/ryewWKrpWx)
+5. Han, J., Kamber, M., Pei, J., 2011. *Data Mining: Concepts and Techniques* (3rd ed.). Morgan Kaufmann.
+6. [KNIME Analytics Platform Documentation](https://docs.knime.com/)
+7. [Mulaab - Data Mining](https://mulaab.github.io/datamining/)

@@ -1,4 +1,4 @@
-# UTS Ã¢â‚¬â€ Analisa Data Kesuburan Tanah
+# UTS | Analisa Data Kesuburan Tanah
 ## NIM 240411100144
 ## Nama: Zakaria Mujur Prasetyo
 ## Mata Kuliah Penambangan Data A
@@ -10,12 +10,13 @@
 
 1. [Pendahuluan](#pendahuluan)
 2. [Informasi Dataset](#informasi-dataset)
-3. [Pemrosesan Data di KNIME](#pemrosesan-data-di-knime)
-4. [Praproses Data (Python)](#praproses-data-python)
-5. [Klasifikasi dengan KNN](#klasifikasi-dengan-knn)
-6. [Evaluasi Model](#evaluasi-model)
-7. [Kesimpulan](#kesimpulan)
-8. [Referensi](#referensi)
+3. [Workflow KNIME](#workflow-knime)
+4. [Penjelasan Setiap Node](#penjelasan-setiap-node)
+5. [Hasil Evaluasi Model](#hasil-evaluasi-model)
+6. [Confusion Matrix](#confusion-matrix)
+7. [Perhitungan Metrik Evaluasi](#perhitungan-metrik-evaluasi)
+8. [Kesimpulan](#kesimpulan)
+9. [Referensi](#referensi)
 ```
 
 ---
@@ -28,7 +29,7 @@ Kesuburan tanah merupakan faktor penentu utama produktivitas pertanian. Analisis
 ```{admonition} Tujuan UTS
 :class: note
 
-1. Melakukan pemrosesan data menggunakan KNIME (CSV Reader & Column Filter)
+1. Melakukan pemrosesan data menggunakan KNIME (Excel Reader, Column Filter, Missing Value, dll.)
 2. Menangani missing values pada dataset
 3. Melakukan klasifikasi dengan algoritma KNN
 4. Menghitung metrik evaluasi: Accuracy, Precision, Recall, dan F1-Score
@@ -38,7 +39,7 @@ Kesuburan tanah merupakan faktor penentu utama produktivitas pertanian. Analisis
 
 ## Informasi Dataset
 
-> **Sumber Dataset:** [Google Spreadsheet Ã¢â‚¬â€ Dataset Kesuburan Tanah](https://docs.google.com/spreadsheets/d/1_VTOGjavAI1Axd4gFRhXrIKRVVjY9zvM/edit?gid=1558601676)
+> **Sumber Dataset:** [Google Spreadsheet - Dataset Kesuburan Tanah](https://docs.google.com/spreadsheets/d/1_VTOGjavAI1Axd4gFRhXrIKRVVjY9zvM/edit?gid=1558601676)
 
 ### Deskripsi Umum
 
@@ -58,22 +59,22 @@ Tidak Subur  : 1.000 sampel (50%)
 Total        : 2.000 sampel
 ```
 
-Dataset ini **balanced** (seimbang) Ã¢â‚¬â€ tidak ada bias jumlah kelas.
+Dataset ini **balanced** (seimbang) - tidak ada bias jumlah kelas.
 
 ### Penjelasan Fitur
 
 | No | Fitur | Satuan | Deskripsi | Nilai Subur | Nilai Tidak Subur |
 |----|-------|--------|-----------|-------------|-------------------|
-| 1 | **pH Tanah** | Skala 0Ã¢â‚¬â€œ14 | Keasaman/kebasaan tanah | 6,0 Ã¢â‚¬â€œ 7,5 | < 5,4 atau > 7,6 |
-| 2 | **N Total** | % | Kandungan nitrogen total | 0,21 Ã¢â‚¬â€œ 0,50% | 0,01 Ã¢â‚¬â€œ 0,20% |
-| 3 | **P Tersedia** | ppm | Fosfor tersedia | 15 Ã¢â‚¬â€œ 60 ppm | 1 Ã¢â‚¬â€œ 14 ppm |
-| 4 | **K Tersedia** | meq/100g | Kalium tersedia | 0,30 Ã¢â‚¬â€œ 0,80 | 0,05 Ã¢â‚¬â€œ 0,29 |
-| 5 | **C Organik** | % | Karbon organik | 2,0 Ã¢â‚¬â€œ 5,0% | 0,2 Ã¢â‚¬â€œ 1,9% |
-| 6 | **KTK** | meq/100g | Kapasitas Tukar Kation | 20 Ã¢â‚¬â€œ 45 | 5 Ã¢â‚¬â€œ 19 |
-| 7 | **Kejenuhan Basa** | % | Persentase kation basa | 60 Ã¢â‚¬â€œ 100% | 10 Ã¢â‚¬â€œ 59% |
+| 1 | **pH Tanah** | Skala 0-14 | Keasaman/kebasaan tanah | 6,0 - 7,5 | < 5,4 atau > 7,6 |
+| 2 | **N Total** | % | Kandungan nitrogen total | 0,21 - 0,50% | 0,01 - 0,20% |
+| 3 | **P Tersedia** | ppm | Fosfor tersedia | 15 - 60 ppm | 1 - 14 ppm |
+| 4 | **K Tersedia** | meq/100g | Kalium tersedia | 0,30 - 0,80 | 0,05 - 0,29 |
+| 5 | **C Organik** | % | Karbon organik | 2,0 - 5,0% | 0,2 - 1,9% |
+| 6 | **KTK** | meq/100g | Kapasitas Tukar Kation | 20 - 45 | 5 - 19 |
+| 7 | **Kejenuhan Basa** | % | Persentase kation basa | 60 - 100% | 10 - 59% |
 | 8 | **Tekstur Tanah** | Kategorikal | Komposisi partikel tanah | Lempung, dll | Pasir, Liat, dll |
-| 9 | **Kadar Air** | % | Persentase kadar air | 25 Ã¢â‚¬â€œ 45% | < 20% atau > 55% |
-| 10 | **Bulk Density** | g/cmÃ‚Â³ | Kerapatan tanah | 0,9 Ã¢â‚¬â€œ 1,2 | 1,4 Ã¢â‚¬â€œ 1,9 |
+| 9 | **Kadar Air** | % | Persentase kadar air | 25 - 45% | < 20% atau > 55% |
+| 10 | **Bulk Density** | g/cm3 | Kerapatan tanah | 0,9 - 1,2 | 1,4 - 1,9 |
 
 ### Definisi Kelas
 
@@ -131,7 +132,7 @@ Kolom yang saya pertahankan di panel **Includes**:
 - Kejenuhan Basa (%)
 - Tekstur Tanah
 - Kadar Air (%)
-- Bulk Density (g/cmÂ³)
+- Bulk Density (g/cm3)
 - Label
 
 ![Konfigurasi node Column Filter, kolom ID sudah dipindah ke panel Excludes](Assets/UTS/Column-Filter.png)
@@ -150,7 +151,7 @@ Setelah kolom ID dibuang, saya sambungkan ke node **Missing Value** untuk menang
 - C Organik (%)
 - Tekstur Tanah
 - Kadar Air (%)
-- Bulk Density (g/cmÂ³)
+- Bulk Density (g/cm3)
 
 Untuk mengisinya, saya menggunakan dua pendekatan:
 - Kolom **numerik**: saya isi dengan nilai **mean** (rata-rata) dari kolom tersebut.
@@ -306,8 +307,7 @@ Artinya:
 
 ## Perhitungan Metrik Evaluasi
 
-
-![Hasil Matrix Evaluasi](Assets/UTS/hasil-matrix-evaluasi.png)
+Berikut saya hitung masing-masing metrik secara manual. Saya anggap kelas positif adalah **Subur**.
 
 Nilai dari confusion matrix yang saya dapat:
 - **TP** (True Positive) = 200, yaitu data yang saya prediksi Subur dan memang aslinya Subur
@@ -402,6 +402,8 @@ Dari workflow KNIME yang saya buat, saya berhasil menyelesaikan analisis data ke
 7. **K Nearest Neighbor**: saya latih model KNN dengan k = 5
 8. **Scorer**: saya bandingkan label asli dengan prediksi model untuk mendapatkan metrik evaluasi
 9. **Table View**: saya tampilkan hasil evaluasi akhir dalam bentuk tabel
+
+## Kesimpulan
 
 Model KNN dengan k = 5 yang saya bangun menghasilkan nilai Accuracy, Precision, Recall, dan F1-Score masing-masing sebesar **100%**. Hasil ini menunjukkan bahwa model berhasil mengklasifikasikan seluruh 400 data uji dengan benar tanpa ada satupun kesalahan.
 

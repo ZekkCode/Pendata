@@ -1,4 +1,4 @@
-﻿# UTS Ã¢â‚¬â€ Analisa Data Kesuburan Tanah
+# UTS Ã¢â‚¬â€ Analisa Data Kesuburan Tanah
 ## NIM 240411100144
 ## Nama: Zakaria Mujur Prasetyo
 ## Mata Kuliah Penambangan Data A
@@ -306,7 +306,8 @@ Artinya:
 
 ## Perhitungan Metrik Evaluasi
 
-Berikut saya hitung masing-masing metrik secara manual. Saya anggap kelas positif adalah **Subur**.
+
+![Hasil Matrix Evaluasi](Assets/UTS/hasil-matrix-evaluasi.png)
 
 Nilai dari confusion matrix yang saya dapat:
 - **TP** (True Positive) = 200, yaitu data yang saya prediksi Subur dan memang aslinya Subur
@@ -390,10 +391,7 @@ Semua metrik, yaitu accuracy, precision, recall, dan F1-score, semuanya mencapai
 
 ## Kesimpulan
 
-```{admonition} Kesimpulan UTS
-:class: tip
-
-Dari workflow KNIME yang saya buat, saya berhasil melakukan analisis data kesuburan tanah mulai dari pembacaan data hingga evaluasi model melalui tahap-tahap berikut:
+Dari workflow KNIME yang saya buat, saya berhasil menyelesaikan analisis data kesuburan tanah secara end-to-end mulai dari membaca data sampai mendapatkan hasil evaluasi model. Berikut rangkuman tahapan yang saya kerjakan:
 
 1. **Excel Reader**: saya baca dataset dari file .xlsx langsung ke KNIME
 2. **Column Filter**: saya buang kolom ID karena tidak relevan untuk klasifikasi
@@ -405,8 +403,7 @@ Dari workflow KNIME yang saya buat, saya berhasil melakukan analisis data kesubu
 8. **Scorer**: saya bandingkan label asli dengan prediksi model untuk mendapatkan metrik evaluasi
 9. **Table View**: saya tampilkan hasil evaluasi akhir dalam bentuk tabel
 
-Model KNN dengan k = 5 yang saya bangun menghasilkan nilai Accuracy, Precision, Recall, dan F1-Score masing-masing sebesar **100%**, yang berarti model berhasil mengklasifikasikan seluruh data uji dengan sempurna.
-```
+Model KNN dengan k = 5 yang saya bangun menghasilkan nilai Accuracy, Precision, Recall, dan F1-Score masing-masing sebesar **100%**. Hasil ini menunjukkan bahwa model berhasil mengklasifikasikan seluruh 400 data uji dengan benar tanpa ada satupun kesalahan.
 
 ---
 

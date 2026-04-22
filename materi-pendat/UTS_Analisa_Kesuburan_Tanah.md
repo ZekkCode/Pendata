@@ -1,4 +1,4 @@
-# UTS — Analisa Data Kesuburan Tanah
+﻿# UTS â€” Analisa Data Kesuburan Tanah
 
 ## Daftar Isi
 ```{dropdown} Klik untuk membuka Daftar Isi
@@ -16,6 +16,7 @@
 
 ---
 
+# SOAL UTS
 ## Pendahuluan
 
 Kesuburan tanah merupakan faktor penentu utama produktivitas pertanian. Analisis ini bertujuan mengklasifikasikan kondisi tanah sebagai **Subur** atau **Tidak Subur** menggunakan algoritma **K-Nearest Neighbors (KNN)** berdasarkan parameter fisik dan kimia tanah.
@@ -33,7 +34,7 @@ Kesuburan tanah merupakan faktor penentu utama produktivitas pertanian. Analisis
 
 ## Informasi Dataset
 
-> **Sumber Dataset:** [Google Spreadsheet — Dataset Kesuburan Tanah](https://docs.google.com/spreadsheets/d/1_VTOGjavAI1Axd4gFRhXrIKRVVjY9zvM/edit?gid=1558601676)
+> **Sumber Dataset:** [Google Spreadsheet â€” Dataset Kesuburan Tanah](https://docs.google.com/spreadsheets/d/1_VTOGjavAI1Axd4gFRhXrIKRVVjY9zvM/edit?gid=1558601676)
 
 ### Deskripsi Umum
 
@@ -53,22 +54,22 @@ Tidak Subur  : 1.000 sampel (50%)
 Total        : 2.000 sampel
 ```
 
-Dataset ini **balanced** (seimbang) — tidak ada bias jumlah kelas.
+Dataset ini **balanced** (seimbang) â€” tidak ada bias jumlah kelas.
 
 ### Penjelasan Fitur
 
 | No | Fitur | Satuan | Deskripsi | Nilai Subur | Nilai Tidak Subur |
 |----|-------|--------|-----------|-------------|-------------------|
-| 1 | **pH Tanah** | Skala 0–14 | Keasaman/kebasaan tanah | 6,0 – 7,5 | < 5,4 atau > 7,6 |
-| 2 | **N Total** | % | Kandungan nitrogen total | 0,21 – 0,50% | 0,01 – 0,20% |
-| 3 | **P Tersedia** | ppm | Fosfor tersedia | 15 – 60 ppm | 1 – 14 ppm |
-| 4 | **K Tersedia** | meq/100g | Kalium tersedia | 0,30 – 0,80 | 0,05 – 0,29 |
-| 5 | **C Organik** | % | Karbon organik | 2,0 – 5,0% | 0,2 – 1,9% |
-| 6 | **KTK** | meq/100g | Kapasitas Tukar Kation | 20 – 45 | 5 – 19 |
-| 7 | **Kejenuhan Basa** | % | Persentase kation basa | 60 – 100% | 10 – 59% |
+| 1 | **pH Tanah** | Skala 0â€“14 | Keasaman/kebasaan tanah | 6,0 â€“ 7,5 | < 5,4 atau > 7,6 |
+| 2 | **N Total** | % | Kandungan nitrogen total | 0,21 â€“ 0,50% | 0,01 â€“ 0,20% |
+| 3 | **P Tersedia** | ppm | Fosfor tersedia | 15 â€“ 60 ppm | 1 â€“ 14 ppm |
+| 4 | **K Tersedia** | meq/100g | Kalium tersedia | 0,30 â€“ 0,80 | 0,05 â€“ 0,29 |
+| 5 | **C Organik** | % | Karbon organik | 2,0 â€“ 5,0% | 0,2 â€“ 1,9% |
+| 6 | **KTK** | meq/100g | Kapasitas Tukar Kation | 20 â€“ 45 | 5 â€“ 19 |
+| 7 | **Kejenuhan Basa** | % | Persentase kation basa | 60 â€“ 100% | 10 â€“ 59% |
 | 8 | **Tekstur Tanah** | Kategorikal | Komposisi partikel tanah | Lempung, dll | Pasir, Liat, dll |
-| 9 | **Kadar Air** | % | Persentase kadar air | 25 – 45% | < 20% atau > 55% |
-| 10 | **Bulk Density** | g/cm³ | Kerapatan tanah | 0,9 – 1,2 | 1,4 – 1,9 |
+| 9 | **Kadar Air** | % | Persentase kadar air | 25 â€“ 45% | < 20% atau > 55% |
+| 10 | **Bulk Density** | g/cmÂ³ | Kerapatan tanah | 0,9 â€“ 1,2 | 1,4 â€“ 1,9 |
 
 ### Definisi Kelas
 
@@ -79,394 +80,348 @@ Dataset ini **balanced** (seimbang) — tidak ada bias jumlah kelas.
 
 ---
 
-## Pemrosesan Data di KNIME
+# Jawaban UTS
 
-Pemrosesan awal dataset dilakukan menggunakan software **KNIME Analytics Platform** sebelum dilanjutkan dengan analisis Python.
-
-### Langkah 1 — Membaca Dataset (CSV Reader)
-
-Dataset diunduh dari Google Spreadsheet dalam format `.csv`, kemudian dibaca menggunakan node **CSV Reader** (atau **Excel Reader** jika format `.xlsx`) di KNIME.
-
-**Konfigurasi node CSV Reader:**
-- **File:** path ke file `soil_fertility.csv` (atau `.xlsx` menggunakan Excel Reader)
-- **Delimiter:** koma (`,`)
-- **Column Header:** baris pertama digunakan sebagai nama kolom
-- **Row ID:** otomatis dari KNIME
-
-![Tampilan node CSV Reader dan preview data di KNIME](Assets/UTS/Read-Data-CSV.png)
-
-**Penjelasan gambar di atas:** Node **CSV Reader** berhasil membaca dataset kesuburan tanah. Output node menampilkan seluruh kolom dataset beserta tipe datanya. Kolom numerik terbaca sebagai `Double`, kolom `Tekstur Tanah` sebagai `String`, dan kolom label terbaca sesuai tipe yang ditentukan.
+**Nama:** Zakaria Mujur Prasetyo
+**NIM:** 240411100144
+**Kelas:** Penambangan Data A
 
 ---
 
-### Langkah 2 — Preview Dataset (Interactive Table)
+## Workflow KNIME
 
-Setelah data berhasil dibaca, dilakukan preview untuk memastikan data terbaca dengan benar.
+Workflow yang dipakai untuk mengerjakan analisis ini menggunakan urutan node sebagai berikut:
 
-![Preview dataset kesuburan tanah di KNIME](Assets/UTS/Preview-Dataset.png)
+```
+Excel Reader -> Column Filter -> Missing Value -> One to Many -> Normalizer -> Table Partitioner -> K Nearest Neighbor -> Scorer -> Table View
+```
 
-**Penjelasan gambar di atas:** Tabel interaktif menampilkan 2.000 baris data dengan 11 kolom (10 fitur + 1 label). Beberapa sel terlihat kosong (missing values) pada kolom-kolom tertentu — ini akan ditangani pada tahap praproses.
+Catatan: pada canvas KNIME terlihat ada dua jalur workflow. Untuk laporan ini saya menggunakan jalur bawah yang memakai **Excel Reader**, karena dataset yang diunduh berformat `.xlsx`. Jalur atas yang memakai CSV Reader tidak digunakan.
 
 ---
 
-### Langkah 3 — Menghapus Kolom ID (Column Filter)
+## Penjelasan Setiap Node
 
-Dataset memiliki kolom **ID** yang hanya berfungsi sebagai identifikasi baris dan tidak relevan untuk proses klasifikasi. Kolom ini di-*exclude* menggunakan node **Column Filter**.
+### 1. Excel Reader
 
-![Konfigurasi Column Filter — kolom ID di-exclude](Assets/UTS/Column-Filter.png)
+Node pertama yang saya pakai adalah **Excel Reader**. Node ini berfungsi untuk membaca dataset kesuburan tanah dari file Excel berformat `.xlsx` langsung ke dalam KNIME.
 
-**Penjelasan gambar di atas:** Pada node **Column Filter**, kolom `ID` dipindahkan ke panel **Excludes** sehingga tidak ikut dalam proses analisis. Semua fitur (pH, N, P, K, dll.) dan kolom label tetap berada di panel **Includes**.
+Setelah dikonfigurasi dengan path file yang sesuai, node ini menghasilkan tabel data mentah berisi 2.000 baris dan 11 kolom (10 fitur + 1 label). Beberapa kolom masih ada yang kosong karena dataset memang mengandung missing value.
 
-**Alasan kolom ID dibuang:**
-- Kolom ID hanya nomor urut baris, tidak memiliki informasi agronomis
-- Menyertakan ID dalam model KNN akan membuat perhitungan jarak menjadi tidak akurat
-- Model bisa "hafal" ID alih-alih belajar pola fitur yang sesungguhnya
+![Tampilan Excel Reader membaca dataset kesuburan tanah](Assets/UTS/Read-Data-CSV.png)
+
+Dari gambar di atas terlihat node Excel Reader sudah berhasil membaca dataset. Kolom-kolom fitur seperti pH Tanah, N Total, P Tersedia, dan sebagainya sudah terbaca dengan tipe data yang sesuai.
 
 ---
 
-## Praproses Data (Python)
+### 2. Column Filter
 
-Setelah pemrosesan awal di KNIME, analisis lanjutan dilakukan menggunakan Python.
+Setelah data berhasil dibaca, saya memasang node **Column Filter** untuk membuang kolom yang tidak diperlukan dalam proses klasifikasi, yaitu kolom **ID**.
 
-### Persiapan Lingkungan
+Kolom ID hanya berisi nomor urut baris dan tidak memiliki makna agronomis apapun. Kalau kolom ini ikut masuk ke model KNN, perhitungan jaraknya bisa jadi tidak akurat karena model bisa terpengaruh oleh nomor urut data, bukan pola fiturnya.
 
-```python
-%matplotlib inline
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.preprocessing import MinMaxScaler, LabelEncoder
-from sklearn.impute import KNNImputer
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import (accuracy_score, precision_score,
-                             recall_score, f1_score,
-                             classification_report, confusion_matrix)
+Kolom yang dipertahankan (Includes):
+- pH Tanah
+- N Total (%)
+- P Tersedia (ppm)
+- K Tersedia (meq/100g)
+- C Organik (%)
+- KTK (meq/100g)
+- Kejenuhan Basa (%)
+- Tekstur Tanah
+- Kadar Air (%)
+- Bulk Density (g/cmÂ³)
+- Label
 
-sns.set(style="whitegrid")
-```
+![Konfigurasi Column Filter, kolom ID dipindah ke Excludes](Assets/UTS/Column-Filter.png)
 
-### Memuat Dataset
+Dari gambar terlihat kolom `ID` sudah berada di panel **Excludes**, sehingga tidak ikut diproses ke node berikutnya.
 
-```python
-df = pd.read_csv("soil_fertility.csv")
+---
 
-# Hapus kolom ID (sudah dilakukan di KNIME, tapi pastikan di Python juga)
-if 'ID' in df.columns:
-    df.drop(columns=['ID'], inplace=True)
+### 3. Missing Value
 
-print("Shape dataset:", df.shape)
-print("\n5 baris pertama:")
-df.head()
-```
+Node **Missing Value** digunakan untuk menangani data yang hilang pada dataset. Dataset ini memang mengandung missing value di beberapa kolom.
 
-**Output:**
-```
-Shape dataset: (2000, 11)
-```
+Kolom yang ada missing value-nya antara lain:
+- N Total (%)
+- P Tersedia (ppm)
+- K Tersedia (meq/100g)
+- C Organik (%)
+- Tekstur Tanah
+- Kadar Air (%)
+- Bulk Density (g/cmÂ³)
 
-### Identifikasi Missing Values
+Cara penanganannya:
+- Untuk kolom **numerik**: missing value diisi dengan nilai **mean** (rata-rata) dari kolom tersebut.
+- Untuk kolom **kategorikal** (Tekstur Tanah): missing value diisi dengan nilai yang paling sering muncul (**most frequent value**).
 
-```python
-missing_count = df.isnull().sum()
-missing_pct   = (df.isnull().mean() * 100).round(2)
+![Konfigurasi node Missing Value](Assets/UTS/missing-value.png)
 
-missing_df = pd.DataFrame({
-    'Missing Count': missing_count,
-    'Missing (%)':   missing_pct
-})
-print(missing_df[missing_df['Missing Count'] > 0])
-```
+Setelah node ini dijalankan, seluruh baris data sudah bersih dari nilai kosong dan siap masuk ke tahap berikutnya.
 
-**Output (contoh):**
+---
 
-| Kolom | Missing Count | Missing (%) |
-|-------|--------------|-------------|
-| N Total | 28 | 1.40% |
-| P Tersedia | 35 | 1.75% |
-| C Organik | 42 | 2.10% |
-| Kadar Air | 19 | 0.95% |
+### 4. One to Many
 
-### Encoding Kolom Kategorikal
+Node **One to Many** digunakan untuk mengubah kolom kategorikal menjadi kolom numerik biner (dummy variable).
 
-Kolom **Tekstur Tanah** bersifat kategorikal dan harus diubah ke numerik sebelum KNN Imputation maupun modeling:
+Pada dataset ini, kolom **Tekstur Tanah** berisi nilai kategorikal seperti:
+- Lempung
+- Lempung Berpasir
+- Lempung Berliat
+- Pasir
+- Liat
+- Debu
 
-```python
-le = LabelEncoder()
-df['Tekstur Tanah'] = le.fit_transform(df['Tekstur Tanah'].astype(str))
-print("Mapping Tekstur Tanah:", dict(zip(le.classes_, le.transform(le.classes_))))
-```
+Algoritma KNN bekerja dengan menghitung jarak antar data, sehingga data kategorikal tidak bisa langsung diproses. Node One to Many mengubah satu kolom `Tekstur Tanah` menjadi beberapa kolom biner, misalnya:
 
-**Output (contoh mapping):**
-```
-Mapping Tekstur Tanah: {'Debu': 0, 'Lempung': 1, 'Lempung Berliat': 2,
-                        'Lempung Berpasir': 3, 'Liat': 4, 'Pasir': 5}
-```
+| Tekstur Tanah_Lempung | Tekstur Tanah_Pasir | Tekstur Tanah_Liat | ... |
+|-----------------------|---------------------|---------------------|-----|
+| 1 | 0 | 0 | ... |
+| 0 | 1 | 0 | ... |
 
-### Penanganan Missing Values — KNN Imputation
+![Konfigurasi node One to Many untuk encoding Tekstur Tanah](Assets/UTS/one-to-many.png)
 
-Karena persentase missing values kecil (< 3%), digunakan **KNN Imputation** dengan k=5:
+Dengan begitu kolom Tekstur Tanah sudah bisa ikut dihitung dalam proses KNN.
 
-```python
-fitur_cols = ['pH Tanah', 'N Total', 'P Tersedia', 'K Tersedia',
-              'C Organik', 'KTK', 'Kejenuhan Basa',
-              'Tekstur Tanah', 'Kadar Air', 'Bulk Density']
+---
 
-imputer = KNNImputer(n_neighbors=5)
-df_imputed = df.copy()
-df_imputed[fitur_cols] = imputer.fit_transform(df[fitur_cols])
+### 5. Normalizer
 
-print("Missing values setelah imputasi:")
-print(df_imputed[fitur_cols].isnull().sum())
-```
+Node **Normalizer** digunakan untuk menyamakan skala semua fitur numerik menggunakan metode **Min-Max Normalization**.
 
-**Output:**
-```
-pH Tanah          0
-N Total           0
-P Tersedia        0
-K Tersedia        0
-C Organik         0
-KTK               0
-Kejenuhan Basa    0
-Tekstur Tanah     0
-Kadar Air         0
-Bulk Density      0
-dtype: int64
-```
-
-### Encoding Label Target
-
-```python
-# Pastikan label berupa 0/1 (Tidak Subur=0, Subur=1)
-if df_imputed['Label'].dtype == object:
-    df_imputed['Label'] = df_imputed['Label'].map({'Tidak Subur': 0, 'Subur': 1})
-
-print("Distribusi kelas:")
-print(df_imputed['Label'].value_counts())
-```
-
-**Output:**
-```
-1    1000
-0    1000
-dtype: int64
-```
-
-### Normalisasi Data — Min-Max
+Rumus Min-Max Normalization:
 
 $$
 x' = \frac{x - x_{min}}{x_{max} - x_{min}}
 $$
 
-```python
-scaler = MinMaxScaler()
-X = df_imputed[fitur_cols].values
-y = df_imputed['Label'].values
+Alasan normalisasi perlu dilakukan:
+- KNN bekerja berdasarkan jarak antar data
+- Setiap fitur punya skala yang berbeda-beda: misalnya P Tersedia bisa puluhan (ppm), sedangkan N Total hanya di kisaran 0,01 sampai 0,50 (%)
+- Kalau tidak dinormalisasi, fitur dengan angka besar bisa mendominasi perhitungan jarak dan fitur lain jadi kurang berpengaruh
 
-X_scaled = scaler.fit_transform(X)
-print("Range setelah normalisasi: min =", X_scaled.min().round(4),
-      "| max =", X_scaled.max().round(4))
-```
+Setelah normalisasi, semua nilai fitur berada dalam rentang 0 sampai 1.
 
-**Output:**
-```
-Range setelah normalisasi: min = 0.0 | max = 1.0
-```
-
-### Split Data — Train & Test
-
-```python
-X_train, X_test, y_train, y_test = train_test_split(
-    X_scaled, y,
-    test_size=0.2,     # 80% train, 20% test
-    random_state=42,
-    stratify=y         # menjaga proporsi kelas
-)
-
-print(f"Train: {X_train.shape[0]} sampel | Test: {X_test.shape[0]} sampel")
-```
-
-**Output:**
-```
-Train: 1600 sampel | Test: 400 sampel
-```
+![Konfigurasi node Normalizer menggunakan Min-Max](Assets/UTS/normalizer.png)
 
 ---
 
-## Klasifikasi dengan KNN
+### 6. Table Partitioner
 
-### Apa itu KNN?
+Node **Table Partitioner** digunakan untuk membagi data menjadi dua bagian sebelum dimasukkan ke model.
 
-**K-Nearest Neighbors (KNN)** adalah algoritma klasifikasi berbasis *instance* yang bekerja dengan:
+Konfigurasi yang saya pakai:
+- First partition type: **Relative (%)**
+- Relative size: **80**
+- Sampling strategy: **Random**
 
-1. Menghitung **jarak** antara data uji dengan semua data latih
-2. Memilih **k tetangga terdekat**
-3. Melakukan **voting** — kelas terbanyak di antara k tetangga menjadi prediksi
+Hasil pembagiannya dari total 2.000 data:
+- **1.600 data** masuk ke partisi pertama (data latih / training)
+- **400 data** masuk ke partisi kedua (data uji / testing)
 
-### Rumus Jarak (Euclidean Distance)
+![Konfigurasi Table Partitioner 80% training 20% testing](Assets/UTS/table-partioner-80%.png)
+
+Pembagian ini dilakukan supaya evaluasi model bisa dilakukan secara objektif menggunakan data yang belum pernah dilihat model sebelumnya.
+
+---
+
+### 7. K Nearest Neighbor
+
+Node **K Nearest Neighbor** adalah inti dari proses klasifikasi. Node ini melatih model KNN menggunakan data dari partisi pertama dan memprediksi kelas pada data dari partisi kedua.
+
+Konfigurasi yang dipakai:
+- Column with class labels: **Label**
+- Number of neighbors (k): **5**
+
+Cara kerja KNN secara singkat: setiap data baru akan dicari tetangga terdekatnya sebanyak k data. Kelas yang paling banyak muncul di antara k tetangga tersebut menjadi hasil prediksi.
+
+Pada kasus ini model memprediksi dua kelas: **Subur** dan **Tidak Subur**.
+
+Rumus jarak yang digunakan (Euclidean Distance):
 
 $$
 d(x, y) = \sqrt{\sum_{i=1}^{n}(x_i - y_i)^2}
 $$
 
-### Memilih Nilai k Optimal
+![Konfigurasi node K Nearest Neighbor](Assets/UTS/knn.png)
 
-```python
-akurasi_k = []
-k_range = range(1, 21)
-
-for k in k_range:
-    knn = KNeighborsClassifier(n_neighbors=k)
-    knn.fit(X_train, y_train)
-    akurasi_k.append(knn.score(X_test, y_test))
-
-k_optimal = k_range[np.argmax(akurasi_k)]
-print(f"k optimal: {k_optimal} | Akurasi: {max(akurasi_k):.4f}")
-
-plt.figure(figsize=(10, 5))
-plt.plot(k_range, akurasi_k, marker='o', color='steelblue', linewidth=2)
-plt.axvline(x=k_optimal, color='tomato', linestyle='--', label=f'k optimal = {k_optimal}')
-plt.title("Akurasi KNN berdasarkan Nilai k", fontsize=13)
-plt.xlabel("Nilai k")
-plt.ylabel("Akurasi")
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()
-```
-
-**Output (contoh):**
-```
-k optimal: 7 | Akurasi: 0.9150
-```
-
-### Training & Prediksi KNN
-
-```python
-knn_model = KNeighborsClassifier(n_neighbors=k_optimal, metric='euclidean')
-knn_model.fit(X_train, y_train)
-
-y_pred = knn_model.predict(X_test)
-print("Prediksi selesai:", len(y_pred), "sampel")
-```
+Output dari node ini adalah tabel data lengkap dengan tambahan kolom prediksi bernama `Class [kNN]`.
 
 ---
 
-## Evaluasi Model
+### 8. Scorer
 
-### Metrik Evaluasi
+Node **Scorer** digunakan untuk membandingkan label asli dengan label hasil prediksi dari model KNN.
 
-| Metrik | Keterangan | Rumus |
-|--------|------------|-------|
-| **Accuracy** | Persentase prediksi benar dari total data | $\frac{TP + TN}{TP + TN + FP + FN}$ |
-| **Precision** | Ketepatan prediksi kelas positif | $\frac{TP}{TP + FP}$ |
-| **Recall** | Kemampuan mendeteksi seluruh kelas positif | $\frac{TP}{TP + FN}$ |
-| **F1-Score** | Harmonic mean antara Precision dan Recall | $\frac{2 \times Precision \times Recall}{Precision + Recall}$ |
+Dari node ini diperoleh:
+- Confusion matrix
+- Accuracy statistics
+- Nilai Precision, Recall, dan F-measure (F1-Score)
+
+Catatan: di KNIME, F1-Score ditampilkan dengan nama **F-measure**.
+
+![Output node Scorer menampilkan confusion matrix dan metrik evaluasi](Assets/UTS/scorer.png)
+
+---
+
+### 9. Table View
+
+Node **Table View** digunakan untuk menampilkan hasil evaluasi akhir dalam bentuk tabel yang lebih mudah dibaca.
+
+Kolom yang ditampilkan:
+- Recall
+- Precision
+- F-measure
+- Accuracy
+
+![Tampilan Table View hasil evaluasi akhir model KNN](Assets/UTS/table-view.png)
+
+---
+
+## Hasil Evaluasi Model
+
+Berdasarkan output dari node Scorer dan Table View, hasil evaluasi model KNN pada dataset kesuburan tanah adalah sebagai berikut:
+
+| Metrik | Nilai |
+|--------|-------|
+| **Accuracy** | 1.00 (100%) |
+| **Precision** | 1.00 (100%) |
+| **Recall** | 1.00 (100%) |
+| **F1-Score (F-measure)** | 1.00 (100%) |
+
+---
+
+## Confusion Matrix
+
+Berdasarkan hasil pada node Scorer, confusion matrix dapat dituliskan sebagai berikut:
+
+| Aktual / Prediksi | Tidak Subur | Subur |
+|-------------------|-------------|-------|
+| **Tidak Subur** | 200 | 0 |
+| **Subur** | 0 | 200 |
 
 Keterangan:
-- **TP** = True Positive (diprediksi Subur, aslinya Subur)
-- **TN** = True Negative (diprediksi Tidak Subur, aslinya Tidak Subur)
-- **FP** = False Positive (diprediksi Subur, aslinya Tidak Subur)
-- **FN** = False Negative (diprediksi Tidak Subur, aslinya Subur)
+- 200 data Tidak Subur diprediksi benar sebagai Tidak Subur
+- 200 data Subur diprediksi benar sebagai Subur
+- Tidak ada data yang salah diklasifikasikan
 
-### Perhitungan Metrik
+---
 
-```python
-acc  = accuracy_score(y_test, y_pred)
-prec = precision_score(y_test, y_pred)
-rec  = recall_score(y_test, y_pred)
-f1   = f1_score(y_test, y_pred)
+## Perhitungan Metrik Evaluasi
 
-print("=" * 40)
-print(f"  Accuracy  : {acc:.4f}  ({acc*100:.2f}%)")
-print(f"  Precision : {prec:.4f}  ({prec*100:.2f}%)")
-print(f"  Recall    : {rec:.4f}  ({rec*100:.2f}%)")
-print(f"  F1-Score  : {f1:.4f}  ({f1*100:.2f}%)")
-print("=" * 40)
-```
+Pada perhitungan di bawah ini, kelas positif dianggap sebagai **Subur**.
 
-**Output (contoh hasil):**
-```
-========================================
-  Accuracy  : 0.9150  (91.50%)
-  Precision : 0.9203  (92.03%)
-  Recall    : 0.9100  (91.00%)
-  F1-Score  : 0.9151  (91.51%)
-========================================
-```
+Nilai dari confusion matrix:
+- **TP** (True Positive) = 200 (diprediksi Subur, aslinya Subur)
+- **TN** (True Negative) = 200 (diprediksi Tidak Subur, aslinya Tidak Subur)
+- **FP** (False Positive) = 0 (diprediksi Subur, aslinya Tidak Subur)
+- **FN** (False Negative) = 0 (diprediksi Tidak Subur, aslinya Subur)
 
-### Classification Report Lengkap
+### Accuracy
 
-```python
-print(classification_report(y_test, y_pred,
-      target_names=['Tidak Subur', 'Subur']))
-```
+Rumus:
 
-**Output:**
-```
-              precision    recall  f1-score   support
+$$
+Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
+$$
 
- Tidak Subur       0.91      0.92      0.92       200
-       Subur       0.92      0.91      0.92       200
+Substitusi:
 
-    accuracy                           0.92       400
-   macro avg       0.92      0.92      0.92       400
-weighted avg       0.92      0.92      0.92       400
-```
+$$
+Accuracy = \frac{200 + 200}{200 + 200 + 0 + 0} = \frac{400}{400} = 1.00
+$$
 
-### Confusion Matrix
+Hasil: **Accuracy = 100%**
 
-```python
-cm = confusion_matrix(y_test, y_pred)
+### Precision
 
-plt.figure(figsize=(7, 5))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
-            xticklabels=['Tidak Subur', 'Subur'],
-            yticklabels=['Tidak Subur', 'Subur'])
-plt.title(f"Confusion Matrix — KNN (k={k_optimal})", fontsize=13)
-plt.xlabel("Prediksi")
-plt.ylabel("Aktual")
-plt.tight_layout()
-plt.show()
-```
+Rumus:
 
-**Interpretasi Confusion Matrix:**
+$$
+Precision = \frac{TP}{TP + FP}
+$$
 
-| | Prediksi: Tidak Subur | Prediksi: Subur |
-|--|----------------------|-----------------|
-| **Aktual: Tidak Subur** | TP = 184 | FP = 16 |
-| **Aktual: Subur** | FN = 18 | TN = 182 |
+Substitusi:
 
-- **184** sampel tidak subur terklasifikasi dengan benar ✅
-- **182** sampel subur terklasifikasi dengan benar ✅
-- **16** sampel tidak subur salah diprediksi sebagai subur ❌
-- **18** sampel subur salah diprediksi sebagai tidak subur ❌
+$$
+Precision = \frac{200}{200 + 0} = 1.00
+$$
+
+Hasil: **Precision = 100%**
+
+### Recall
+
+Rumus:
+
+$$
+Recall = \frac{TP}{TP + FN}
+$$
+
+Substitusi:
+
+$$
+Recall = \frac{200}{200 + 0} = 1.00
+$$
+
+Hasil: **Recall = 100%**
+
+### F1-Score
+
+Rumus:
+
+$$
+F1\text{-}Score = \frac{2 \times Precision \times Recall}{Precision + Recall}
+$$
+
+Substitusi:
+
+$$
+F1\text{-}Score = \frac{2 \times 1.00 \times 1.00}{1.00 + 1.00} = \frac{2}{2} = 1.00
+$$
+
+Hasil: **F1-Score = 100%**
+
+---
+
+## Interpretasi Hasil
+
+Hasil evaluasi menunjukkan model KNN berhasil mengklasifikasikan seluruh data uji dengan benar. Semua 400 data pada partisi kedua berhasil diprediksi sesuai label aslinya, baik kelas Subur maupun Tidak Subur.
+
+Nilai accuracy, precision, recall, dan F1-score semuanya mencapai 100%, yang menunjukkan bahwa pola perbedaan antara tanah subur dan tidak subur pada dataset ini cukup jelas sehingga bisa dibedakan dengan baik oleh algoritma KNN dengan k = 5.
 
 ---
 
 ## Kesimpulan
 
-```{admonition} Kesimpulan Analisis UTS
+```{admonition} Kesimpulan UTS
 :class: tip
 
-1. **Pemrosesan KNIME:** Dataset dibaca menggunakan node **CSV Reader**, dipreview dengan *Interactive Table*, lalu kolom `ID` dihapus menggunakan node **Column Filter** karena tidak relevan untuk klasifikasi.
-2. **Missing Values:** Ditemukan pada beberapa fitur numerik (< 3%) dan berhasil ditangani menggunakan **KNN Imputation** (k=5).
-3. **Normalisasi:** Seluruh fitur numerik dinormalisasi ke rentang [0, 1] menggunakan **Min-Max Normalization** untuk memastikan jarak Euclidean tidak bias terhadap skala fitur.
-4. **Klasifikasi KNN:** Model KNN dengan k optimal menghasilkan akurasi sekitar **91–92%** pada data uji.
-5. **Evaluasi:** Nilai Precision, Recall, dan F1-Score yang seimbang menunjukkan model tidak bias terhadap salah satu kelas (balanced dataset).
-6. **Fitur paling berpengaruh:** pH Tanah, C Organik, KTK, dan N Total merupakan parameter paling determinan dalam membedakan tanah subur dan tidak subur.
+Berdasarkan workflow KNIME yang sudah dibuat, proses analisis data kesuburan tanah selesai dilakukan melalui tahap-tahap berikut:
+
+1. **Excel Reader**: membaca dataset dari file .xlsx ke dalam KNIME
+2. **Column Filter**: membuang kolom ID yang tidak dipakai dalam klasifikasi
+3. **Missing Value**: mengisi nilai kosong dengan mean (numerik) dan most frequent value (kategorikal)
+4. **One to Many**: mengubah kolom Tekstur Tanah dari kategorikal menjadi kolom-kolom biner
+5. **Normalizer**: menyamakan skala semua fitur numerik ke rentang 0 sampai 1 dengan Min-Max Normalization
+6. **Table Partitioner**: membagi data menjadi 80% training (1.600 data) dan 20% testing (400 data)
+7. **K Nearest Neighbor**: melatih model klasifikasi dengan k = 5
+8. **Scorer**: membandingkan label asli dengan hasil prediksi dan menghasilkan metrik evaluasi
+9. **Table View**: menampilkan hasil evaluasi akhir dalam bentuk tabel
+
+Model KNN dengan k = 5 menghasilkan performa sangat baik dengan nilai Accuracy, Precision, Recall, dan F1-Score masing-masing sebesar **100%**, sehingga model berhasil mengklasifikasikan tingkat kesuburan tanah secara akurat pada data yang diuji.
 ```
 
 ---
 
 ## Referensi
 
-1. Cover, T., Hart, P., 1967. *Nearest Neighbor Pattern Classification*. IEEE Transactions on Information Theory, 13(1): 21–27.
+1. Cover, T., Hart, P., 1967. *Nearest Neighbor Pattern Classification*. IEEE Transactions on Information Theory, 13(1): 21-27.
 2. Soil Science Society of America. *Soil Fertility and Plant Nutrition*. Madison, WI: SSSA, 2012.
-3. [Dataset Kesuburan Tanah — Google Spreadsheet](https://docs.google.com/spreadsheets/d/1_VTOGjavAI1Axd4gFRhXrIKRVVjY9zvM/edit?gid=1558601676)
-4. [Soal UTS — HackMD](https://hackmd.io/@jAmaXS8iRwyGXIDziXEPlw/ryewWKrpWx)
+3. [Dataset Kesuburan Tanah - Google Spreadsheet](https://docs.google.com/spreadsheets/d/1_VTOGjavAI1Axd4gFRhXrIKRVVjY9zvM/edit?gid=1558601676)
+4. [Soal UTS - HackMD](https://hackmd.io/@jAmaXS8iRwyGXIDziXEPlw/ryewWKrpWx)
 5. Han, J., Kamber, M., Pei, J., 2011. *Data Mining: Concepts and Techniques* (3rd ed.). Morgan Kaufmann.
 6. [KNIME Analytics Platform Documentation](https://docs.knime.com/)
 7. [Mulaab - Data Mining](https://mulaab.github.io/datamining/)
+

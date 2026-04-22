@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>UTS Ã¢â‚¬â€ Analisa Data Kesuburan Tanah &#8212; Penambangan Data A - Materi Perkuliahan</title>
+    <title>UTS | Analisa Data Kesuburan Tanah &#8212; Penambangan Data A - Materi Perkuliahan</title>
   
   
   
@@ -182,7 +182,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="pertemuan5.html">Materi Pertemuan 5 — Mengukur Jarak/Similaritas Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pertemuan6.html">Materi Pertemuan 6 — Praproses Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pertemuan7.html">Materi Pertemuan 7 — Modeling</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">UTS Ã¢â‚¬â€ Analisa Data Kesuburan Tanah</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">UTS | Analisa Data Kesuburan Tanah</a></li>
 
 
 <li class="toctree-l1"><a class="reference internal" href="pertemuan9.html">Materi Pertemuan 9 — Klasifikasi</a></li>
@@ -374,7 +374,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>UTS Ã¢â‚¬â€ Analisa Data Kesuburan Tanah</h1>
+    <h1>UTS | Analisa Data Kesuburan Tanah</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -384,7 +384,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">UTS Ã¢â‚¬â€ Analisa Data Kesuburan Tanah</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">UTS | Analisa Data Kesuburan Tanah</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nim-240411100144">NIM 240411100144</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nama-zakaria-mujur-prasetyo">Nama: Zakaria Mujur Prasetyo</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mata-kuliah-penambangan-data-a">Mata Kuliah Penambangan Data A</a></li>
@@ -444,8 +444,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="uts-aaa-analisa-data-kesuburan-tanah">
-<h1>UTS Ã¢â‚¬â€ Analisa Data Kesuburan Tanah<a class="headerlink" href="#uts-aaa-analisa-data-kesuburan-tanah" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="uts-analisa-data-kesuburan-tanah">
+<h1>UTS | Analisa Data Kesuburan Tanah<a class="headerlink" href="#uts-analisa-data-kesuburan-tanah" title="Permalink to this heading">#</a></h1>
 <section id="nim-240411100144">
 <h2>NIM 240411100144<a class="headerlink" href="#nim-240411100144" title="Permalink to this heading">#</a></h2>
 </section>
@@ -470,10 +470,11 @@ Klik untuk membuka Daftar Isi<div class="sd-summary-down docutils">
 <ol class="arabic simple">
 <li><p class="sd-card-text"><span class="xref myst">Pendahuluan</span></p></li>
 <li><p class="sd-card-text"><span class="xref myst">Informasi Dataset</span></p></li>
-<li><p class="sd-card-text"><span class="xref myst">Pemrosesan Data di KNIME</span></p></li>
-<li><p class="sd-card-text"><span class="xref myst">Praproses Data (Python)</span></p></li>
-<li><p class="sd-card-text"><span class="xref myst">Klasifikasi dengan KNN</span></p></li>
-<li><p class="sd-card-text"><span class="xref myst">Evaluasi Model</span></p></li>
+<li><p class="sd-card-text"><span class="xref myst">Workflow KNIME</span></p></li>
+<li><p class="sd-card-text"><span class="xref myst">Penjelasan Setiap Node</span></p></li>
+<li><p class="sd-card-text"><span class="xref myst">Hasil Evaluasi Model</span></p></li>
+<li><p class="sd-card-text"><span class="xref myst">Confusion Matrix</span></p></li>
+<li><p class="sd-card-text"><span class="xref myst">Perhitungan Metrik Evaluasi</span></p></li>
 <li><p class="sd-card-text"><span class="xref myst">Kesimpulan</span></p></li>
 <li><p class="sd-card-text"><span class="xref myst">Referensi</span></p></li>
 </ol>
@@ -489,7 +490,7 @@ Klik untuk membuka Daftar Isi<div class="sd-summary-down docutils">
 <div class="note admonition">
 <p class="admonition-title">Tujuan UTS</p>
 <ol class="arabic simple">
-<li><p>Melakukan pemrosesan data menggunakan KNIME (CSV Reader &amp; Column Filter)</p></li>
+<li><p>Melakukan pemrosesan data menggunakan KNIME (Excel Reader, Column Filter, Missing Value, dll.)</p></li>
 <li><p>Menangani missing values pada dataset</p></li>
 <li><p>Melakukan klasifikasi dengan algoritma KNN</p></li>
 <li><p>Menghitung metrik evaluasi: Accuracy, Precision, Recall, dan F1-Score</p></li>
@@ -500,7 +501,7 @@ Klik untuk membuka Daftar Isi<div class="sd-summary-down docutils">
 <section id="informasi-dataset">
 <h2>Informasi Dataset<a class="headerlink" href="#informasi-dataset" title="Permalink to this heading">#</a></h2>
 <blockquote>
-<div><p><strong>Sumber Dataset:</strong> <a class="reference external" href="https://docs.google.com/spreadsheets/d/1_VTOGjavAI1Axd4gFRhXrIKRVVjY9zvM/edit?gid=1558601676">Google Spreadsheet Ã¢â‚¬â€ Dataset Kesuburan Tanah</a></p>
+<div><p><strong>Sumber Dataset:</strong> <a class="reference external" href="https://docs.google.com/spreadsheets/d/1_VTOGjavAI1Axd4gFRhXrIKRVVjY9zvM/edit?gid=1558601676">Google Spreadsheet - Dataset Kesuburan Tanah</a></p>
 </div></blockquote>
 <section id="deskripsi-umum">
 <h3>Deskripsi Umum<a class="headerlink" href="#deskripsi-umum" title="Permalink to this heading">#</a></h3>
@@ -536,7 +537,7 @@ Klik untuk membuka Daftar Isi<div class="sd-summary-down docutils">
 <span class="n">Total</span>        <span class="p">:</span> <span class="mf">2.000</span> <span class="n">sampel</span>
 </pre></div>
 </div>
-<p>Dataset ini <strong>balanced</strong> (seimbang) Ã¢â‚¬â€ tidak ada bias jumlah kelas.</p>
+<p>Dataset ini <strong>balanced</strong> (seimbang) - tidak ada bias jumlah kelas.</p>
 </section>
 <section id="penjelasan-fitur">
 <h3>Penjelasan Fitur<a class="headerlink" href="#penjelasan-fitur" title="Permalink to this heading">#</a></h3>
@@ -553,52 +554,52 @@ Klik untuk membuka Daftar Isi<div class="sd-summary-down docutils">
 <tbody>
 <tr class="row-even"><td><p>1</p></td>
 <td><p><strong>pH Tanah</strong></p></td>
-<td><p>Skala 0Ã¢â‚¬â€œ14</p></td>
+<td><p>Skala 0-14</p></td>
 <td><p>Keasaman/kebasaan tanah</p></td>
-<td><p>6,0 Ã¢â‚¬â€œ 7,5</p></td>
+<td><p>6,0 - 7,5</p></td>
 <td><p>&lt; 5,4 atau &gt; 7,6</p></td>
 </tr>
 <tr class="row-odd"><td><p>2</p></td>
 <td><p><strong>N Total</strong></p></td>
 <td><p>%</p></td>
 <td><p>Kandungan nitrogen total</p></td>
-<td><p>0,21 Ã¢â‚¬â€œ 0,50%</p></td>
-<td><p>0,01 Ã¢â‚¬â€œ 0,20%</p></td>
+<td><p>0,21 - 0,50%</p></td>
+<td><p>0,01 - 0,20%</p></td>
 </tr>
 <tr class="row-even"><td><p>3</p></td>
 <td><p><strong>P Tersedia</strong></p></td>
 <td><p>ppm</p></td>
 <td><p>Fosfor tersedia</p></td>
-<td><p>15 Ã¢â‚¬â€œ 60 ppm</p></td>
-<td><p>1 Ã¢â‚¬â€œ 14 ppm</p></td>
+<td><p>15 - 60 ppm</p></td>
+<td><p>1 - 14 ppm</p></td>
 </tr>
 <tr class="row-odd"><td><p>4</p></td>
 <td><p><strong>K Tersedia</strong></p></td>
 <td><p>meq/100g</p></td>
 <td><p>Kalium tersedia</p></td>
-<td><p>0,30 Ã¢â‚¬â€œ 0,80</p></td>
-<td><p>0,05 Ã¢â‚¬â€œ 0,29</p></td>
+<td><p>0,30 - 0,80</p></td>
+<td><p>0,05 - 0,29</p></td>
 </tr>
 <tr class="row-even"><td><p>5</p></td>
 <td><p><strong>C Organik</strong></p></td>
 <td><p>%</p></td>
 <td><p>Karbon organik</p></td>
-<td><p>2,0 Ã¢â‚¬â€œ 5,0%</p></td>
-<td><p>0,2 Ã¢â‚¬â€œ 1,9%</p></td>
+<td><p>2,0 - 5,0%</p></td>
+<td><p>0,2 - 1,9%</p></td>
 </tr>
 <tr class="row-odd"><td><p>6</p></td>
 <td><p><strong>KTK</strong></p></td>
 <td><p>meq/100g</p></td>
 <td><p>Kapasitas Tukar Kation</p></td>
-<td><p>20 Ã¢â‚¬â€œ 45</p></td>
-<td><p>5 Ã¢â‚¬â€œ 19</p></td>
+<td><p>20 - 45</p></td>
+<td><p>5 - 19</p></td>
 </tr>
 <tr class="row-even"><td><p>7</p></td>
 <td><p><strong>Kejenuhan Basa</strong></p></td>
 <td><p>%</p></td>
 <td><p>Persentase kation basa</p></td>
-<td><p>60 Ã¢â‚¬â€œ 100%</p></td>
-<td><p>10 Ã¢â‚¬â€œ 59%</p></td>
+<td><p>60 - 100%</p></td>
+<td><p>10 - 59%</p></td>
 </tr>
 <tr class="row-odd"><td><p>8</p></td>
 <td><p><strong>Tekstur Tanah</strong></p></td>
@@ -611,15 +612,15 @@ Klik untuk membuka Daftar Isi<div class="sd-summary-down docutils">
 <td><p><strong>Kadar Air</strong></p></td>
 <td><p>%</p></td>
 <td><p>Persentase kadar air</p></td>
-<td><p>25 Ã¢â‚¬â€œ 45%</p></td>
+<td><p>25 - 45%</p></td>
 <td><p>&lt; 20% atau &gt; 55%</p></td>
 </tr>
 <tr class="row-odd"><td><p>10</p></td>
 <td><p><strong>Bulk Density</strong></p></td>
-<td><p>g/cmÃ‚Â³</p></td>
+<td><p>g/cm3</p></td>
 <td><p>Kerapatan tanah</p></td>
-<td><p>0,9 Ã¢â‚¬â€œ 1,2</p></td>
-<td><p>1,4 Ã¢â‚¬â€œ 1,9</p></td>
+<td><p>0,9 - 1,2</p></td>
+<td><p>1,4 - 1,9</p></td>
 </tr>
 </tbody>
 </table>
@@ -684,7 +685,7 @@ Klik untuk membuka Daftar Isi<div class="sd-summary-down docutils">
 <li><p>Kejenuhan Basa (%)</p></li>
 <li><p>Tekstur Tanah</p></li>
 <li><p>Kadar Air (%)</p></li>
-<li><p>Bulk Density (g/cmÂ³)</p></li>
+<li><p>Bulk Density (g/cm3)</p></li>
 <li><p>Label</p></li>
 </ul>
 <p><img alt="Konfigurasi node Column Filter, kolom ID sudah dipindah ke panel Excludes" src="_images/Column-Filter.png" /></p>
@@ -701,7 +702,7 @@ Klik untuk membuka Daftar Isi<div class="sd-summary-down docutils">
 <li><p>C Organik (%)</p></li>
 <li><p>Tekstur Tanah</p></li>
 <li><p>Kadar Air (%)</p></li>
-<li><p>Bulk Density (g/cmÂ³)</p></li>
+<li><p>Bulk Density (g/cm3)</p></li>
 </ul>
 <p>Untuk mengisinya, saya menggunakan dua pendekatan:</p>
 <ul class="simple">
@@ -883,7 +884,7 @@ d(x, y) = \sqrt{\sum_{i=1}^{n}(x_i - y_i)^2}
 <hr class="docutils" />
 <section id="perhitungan-metrik-evaluasi">
 <h2>Perhitungan Metrik Evaluasi<a class="headerlink" href="#perhitungan-metrik-evaluasi" title="Permalink to this heading">#</a></h2>
-<p><img alt="Hasil Matrix Evaluasi" src="_images/hasil-matrix-evaluasi.png" /></p>
+<p>Berikut saya hitung masing-masing metrik secara manual. Saya anggap kelas positif adalah <strong>Subur</strong>.</p>
 <p>Nilai dari confusion matrix yang saya dapat:</p>
 <ul class="simple">
 <li><p><strong>TP</strong> (True Positive) = 200, yaitu data yang saya prediksi Subur dan memang aslinya Subur</p></li>
@@ -1056,7 +1057,7 @@ F1\text{-}Score = \frac{2 \times 1.00 \times 1.00}{1.00 + 1.00} = \frac{2}{2} = 
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">UTS Ã¢â‚¬â€ Analisa Data Kesuburan Tanah</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">UTS | Analisa Data Kesuburan Tanah</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nim-240411100144">NIM 240411100144</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nama-zakaria-mujur-prasetyo">Nama: Zakaria Mujur Prasetyo</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mata-kuliah-penambangan-data-a">Mata Kuliah Penambangan Data A</a></li>

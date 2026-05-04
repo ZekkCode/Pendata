@@ -1,0 +1,1692 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Tugas | Analisa Data Menggunakan Naive Bayes (A) &#8212; Penambangan Data A - Materi Perkuliahan</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tugas_Naive_Bayes_Classifier';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Materi Pertemuan 10 — Clustering" href="pertemuan10.html" />
+    <link rel="prev" title="Materi Pertemuan 9 — Klasifikasi" href="pertemuan9.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data A - Materi Perkuliahan - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Penambangan Data A - Materi Perkuliahan - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Penambangan Data (Data Mining)
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pertemuan1.html">Materi Pertemuan 1 — Pengantar Data Mining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="pertemuan2.html">Materi Pertemuan 2 — Memahami Data</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="pertemuan3.html">Materi Pertemuan 3 — Data Preparation (Extensi)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan4.html">Materi Pertemuan 4 — Preprocessing &amp; Normalisasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas%20-%20Missing%20Values%20Inputation%20%2B%20Materi%20Normalisasi%20Data.html">Tugas — Missing Values (WKNN) &amp; Normalisasi Data</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="pertemuan5.html">Materi Pertemuan 5 — Mengukur Jarak/Similaritas Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan6.html">Materi Pertemuan 6 — Praproses Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan7.html">Materi Pertemuan 7 — Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS_Analisa_Kesuburan_Tanah.html">UTS | Analisa Data Kesuburan Tanah</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="pertemuan9.html">Materi Pertemuan 9 — Klasifikasi</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tugas | Analisa Data Menggunakan Naive Bayes (A)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan10.html">Materi Pertemuan 10 — Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan11.html">Materi Pertemuan 11 — Asosiasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan12.html">Materi Pertemuan 12 — Regresi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan13.html">Materi Pertemuan 13 — Evaluasi Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan14.html">Materi Pertemuan 14 — Studi Kasus &amp; Review</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ZekkCode/Pendata.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ZekkCode/Pendata.git/issues/new?title=Issue%20on%20page%20%2FTugas_Naive_Bayes_Classifier.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Tugas_Naive_Bayes_Classifier.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tugas | Analisa Data Menggunakan Naive Bayes (A)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nim-240411100144">NIM 240411100144</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nama-zakaria-mujur-prasetyo">Nama: Zakaria Mujur Prasetyo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mata-kuliah-penambangan-data-a">Mata Kuliah Penambangan Data A</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dosen-pengampu-mula-ab-s-si-m-kom">Dosen Pengampu: Mula’ab, S.Si., M.Kom</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daftar-isi">Daftar Isi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">Pendahuluan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#teori-naive-bayes">Teori Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-theorem">Bayesian Theorem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asumsi-naive-independensi">Asumsi Naive (Independensi)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-naive-bayes">Gaussian Naive Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#keuntungan-dan-kerugian">Keuntungan dan Kerugian</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informasi-dataset">Informasi Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-umum">Deskripsi Umum</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas">Distribusi Kelas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-fitur">Penjelasan Fitur</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistik-deskriptif">Statistik Deskriptif</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alasan-memilih-dataset-iris">Alasan Memilih Dataset Iris</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahapan-analisis">Tahapan Analisis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-dan-library">Tools dan Library</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library-load-dataset">💻 Import Library &amp; Load Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-5-data-pertama">💻 Menampilkan 5 Data Pertama</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">💻 Statistik Deskriptif</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas-missing-values">💻 Distribusi Kelas &amp; Missing Values</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data">Eksplorasi Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-fitur-per-kelas">Distribusi Fitur per Kelas</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-visualisasi-distribusi-fitur">💻 Kode Visualisasi Distribusi Fitur</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot">Scatter Plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-scatter-plot">💻 Kode Scatter Plot</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-korelasi">Matriks Korelasi</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-heatmap-korelasi">💻 Kode Heatmap Korelasi</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-split-data-train-test">💻 Kode Split Data (Train/Test)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-model">Training Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-gaussian-naive-bayes-gaussiannb">💻 Kode Gaussian Naive Bayes (GaussianNB)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-model-yang-dipelajari">Parameter Model yang Dipelajari</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-probability">Prior Probability</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-dan-variance-2-per-kelas">Mean (μ) dan Variance (σ²) per Kelas</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-evaluasi-model">Hasil Evaluasi Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-prediksi-classification-report">💻 Kode Prediksi &amp; Classification Report</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-metrik-evaluasi">Visualisasi Metrik Evaluasi</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-metrik-evaluasi">Perhitungan Metrik Evaluasi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelas-setosa">Kelas Setosa</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelas-versicolor">Kelas Versicolor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelas-virginica">Kelas Virginica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-keseluruhan">Accuracy Keseluruhan</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediksi-data-baru">Prediksi Data Baru</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-prediksi-data-baru">💻 Kode Prediksi Data Baru</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-probabilitas-prediksi">Visualisasi Probabilitas Prediksi</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-visualisasi-probabilitas">💻 Kode Visualisasi Probabilitas</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretasi-hasil">Interpretasi Hasil</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-dengan-knn-uts">Perbandingan dengan KNN (UTS)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-akhir">Hasil Akhir</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-code">Source Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referensi">Referensi</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="tugas-analisa-data-menggunakan-naive-bayes-a">
+<h1>Tugas | Analisa Data Menggunakan Naive Bayes (A)<a class="headerlink" href="#tugas-analisa-data-menggunakan-naive-bayes-a" title="Link to this heading">#</a></h1>
+<section id="nim-240411100144">
+<h2>NIM 240411100144<a class="headerlink" href="#nim-240411100144" title="Link to this heading">#</a></h2>
+</section>
+<section id="nama-zakaria-mujur-prasetyo">
+<h2>Nama: Zakaria Mujur Prasetyo<a class="headerlink" href="#nama-zakaria-mujur-prasetyo" title="Link to this heading">#</a></h2>
+</section>
+<section id="mata-kuliah-penambangan-data-a">
+<h2>Mata Kuliah Penambangan Data A<a class="headerlink" href="#mata-kuliah-penambangan-data-a" title="Link to this heading">#</a></h2>
+</section>
+<section id="dosen-pengampu-mula-ab-s-si-m-kom">
+<h2>Dosen Pengampu: Mula’ab, <a class="reference external" href="http://S.Si">S.Si</a>., M.Kom<a class="headerlink" href="#dosen-pengampu-mula-ab-s-si-m-kom" title="Link to this heading">#</a></h2>
+</section>
+<section id="daftar-isi">
+<h2>Daftar Isi<a class="headerlink" href="#daftar-isi" title="Link to this heading">#</a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Klik untuk membuka Daftar Isi</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ol class="arabic simple">
+<li><p class="sd-card-text"><a class="reference internal" href="#pendahuluan"><span class="xref myst">Pendahuluan</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#teori-naive-bayes"><span class="xref myst">Teori Naive Bayes</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#informasi-dataset"><span class="xref myst">Informasi Dataset</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#tahapan-analisis"><span class="xref myst">Tahapan Analisis</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#eksplorasi-data"><span class="xref myst">Eksplorasi Data</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#preprocessing"><span class="xref myst">Preprocessing</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#training-model"><span class="xref myst">Training Model</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#hasil-evaluasi-model"><span class="xref myst">Hasil Evaluasi Model</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#confusion-matrix"><span class="xref myst">Confusion Matrix</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#perhitungan-metrik-evaluasi"><span class="xref myst">Perhitungan Metrik Evaluasi</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#prediksi-data-baru"><span class="xref myst">Prediksi Data Baru</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#kesimpulan"><span class="xref myst">Kesimpulan</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#referensi"><span class="xref myst">Referensi</span></a></p></li>
+</ol>
+</div>
+</details></section>
+<hr class="docutils" />
+<section id="pendahuluan">
+<h2>Pendahuluan<a class="headerlink" href="#pendahuluan" title="Link to this heading">#</a></h2>
+<p>Proyek ini bertujuan untuk melakukan analisis data menggunakan algoritma <strong>Naive Bayes Classifier</strong> dengan memanfaatkan library <strong>scikit-learn (sklearn)</strong> pada bahasa pemrograman Python. Berbeda dengan tugas UTS sebelumnya yang menggunakan KNIME Analytics Platform, kali ini saya membangun model classifier secara langsung melalui script Python.</p>
+<p>Naive Bayes dipilih karena merupakan salah satu algoritma klasifikasi yang sederhana namun efektif, terutama untuk dataset dengan fitur yang saling independen. Algoritma ini didasarkan pada <strong>Teorema Bayes</strong> dan mengasumsikan bahwa setiap fitur berkontribusi secara independen terhadap probabilitas kelas.</p>
+<div class="note admonition">
+<p class="admonition-title">Tujuan Tugas</p>
+<ol class="arabic simple">
+<li><p>Membangun model classifier Naive Bayes menggunakan Python (sklearn)</p></li>
+<li><p>Melakukan eksplorasi dan visualisasi data</p></li>
+<li><p>Melatih model Gaussian Naive Bayes pada dataset Iris</p></li>
+<li><p>Mengevaluasi performa model: Accuracy, Precision, Recall, dan F1-Score</p></li>
+<li><p>Mendemonstrasikan prediksi pada data baru</p></li>
+</ol>
+</div>
+</section>
+<hr class="docutils" />
+<section id="teori-naive-bayes">
+<h2>Teori Naive Bayes<a class="headerlink" href="#teori-naive-bayes" title="Link to this heading">#</a></h2>
+<section id="bayesian-theorem">
+<h3>Bayesian Theorem<a class="headerlink" href="#bayesian-theorem" title="Link to this heading">#</a></h3>
+<p>Naive Bayes Classifier didasarkan pada <strong>Teorema Bayes</strong> yang menghitung probabilitas posterior suatu kelas berdasarkan data yang diamati. Dari training data <strong>X</strong>, <em>posteriori</em> probabilitas dari <em>hypothesis</em> H atau class, P(H|X), menggunakan Teorema Bayes:</p>
+<div class="math notranslate nohighlight">
+\[
+P(C \mid \mathbf{X}) = \frac{P(\mathbf{X} \mid C) \cdot P(C)}{P(\mathbf{X})}
+\]</div>
+<p>Di mana:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(P(C \mid \mathbf{X})\)</span> = <strong>Posterior</strong> — probabilitas kelas C diberikan data X</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(\mathbf{X} \mid C)\)</span> = <strong>Likelihood</strong> — probabilitas data X muncul pada kelas C</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(C)\)</span> = <strong>Prior</strong> — probabilitas awal kelas C sebelum melihat data</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(\mathbf{X})\)</span> = <strong>Evidence</strong> — probabilitas data X (konstan untuk semua kelas)</p></li>
+</ul>
+</section>
+<section id="asumsi-naive-independensi">
+<h3>Asumsi Naive (Independensi)<a class="headerlink" href="#asumsi-naive-independensi" title="Link to this heading">#</a></h3>
+<p>Disebut “<strong>Naive</strong>” karena algoritma ini mengasumsikan bahwa semua atribut/fitur dalam kondisi <strong>saling bebas (independent)</strong>, yaitu tidak ada kebergantungan antar atribut:</p>
+<div class="math notranslate nohighlight">
+\[
+P(\mathbf{X} \mid C_j) = \prod_{k=1}^{n} P(x_k \mid C_j)
+\]</div>
+<p>Sehingga untuk klasifikasi, kita perlu memaksimumkan:</p>
+<div class="math notranslate nohighlight">
+\[
+P(C_j \mid \mathbf{X}) = P(\mathbf{X} \mid C_j) \cdot P(C_j)
+\]</div>
+</section>
+<section id="gaussian-naive-bayes">
+<h3>Gaussian Naive Bayes<a class="headerlink" href="#gaussian-naive-bayes" title="Link to this heading">#</a></h3>
+<p>Jika fitur bernilai <strong>kontinu</strong>, probabilitas <span class="math notranslate nohighlight">\(P(x_k \mid C_j)\)</span> dihitung menggunakan <strong>distribusi Gaussian</strong> (distribusi normal) dengan mean <span class="math notranslate nohighlight">\(\mu\)</span> dan standar deviasi <span class="math notranslate nohighlight">\(\sigma\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+P(x_k \mid C_j) = g(x_k, \mu_{C_j}, \sigma_{C_j}) = \frac{1}{\sqrt{2\pi} \cdot \sigma} \cdot e^{-\frac{(x - \mu)^2}{2\sigma^2}}
+\]</div>
+<p>Dalam implementasi sklearn, <code class="docutils literal notranslate"><span class="pre">GaussianNB</span></code> menghitung mean (<span class="math notranslate nohighlight">\(\theta\)</span>) dan variance (<span class="math notranslate nohighlight">\(\sigma^2\)</span>) untuk setiap fitur pada setiap kelas dari data training, kemudian menggunakan distribusi Gaussian tersebut untuk menghitung likelihood.</p>
+</section>
+<section id="keuntungan-dan-kerugian">
+<h3>Keuntungan dan Kerugian<a class="headerlink" href="#keuntungan-dan-kerugian" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Keuntungan</p></th>
+<th class="head"><p>Kerugian</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Mudah diimplementasikan</p></td>
+<td><p>Asumsi independensi fitur jarang terpenuhi sempurna</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cepat dalam training dan prediksi</p></td>
+<td><p>Sensitif terhadap fitur yang berkorelasi</p></td>
+</tr>
+<tr class="row-even"><td><p>Hasil baik di banyak kasus nyata</p></td>
+<td><p>Estimasi probabilitas bisa kurang akurat</p></td>
+</tr>
+<tr class="row-odd"><td><p>Efektif untuk dataset kecil maupun besar</p></td>
+<td><p>Tidak cocok jika hubungan antar fitur sangat kuat</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="informasi-dataset">
+<h2>Informasi Dataset<a class="headerlink" href="#informasi-dataset" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p><strong>Sumber Dataset:</strong> <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html">Iris Dataset — sklearn.datasets</a></p>
+</div></blockquote>
+<p>Dataset <strong>Iris</strong> merupakan dataset klasik dalam machine learning yang pertama kali diperkenalkan oleh <strong>Ronald A. Fisher</strong> pada tahun 1936. Dataset ini berisi pengukuran morfologi tiga spesies bunga iris.</p>
+<section id="deskripsi-umum">
+<h3>Deskripsi Umum<a class="headerlink" href="#deskripsi-umum" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Atribut</p></th>
+<th class="head"><p>Keterangan</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Jumlah Sampel</strong></p></td>
+<td><p>150 baris</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Jumlah Fitur</strong></p></td>
+<td><p>4 fitur (semua numerik kontinu)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Jumlah Kelas</strong></p></td>
+<td><p>3 kelas</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Target / Label</strong></p></td>
+<td><p>Setosa / Versicolor / Virginica</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Missing Values</strong></p></td>
+<td><p>Tidak ada</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="distribusi-kelas">
+<h3>Distribusi Kelas<a class="headerlink" href="#distribusi-kelas" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Setosa</span>       <span class="p">:</span> <span class="mi">50</span> <span class="n">sampel</span> <span class="p">(</span><span class="mf">33.3</span><span class="o">%</span><span class="p">)</span>
+<span class="n">Versicolor</span>   <span class="p">:</span> <span class="mi">50</span> <span class="n">sampel</span> <span class="p">(</span><span class="mf">33.3</span><span class="o">%</span><span class="p">)</span>
+<span class="n">Virginica</span>    <span class="p">:</span> <span class="mi">50</span> <span class="n">sampel</span> <span class="p">(</span><span class="mf">33.3</span><span class="o">%</span><span class="p">)</span>
+<span class="n">Total</span>        <span class="p">:</span> <span class="mi">150</span> <span class="n">sampel</span>
+</pre></div>
+</div>
+<p>Dataset ini <strong>balanced</strong> (seimbang) — setiap kelas memiliki jumlah sampel yang sama.</p>
+</section>
+<section id="penjelasan-fitur">
+<h3>Penjelasan Fitur<a class="headerlink" href="#penjelasan-fitur" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>No</p></th>
+<th class="head"><p>Fitur</p></th>
+<th class="head"><p>Satuan</p></th>
+<th class="head"><p>Deskripsi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><strong>Sepal Length</strong></p></td>
+<td><p>cm</p></td>
+<td><p>Panjang kelopak luar bunga</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><strong>Sepal Width</strong></p></td>
+<td><p>cm</p></td>
+<td><p>Lebar kelopak luar bunga</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><strong>Petal Length</strong></p></td>
+<td><p>cm</p></td>
+<td><p>Panjang kelopak dalam bunga</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><strong>Petal Width</strong></p></td>
+<td><p>cm</p></td>
+<td><p>Lebar kelopak dalam bunga</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="statistik-deskriptif">
+<h3>Statistik Deskriptif<a class="headerlink" href="#statistik-deskriptif" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Statistik</p></th>
+<th class="head"><p>Sepal Length</p></th>
+<th class="head"><p>Sepal Width</p></th>
+<th class="head"><p>Petal Length</p></th>
+<th class="head"><p>Petal Width</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Mean</p></td>
+<td><p>5.84</p></td>
+<td><p>3.06</p></td>
+<td><p>3.76</p></td>
+<td><p>1.20</p></td>
+</tr>
+<tr class="row-odd"><td><p>Std</p></td>
+<td><p>0.83</p></td>
+<td><p>0.44</p></td>
+<td><p>1.77</p></td>
+<td><p>0.76</p></td>
+</tr>
+<tr class="row-even"><td><p>Min</p></td>
+<td><p>4.30</p></td>
+<td><p>2.00</p></td>
+<td><p>1.00</p></td>
+<td><p>0.10</p></td>
+</tr>
+<tr class="row-odd"><td><p>Max</p></td>
+<td><p>7.90</p></td>
+<td><p>4.40</p></td>
+<td><p>6.90</p></td>
+<td><p>2.50</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="alasan-memilih-dataset-iris">
+<h3>Alasan Memilih Dataset Iris<a class="headerlink" href="#alasan-memilih-dataset-iris" title="Link to this heading">#</a></h3>
+<p>Saya memilih dataset Iris karena:</p>
+<ol class="arabic simple">
+<li><p>Dataset ini <strong>balanced</strong> sehingga tidak perlu teknik resampling</p></li>
+<li><p>Semua fiturnya <strong>numerik kontinu</strong> — cocok untuk <strong>Gaussian Naive Bayes</strong></p></li>
+<li><p>Dataset ini sudah tersedia langsung di sklearn, sehingga tidak perlu download terpisah</p></li>
+<li><p>Memiliki 3 kelas, sehingga lebih menantang dibanding klasifikasi biner</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tahapan-analisis">
+<h2>Tahapan Analisis<a class="headerlink" href="#tahapan-analisis" title="Link to this heading">#</a></h2>
+<p>Berikut adalah alur analisis yang saya lakukan secara keseluruhan menggunakan Python:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Load Dataset (sklearn) → Eksplorasi Data → Visualisasi → Split Data (80:20) → Training GaussianNB → Prediksi → Evaluasi → Visualisasi Hasil
+</pre></div>
+</div>
+<section id="tools-dan-library">
+<h3>Tools dan Library<a class="headerlink" href="#tools-dan-library" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Library</p></th>
+<th class="head"><p>Versi</p></th>
+<th class="head"><p>Fungsi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>scikit-learn</strong></p></td>
+<td><p>≥1.0</p></td>
+<td><p>Model Naive Bayes, split data, metrik evaluasi</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>pandas</strong></p></td>
+<td><p>≥1.3</p></td>
+<td><p>Manipulasi dan eksplorasi data dalam DataFrame</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>numpy</strong></p></td>
+<td><p>≥1.21</p></td>
+<td><p>Operasi array dan numerik</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>matplotlib</strong></p></td>
+<td><p>≥3.5</p></td>
+<td><p>Visualisasi grafik dan plot</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>seaborn</strong></p></td>
+<td><p>≥0.12</p></td>
+<td><p>Visualisasi statistik (heatmap, dll)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p><strong>Referensi API sklearn Naive Bayes:</strong> <a class="reference external" href="https://scikit-learn.org/stable/api/sklearn.naive_bayes.html">https://scikit-learn.org/stable/api/sklearn.naive_bayes.html</a></p>
+</div></blockquote>
+</section>
+<section id="import-library-load-dataset">
+<h3>💻 Import Library &amp; Load Dataset<a class="headerlink" href="#import-library-load-dataset" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span>
+    <span class="n">f1_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Load dataset Iris</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;species_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+    <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;Setosa&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Versicolor&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;Virginica&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Jumlah sampel  : </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Jumlah fitur   : </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Jumlah kelas   : </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Nama kelas     : </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;species_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Jumlah</span> <span class="n">sampel</span>  <span class="p">:</span> <span class="mi">150</span>
+<span class="n">Jumlah</span> <span class="n">fitur</span>   <span class="p">:</span> <span class="mi">4</span>
+<span class="n">Jumlah</span> <span class="n">kelas</span>   <span class="p">:</span> <span class="mi">3</span>
+<span class="n">Nama</span> <span class="n">kelas</span>     <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Setosa&#39;</span><span class="p">,</span> <span class="s1">&#39;Versicolor&#39;</span><span class="p">,</span> <span class="s1">&#39;Virginica&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="menampilkan-5-data-pertama">
+<h3>💻 Menampilkan 5 Data Pertama<a class="headerlink" href="#menampilkan-5-data-pertama" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">sepal</span> <span class="n">length</span> <span class="p">(</span><span class="n">cm</span><span class="p">)</span>  <span class="n">sepal</span> <span class="n">width</span> <span class="p">(</span><span class="n">cm</span><span class="p">)</span>  <span class="n">petal</span> <span class="n">length</span> <span class="p">(</span><span class="n">cm</span><span class="p">)</span>  <span class="n">petal</span> <span class="n">width</span> <span class="p">(</span><span class="n">cm</span><span class="p">)</span>  <span class="n">species</span> <span class="n">species_name</span>
+               <span class="mf">5.1</span>               <span class="mf">3.5</span>                <span class="mf">1.4</span>               <span class="mf">0.2</span>        <span class="mi">0</span>       <span class="n">Setosa</span>
+               <span class="mf">4.9</span>               <span class="mf">3.0</span>                <span class="mf">1.4</span>               <span class="mf">0.2</span>        <span class="mi">0</span>       <span class="n">Setosa</span>
+               <span class="mf">4.7</span>               <span class="mf">3.2</span>                <span class="mf">1.3</span>               <span class="mf">0.2</span>        <span class="mi">0</span>       <span class="n">Setosa</span>
+               <span class="mf">4.6</span>               <span class="mf">3.1</span>                <span class="mf">1.5</span>               <span class="mf">0.2</span>        <span class="mi">0</span>       <span class="n">Setosa</span>
+               <span class="mf">5.0</span>               <span class="mf">3.6</span>                <span class="mf">1.4</span>               <span class="mf">0.2</span>        <span class="mi">0</span>       <span class="n">Setosa</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3>💻 Statistik Deskriptif<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>       <span class="n">sepal</span> <span class="n">length</span> <span class="p">(</span><span class="n">cm</span><span class="p">)</span>  <span class="n">sepal</span> <span class="n">width</span> <span class="p">(</span><span class="n">cm</span><span class="p">)</span>  <span class="n">petal</span> <span class="n">length</span> <span class="p">(</span><span class="n">cm</span><span class="p">)</span>  <span class="n">petal</span> <span class="n">width</span> <span class="p">(</span><span class="n">cm</span><span class="p">)</span>     <span class="n">species</span>
+<span class="n">count</span>         <span class="mf">150.000000</span>        <span class="mf">150.000000</span>         <span class="mf">150.000000</span>        <span class="mf">150.000000</span>  <span class="mf">150.000000</span>
+<span class="n">mean</span>            <span class="mf">5.843333</span>          <span class="mf">3.057333</span>           <span class="mf">3.758000</span>          <span class="mf">1.199333</span>    <span class="mf">1.000000</span>
+<span class="n">std</span>             <span class="mf">0.828066</span>          <span class="mf">0.435866</span>           <span class="mf">1.765298</span>          <span class="mf">0.762238</span>    <span class="mf">0.819232</span>
+<span class="nb">min</span>             <span class="mf">4.300000</span>          <span class="mf">2.000000</span>           <span class="mf">1.000000</span>          <span class="mf">0.100000</span>    <span class="mf">0.000000</span>
+<span class="mi">25</span><span class="o">%</span>             <span class="mf">5.100000</span>          <span class="mf">2.800000</span>           <span class="mf">1.600000</span>          <span class="mf">0.300000</span>    <span class="mf">0.000000</span>
+<span class="mi">50</span><span class="o">%</span>             <span class="mf">5.800000</span>          <span class="mf">3.000000</span>           <span class="mf">4.350000</span>          <span class="mf">1.300000</span>    <span class="mf">1.000000</span>
+<span class="mi">75</span><span class="o">%</span>             <span class="mf">6.400000</span>          <span class="mf">3.300000</span>           <span class="mf">5.100000</span>          <span class="mf">1.800000</span>    <span class="mf">2.000000</span>
+<span class="nb">max</span>             <span class="mf">7.900000</span>          <span class="mf">4.400000</span>           <span class="mf">6.900000</span>          <span class="mf">2.500000</span>    <span class="mf">2.000000</span>
+</pre></div>
+</div>
+</section>
+<section id="distribusi-kelas-missing-values">
+<h3>💻 Distribusi Kelas &amp; Missing Values<a class="headerlink" href="#distribusi-kelas-missing-values" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Distribusi kelas</span>
+<span class="n">distribusi</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;species_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">kelas</span><span class="p">,</span> <span class="n">jumlah</span> <span class="ow">in</span> <span class="n">distribusi</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">kelas</span><span class="si">:</span><span class="s1">12s</span><span class="si">}</span><span class="s1"> : </span><span class="si">{</span><span class="n">jumlah</span><span class="si">}</span><span class="s1"> sampel (</span><span class="si">{</span><span class="n">jumlah</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="s2">&quot;Total&quot;</span><span class="si">:</span><span class="s1">12s</span><span class="si">}</span><span class="s1"> : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s1"> sampel&#39;</span><span class="p">)</span>
+
+<span class="c1"># Missing values</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Missing values: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">Setosa</span>       <span class="p">:</span> <span class="mi">50</span> <span class="n">sampel</span> <span class="p">(</span><span class="mf">33.3</span><span class="o">%</span><span class="p">)</span>
+  <span class="n">Versicolor</span>   <span class="p">:</span> <span class="mi">50</span> <span class="n">sampel</span> <span class="p">(</span><span class="mf">33.3</span><span class="o">%</span><span class="p">)</span>
+  <span class="n">Virginica</span>    <span class="p">:</span> <span class="mi">50</span> <span class="n">sampel</span> <span class="p">(</span><span class="mf">33.3</span><span class="o">%</span><span class="p">)</span>
+  <span class="n">Total</span>        <span class="p">:</span> <span class="mi">150</span> <span class="n">sampel</span>
+
+<span class="n">Missing</span> <span class="n">values</span><span class="p">:</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="eksplorasi-data">
+<h2>Eksplorasi Data<a class="headerlink" href="#eksplorasi-data" title="Link to this heading">#</a></h2>
+<section id="distribusi-fitur-per-kelas">
+<h3>Distribusi Fitur per Kelas<a class="headerlink" href="#distribusi-fitur-per-kelas" title="Link to this heading">#</a></h3>
+<p>Saya memvisualisasikan distribusi setiap fitur untuk melihat bagaimana setiap kelas bunga iris tersebar pada masing-masing fitur:</p>
+<section id="kode-visualisasi-distribusi-fitur">
+<h4>💻 Kode Visualisasi Distribusi Fitur<a class="headerlink" href="#kode-visualisasi-distribusi-fitur" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Distribusi Fitur Dataset Iris per Kelas&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Setosa&#39;</span><span class="p">:</span> <span class="s1">&#39;#2ecc71&#39;</span><span class="p">,</span> <span class="s1">&#39;Versicolor&#39;</span><span class="p">:</span> <span class="s1">&#39;#3498db&#39;</span><span class="p">,</span> <span class="s1">&#39;Virginica&#39;</span><span class="p">:</span> <span class="s1">&#39;#e74c3c&#39;</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">idx</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">idx</span> <span class="o">%</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">species_name</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">colors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">subset</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;species_name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">species_name</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">subset</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">species_name</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">title</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Frekuensi&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Assets/NaiveBayes/distribusi_fitur.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<p><img alt="Distribusi setiap fitur dataset Iris per kelas (Setosa, Versicolor, Virginica)" src="_images/distribusi_fitur.png" /></p>
+<p>Dari histogram di atas, saya bisa melihat bahwa:</p>
+<ul class="simple">
+<li><p><strong>Setosa</strong> memiliki petal length dan petal width yang jauh lebih kecil dibandingkan dua kelas lainnya</p></li>
+<li><p><strong>Versicolor</strong> dan <strong>Virginica</strong> memiliki overlap yang cukup signifikan pada sepal length dan sepal width</p></li>
+<li><p><strong>Petal length</strong> dan <strong>petal width</strong> merupakan fitur yang paling diskriminatif untuk membedakan ketiga kelas</p></li>
+</ul>
+</section>
+</section>
+<section id="scatter-plot">
+<h3>Scatter Plot<a class="headerlink" href="#scatter-plot" title="Link to this heading">#</a></h3>
+<section id="kode-scatter-plot">
+<h4>💻 Kode Scatter Plot<a class="headerlink" href="#kode-scatter-plot" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">species_name</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">colors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">subset</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;species_name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">species_name</span><span class="p">]</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">subset</span><span class="p">[</span><span class="s1">&#39;sepal length (cm)&#39;</span><span class="p">],</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;sepal width (cm)&#39;</span><span class="p">],</span>
+                    <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">species_name</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">subset</span><span class="p">[</span><span class="s1">&#39;petal length (cm)&#39;</span><span class="p">],</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;petal width (cm)&#39;</span><span class="p">],</span>
+                    <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">species_name</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sepal Length vs Sepal Width&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Petal Length vs Petal Width&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Assets/NaiveBayes/scatter_plot.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<p><img alt="Scatter plot pasangan fitur Sepal dan Petal pada dataset Iris" src="_images/scatter_plot.png" /></p>
+<p>Dari scatter plot terlihat bahwa:</p>
+<ul class="simple">
+<li><p>Pada dimensi <strong>sepal</strong>, kelas Setosa terpisah cukup jelas, namun Versicolor dan Virginica saling tumpang tindih</p></li>
+<li><p>Pada dimensi <strong>petal</strong>, ketiga kelas terpisah lebih baik — ini mengonfirmasi bahwa fitur petal lebih informatif</p></li>
+</ul>
+</section>
+</section>
+<section id="matriks-korelasi">
+<h3>Matriks Korelasi<a class="headerlink" href="#matriks-korelasi" title="Link to this heading">#</a></h3>
+<section id="kode-heatmap-korelasi">
+<h4>💻 Kode Heatmap Korelasi<a class="headerlink" href="#kode-heatmap-korelasi" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">correlation</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">correlation</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.2f&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
+            <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">square</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Matriks Korelasi Fitur Iris&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Assets/NaiveBayes/korelasi_fitur.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<p><img alt="Matriks korelasi antar fitur pada dataset Iris" src="_images/korelasi_fitur.png" /></p>
+<p>Dari matriks korelasi:</p>
+<ul class="simple">
+<li><p><strong>Petal length</strong> dan <strong>petal width</strong> memiliki korelasi sangat tinggi (0.96)</p></li>
+<li><p><strong>Sepal length</strong> berkorelasi positif dengan petal length (0.87) dan petal width (0.82)</p></li>
+<li><p><strong>Sepal width</strong> memiliki korelasi negatif rendah dengan fitur lainnya</p></li>
+</ul>
+<div class="warning admonition">
+<p class="admonition-title">Catatan tentang Korelasi</p>
+<p>Korelasi tinggi antara fitur menandakan bahwa asumsi independensi pada Naive Bayes tidak sepenuhnya terpenuhi. Meskipun demikian, Naive Bayes secara empiris tetap sering memberikan hasil yang baik meskipun asumsinya dilanggar.</p>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="preprocessing">
+<h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Link to this heading">#</a></h2>
+<section id="kode-split-data-train-test">
+<h3>💻 Kode Split Data (Train/Test)<a class="headerlink" href="#kode-split-data-train-test" title="Link to this heading">#</a></h3>
+<p>Saya membagi data menjadi 80% training dan 20% testing menggunakan <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> dari sklearn dengan stratifikasi agar distribusi kelas tetap proporsional:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Data training : </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> sampel&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Data testing  : </span><span class="si">{</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> sampel&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Data</span> <span class="n">training</span> <span class="p">:</span> <span class="mi">120</span> <span class="n">sampel</span>
+<span class="n">Data</span> <span class="n">testing</span>  <span class="p">:</span> <span class="mi">30</span> <span class="n">sampel</span>
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Set</p></th>
+<th class="head"><p>Jumlah</p></th>
+<th class="head"><p>Setosa</p></th>
+<th class="head"><p>Versicolor</p></th>
+<th class="head"><p>Virginica</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Training</strong></p></td>
+<td><p>120 sampel</p></td>
+<td><p>40</p></td>
+<td><p>40</p></td>
+<td><p>40</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Testing</strong></p></td>
+<td><p>30 sampel</p></td>
+<td><p>10</p></td>
+<td><p>10</p></td>
+<td><p>10</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Mengapa Tidak Perlu Normalisasi?</p>
+<p>Berbeda dengan KNN yang sensitif terhadap skala fitur karena menghitung jarak, <strong>Naive Bayes tidak memerlukan normalisasi</strong> karena bekerja berdasarkan distribusi probabilitas pada setiap fitur secara independen. GaussianNB menghitung mean dan variance per fitur per kelas, sehingga skala fitur tidak mempengaruhi hasil.</p>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="training-model">
+<h2>Training Model<a class="headerlink" href="#training-model" title="Link to this heading">#</a></h2>
+<section id="kode-gaussian-naive-bayes-gaussiannb">
+<h3>💻 Kode Gaussian Naive Bayes (GaussianNB)<a class="headerlink" href="#kode-gaussian-naive-bayes-gaussiannb" title="Link to this heading">#</a></h3>
+<p>Saya melatih model menggunakan <code class="docutils literal notranslate"><span class="pre">GaussianNB</span></code> dari sklearn:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Model berhasil dilatih!&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Classes: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">classes_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Class Prior: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">class_prior_</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Model berhasil dilatih!
+Classes: [0 1 2]
+Class Prior: [0.33333333 0.33333333 0.33333333]
+</pre></div>
+</div>
+</section>
+<section id="parameter-model-yang-dipelajari">
+<h3>Parameter Model yang Dipelajari<a class="headerlink" href="#parameter-model-yang-dipelajari" title="Link to this heading">#</a></h3>
+<p>Setelah training, model mempelajari <strong>prior probability</strong> dan <strong>distribusi Gaussian</strong> (mean &amp; variance) untuk setiap fitur pada setiap kelas:</p>
+<section id="prior-probability">
+<h4>Prior Probability<a class="headerlink" href="#prior-probability" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Kelas</p></th>
+<th class="head"><p>P(C)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Setosa</p></td>
+<td><p>0.3333</p></td>
+</tr>
+<tr class="row-odd"><td><p>Versicolor</p></td>
+<td><p>0.3333</p></td>
+</tr>
+<tr class="row-even"><td><p>Virginica</p></td>
+<td><p>0.3333</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Prior probability seimbang karena data training memiliki jumlah sampel yang sama untuk setiap kelas.</p>
+</section>
+<section id="mean-dan-variance-2-per-kelas">
+<h4>Mean (μ) dan Variance (σ²) per Kelas<a class="headerlink" href="#mean-dan-variance-2-per-kelas" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fitur</p></th>
+<th class="head"><p>Setosa (μ, σ²)</p></th>
+<th class="head"><p>Versicolor (μ, σ²)</p></th>
+<th class="head"><p>Virginica (μ, σ²)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sepal Length</p></td>
+<td><p>4.9850, 0.0928</p></td>
+<td><p>5.9300, 0.2216</p></td>
+<td><p>6.6100, 0.4574</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sepal Width</p></td>
+<td><p>3.4150, 0.1553</p></td>
+<td><p>2.7500, 0.0930</p></td>
+<td><p>2.9800, 0.1221</p></td>
+</tr>
+<tr class="row-even"><td><p>Petal Length</p></td>
+<td><p>1.4775, 0.0252</p></td>
+<td><p>4.2525, 0.1915</p></td>
+<td><p>5.5800, 0.3236</p></td>
+</tr>
+<tr class="row-odd"><td><p>Petal Width</p></td>
+<td><p>0.2550, 0.0130</p></td>
+<td><p>1.3200, 0.0341</p></td>
+<td><p>2.0400, 0.0704</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Nilai mean dan variance ini digunakan oleh model untuk menghitung likelihood <span class="math notranslate nohighlight">\(P(x_k \mid C_j)\)</span> menggunakan distribusi Gaussian pada saat prediksi.</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="hasil-evaluasi-model">
+<h2>Hasil Evaluasi Model<a class="headerlink" href="#hasil-evaluasi-model" title="Link to this heading">#</a></h2>
+<section id="kode-prediksi-classification-report">
+<h3>💻 Kode Prediksi &amp; Classification Report<a class="headerlink" href="#kode-prediksi-classification-report" title="Link to this heading">#</a></h3>
+<p>Setelah model dilatih dengan 120 data training, saya mengujinya pada 30 data testing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">prec</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+<span class="n">rec</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+<span class="n">f1</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy    : </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision   : </span><span class="si">{</span><span class="n">prec</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Recall      : </span><span class="si">{</span><span class="n">rec</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F1-Score    : </span><span class="si">{</span><span class="n">f1</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- Classification Report ---&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Setosa&#39;</span><span class="p">,</span> <span class="s1">&#39;Versicolor&#39;</span><span class="p">,</span> <span class="s1">&#39;Virginica&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Accuracy</span>    <span class="p">:</span> <span class="mf">0.9667</span>
+<span class="n">Precision</span>   <span class="p">:</span> <span class="mf">0.9697</span>
+<span class="n">Recall</span>      <span class="p">:</span> <span class="mf">0.9667</span>
+<span class="n">F1</span><span class="o">-</span><span class="n">Score</span>    <span class="p">:</span> <span class="mf">0.9666</span>
+
+<span class="o">---</span> <span class="n">Classification</span> <span class="n">Report</span> <span class="o">---</span>
+              <span class="n">precision</span>    <span class="n">recall</span>  <span class="n">f1</span><span class="o">-</span><span class="n">score</span>   <span class="n">support</span>
+
+      <span class="n">Setosa</span>       <span class="mf">1.00</span>      <span class="mf">1.00</span>      <span class="mf">1.00</span>        <span class="mi">10</span>
+  <span class="n">Versicolor</span>       <span class="mf">1.00</span>      <span class="mf">0.90</span>      <span class="mf">0.95</span>        <span class="mi">10</span>
+   <span class="n">Virginica</span>       <span class="mf">0.91</span>      <span class="mf">1.00</span>      <span class="mf">0.95</span>        <span class="mi">10</span>
+
+    <span class="n">accuracy</span>                           <span class="mf">0.97</span>        <span class="mi">30</span>
+   <span class="n">macro</span> <span class="n">avg</span>       <span class="mf">0.97</span>      <span class="mf">0.97</span>      <span class="mf">0.97</span>        <span class="mi">30</span>
+<span class="n">weighted</span> <span class="n">avg</span>       <span class="mf">0.97</span>      <span class="mf">0.97</span>      <span class="mf">0.97</span>        <span class="mi">30</span>
+</pre></div>
+</div>
+<section id="visualisasi-metrik-evaluasi">
+<h4>Visualisasi Metrik Evaluasi<a class="headerlink" href="#visualisasi-metrik-evaluasi" title="Link to this heading">#</a></h4>
+<p><img alt="Bar chart metrik evaluasi model Naive Bayes" src="_images/metrik_evaluasi.png" /></p>
+<p>Dari classification report, terlihat bahwa:</p>
+<ul class="simple">
+<li><p><strong>Setosa</strong> diklasifikasikan dengan sempurna (precision dan recall = 1.00)</p></li>
+<li><p><strong>Versicolor</strong> memiliki recall 0.90, artinya ada 1 sampel Versicolor yang salah diprediksi</p></li>
+<li><p><strong>Virginica</strong> memiliki precision 0.91, artinya ada 1 data non-Virginica yang salah masuk ke kelas ini</p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="confusion-matrix">
+<h2>Confusion Matrix<a class="headerlink" href="#confusion-matrix" title="Link to this heading">#</a></h2>
+<p><img alt="Confusion Matrix hasil prediksi Gaussian Naive Bayes pada dataset Iris" src="_images/confusion_matrix.png" /></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Aktual / Prediksi</p></th>
+<th class="head"><p>Pred Setosa</p></th>
+<th class="head"><p>Pred Versicolor</p></th>
+<th class="head"><p>Pred Virginica</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Setosa</strong></p></td>
+<td><p><strong>10</strong></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Versicolor</strong></p></td>
+<td><p>0</p></td>
+<td><p><strong>9</strong></p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Virginica</strong></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p><strong>10</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Interpretasi:</p>
+<ul class="simple">
+<li><p><strong>10 data Setosa</strong> → semua benar diprediksi sebagai Setosa ✅</p></li>
+<li><p><strong>9 dari 10 data Versicolor</strong> → benar diprediksi sebagai Versicolor ✅</p></li>
+<li><p><strong>1 data Versicolor</strong> → salah diprediksi sebagai Virginica ❌</p></li>
+<li><p><strong>10 data Virginica</strong> → semua benar diprediksi sebagai Virginica ✅</p></li>
+</ul>
+<p>Total kesalahan: <strong>1 dari 30 data</strong> (3.33% error rate)</p>
+</section>
+<hr class="docutils" />
+<section id="perhitungan-metrik-evaluasi">
+<h2>Perhitungan Metrik Evaluasi<a class="headerlink" href="#perhitungan-metrik-evaluasi" title="Link to this heading">#</a></h2>
+<p>Berikut saya hitung secara manual untuk setiap kelas:</p>
+<section id="kelas-setosa">
+<h3>Kelas Setosa<a class="headerlink" href="#kelas-setosa" title="Link to this heading">#</a></h3>
+<p>Dari confusion matrix:</p>
+<ul class="simple">
+<li><p><strong>TP</strong> = 10 (diprediksi Setosa, benar Setosa)</p></li>
+<li><p><strong>FP</strong> = 0 (diprediksi Setosa, ternyata bukan)</p></li>
+<li><p><strong>FN</strong> = 0 (aslinya Setosa, tapi diprediksi bukan)</p></li>
+<li><p><strong>TN</strong> = 20 (bukan Setosa, dan memang tidak diprediksi Setosa)</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+Precision = \frac{TP}{TP + FP} = \frac{10}{10 + 0} = 1.0000
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Recall = \frac{TP}{TP + FN} = \frac{10}{10 + 0} = 1.0000
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F1\text{-}Score = \frac{2 \times Precision \times Recall}{Precision + Recall} = \frac{2 \times 1.0 \times 1.0}{1.0 + 1.0} = 1.0000
+\]</div>
+</section>
+<section id="kelas-versicolor">
+<h3>Kelas Versicolor<a class="headerlink" href="#kelas-versicolor" title="Link to this heading">#</a></h3>
+<p>Dari confusion matrix:</p>
+<ul class="simple">
+<li><p><strong>TP</strong> = 9, <strong>FP</strong> = 0, <strong>FN</strong> = 1, <strong>TN</strong> = 20</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+Precision = \frac{9}{9 + 0} = 1.0000
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Recall = \frac{9}{9 + 1} = 0.9000
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F1\text{-}Score = \frac{2 \times 1.0 \times 0.9}{1.0 + 0.9} = 0.9474
+\]</div>
+</section>
+<section id="kelas-virginica">
+<h3>Kelas Virginica<a class="headerlink" href="#kelas-virginica" title="Link to this heading">#</a></h3>
+<p>Dari confusion matrix:</p>
+<ul class="simple">
+<li><p><strong>TP</strong> = 10, <strong>FP</strong> = 1, <strong>FN</strong> = 0, <strong>TN</strong> = 19</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+Precision = \frac{10}{10 + 1} = 0.9091
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Recall = \frac{10}{10 + 0} = 1.0000
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F1\text{-}Score = \frac{2 \times 0.9091 \times 1.0}{0.9091 + 1.0} = 0.9524
+\]</div>
+</section>
+<section id="accuracy-keseluruhan">
+<h3>Accuracy Keseluruhan<a class="headerlink" href="#accuracy-keseluruhan" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+Accuracy = \frac{TP_{total}}{Total} = \frac{10 + 9 + 10}{30} = \frac{29}{30} = 0.9667 \quad (96.67\%)
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="prediksi-data-baru">
+<h2>Prediksi Data Baru<a class="headerlink" href="#prediksi-data-baru" title="Link to this heading">#</a></h2>
+<p>Untuk mendemonstrasikan kemampuan model, saya memprediksi 3 sampel data baru:</p>
+<section id="kode-prediksi-data-baru">
+<h3>💻 Kode Prediksi Data Baru<a class="headerlink" href="#kode-prediksi-data-baru" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_baru</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mf">5.1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>  <span class="c1"># Mirip Setosa</span>
+    <span class="p">[</span><span class="mf">6.7</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">,</span> <span class="mf">4.7</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">],</span>  <span class="c1"># Mirip Versicolor</span>
+    <span class="p">[</span><span class="mf">7.7</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">,</span> <span class="mf">6.7</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>  <span class="c1"># Mirip Virginica</span>
+<span class="p">])</span>
+
+<span class="n">pred_baru</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data_baru</span><span class="p">)</span>
+<span class="n">prob_baru</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">data_baru</span><span class="p">)</span>
+
+<span class="n">label_map</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;Setosa&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Versicolor&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;Virginica&#39;</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">prob</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">data_baru</span><span class="p">,</span> <span class="n">pred_baru</span><span class="p">,</span> <span class="n">prob_baru</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Sampel </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Prediksi         : </span><span class="si">{</span><span class="n">label_map</span><span class="p">[</span><span class="n">pred</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Probabilitas     :&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">cls_idx</span><span class="p">,</span> <span class="n">cls_name</span> <span class="ow">in</span> <span class="n">label_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">marker</span> <span class="o">=</span> <span class="s2">&quot; &lt;-- PREDIKSI&quot;</span> <span class="k">if</span> <span class="n">cls_idx</span> <span class="o">==</span> <span class="n">pred</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  P(</span><span class="si">{</span><span class="n">cls_name</span><span class="si">:</span><span class="s1">12s</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">prob</span><span class="p">[</span><span class="n">cls_idx</span><span class="p">]</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}{</span><span class="n">marker</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sampel</span> <span class="mi">1</span><span class="p">:</span> <span class="p">[</span><span class="mf">5.1</span> <span class="mf">3.5</span> <span class="mf">1.4</span> <span class="mf">0.2</span><span class="p">]</span>
+<span class="n">Prediksi</span>         <span class="p">:</span> <span class="n">Setosa</span>
+<span class="n">Probabilitas</span>     <span class="p">:</span>
+  <span class="n">P</span><span class="p">(</span><span class="n">Setosa</span>      <span class="p">)</span> <span class="o">=</span> <span class="mf">1.000000</span> <span class="o">&lt;--</span> <span class="n">PREDIKSI</span>
+  <span class="n">P</span><span class="p">(</span><span class="n">Versicolor</span>  <span class="p">)</span> <span class="o">=</span> <span class="mf">0.000000</span>
+  <span class="n">P</span><span class="p">(</span><span class="n">Virginica</span>   <span class="p">)</span> <span class="o">=</span> <span class="mf">0.000000</span>
+
+<span class="n">Sampel</span> <span class="mi">2</span><span class="p">:</span> <span class="p">[</span><span class="mf">6.7</span> <span class="mf">3.1</span> <span class="mf">4.7</span> <span class="mf">1.5</span><span class="p">]</span>
+<span class="n">Prediksi</span>         <span class="p">:</span> <span class="n">Versicolor</span>
+<span class="n">Probabilitas</span>     <span class="p">:</span>
+  <span class="n">P</span><span class="p">(</span><span class="n">Setosa</span>      <span class="p">)</span> <span class="o">=</span> <span class="mf">0.000000</span>
+  <span class="n">P</span><span class="p">(</span><span class="n">Versicolor</span>  <span class="p">)</span> <span class="o">=</span> <span class="mf">0.812189</span> <span class="o">&lt;--</span> <span class="n">PREDIKSI</span>
+  <span class="n">P</span><span class="p">(</span><span class="n">Virginica</span>   <span class="p">)</span> <span class="o">=</span> <span class="mf">0.187811</span>
+
+<span class="n">Sampel</span> <span class="mi">3</span><span class="p">:</span> <span class="p">[</span><span class="mf">7.7</span> <span class="mf">2.8</span> <span class="mf">6.7</span> <span class="mf">2.</span> <span class="p">]</span>
+<span class="n">Prediksi</span>         <span class="p">:</span> <span class="n">Virginica</span>
+<span class="n">Probabilitas</span>     <span class="p">:</span>
+  <span class="n">P</span><span class="p">(</span><span class="n">Setosa</span>      <span class="p">)</span> <span class="o">=</span> <span class="mf">0.000000</span>
+  <span class="n">P</span><span class="p">(</span><span class="n">Versicolor</span>  <span class="p">)</span> <span class="o">=</span> <span class="mf">0.000000</span>
+  <span class="n">P</span><span class="p">(</span><span class="n">Virginica</span>   <span class="p">)</span> <span class="o">=</span> <span class="mf">1.000000</span> <span class="o">&lt;--</span> <span class="n">PREDIKSI</span>
+</pre></div>
+</div>
+</section>
+<section id="visualisasi-probabilitas-prediksi">
+<h3>Visualisasi Probabilitas Prediksi<a class="headerlink" href="#visualisasi-probabilitas-prediksi" title="Link to this heading">#</a></h3>
+<section id="kode-visualisasi-probabilitas">
+<h4>💻 Kode Visualisasi Probabilitas<a class="headerlink" href="#kode-visualisasi-probabilitas" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">sample_indices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">]</span>
+<span class="n">sample_probs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[</span><span class="n">sample_indices</span><span class="p">]</span>
+<span class="n">x_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sample_indices</span><span class="p">))</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mf">0.25</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">cls_name</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">colors</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span> <span class="n">sample_probs</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">width</span><span class="p">,</span>
+           <span class="n">label</span><span class="o">=</span><span class="n">cls_name</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Probabilitas Prediksi Naive Bayes (Sampel Terpilih)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="n">width</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;#</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sample_indices</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Kelas&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Assets/NaiveBayes/probabilitas_prediksi.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<p><img alt="Probabilitas prediksi Naive Bayes untuk beberapa sampel terpilih" src="_images/probabilitas_prediksi.png" /></p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="interpretasi-hasil">
+<h2>Interpretasi Hasil<a class="headerlink" href="#interpretasi-hasil" title="Link to this heading">#</a></h2>
+<p>Model Gaussian Naive Bayes yang saya bangun mencapai <strong>accuracy 96.67%</strong> pada data testing, dengan hanya <strong>1 kesalahan</strong> dari 30 prediksi. Kesalahan tersebut terjadi pada 1 sampel Versicolor yang diprediksi sebagai Virginica.</p>
+<p>Hal ini wajar karena:</p>
+<ol class="arabic simple">
+<li><p><strong>Versicolor dan Virginica</strong> memiliki overlap fitur yang cukup tinggi, terutama pada sepal length dan sepal width</p></li>
+<li><p><strong>Asumsi independensi</strong> Naive Bayes tidak sepenuhnya terpenuhi (korelasi petal length dan petal width = 0.96)</p></li>
+<li><p>Meskipun asumsi dilanggar, Naive Bayes tetap memberikan performa yang sangat baik</p></li>
+</ol>
+<p>Kelas <strong>Setosa</strong> diprediksi sempurna karena distribusi fiturnya sangat berbeda dari kelas lain, terutama pada petal length dan petal width.</p>
+</section>
+<hr class="docutils" />
+<section id="perbandingan-dengan-knn-uts">
+<h2>Perbandingan dengan KNN (UTS)<a class="headerlink" href="#perbandingan-dengan-knn-uts" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Aspek</p></th>
+<th class="head"><p>KNN (UTS)</p></th>
+<th class="head"><p>Naive Bayes (Tugas ini)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Tool</strong></p></td>
+<td><p>KNIME Analytics Platform</p></td>
+<td><p>Python + sklearn</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Dataset</strong></p></td>
+<td><p>Kesuburan Tanah (2000 sampel)</p></td>
+<td><p>Iris (150 sampel)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Algoritma</strong></p></td>
+<td><p>K-Nearest Neighbor (k=5)</p></td>
+<td><p>Gaussian Naive Bayes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Preprocessing</strong></p></td>
+<td><p>Missing Value, One-to-Many, Normalizer</p></td>
+<td><p>Tidak perlu normalisasi</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Accuracy</strong></p></td>
+<td><p>100%</p></td>
+<td><p>96.67%</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Kelebihan</strong></p></td>
+<td><p>Tidak perlu asumsi distribusi</p></td>
+<td><p>Cepat, efisien, interpretable</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="kesimpulan">
+<h2>Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h2>
+<p>Dari analisis yang saya lakukan, saya berhasil membangun model classifier menggunakan <strong>Gaussian Naive Bayes</strong> dari library scikit-learn. Berikut rangkuman tahapan yang saya kerjakan:</p>
+<ol class="arabic simple">
+<li><p><strong>Load Dataset</strong>: saya menggunakan dataset Iris dari <code class="docutils literal notranslate"><span class="pre">sklearn.datasets</span></code> yang memiliki 150 sampel dengan 4 fitur numerik dan 3 kelas</p></li>
+<li><p><strong>Eksplorasi Data</strong>: saya memvisualisasikan distribusi fitur, scatter plot, dan matriks korelasi untuk memahami karakteristik data</p></li>
+<li><p><strong>Split Data</strong>: saya membagi data menjadi 80% training (120 sampel) dan 20% testing (30 sampel) dengan stratifikasi</p></li>
+<li><p><strong>Training Model</strong>: saya melatih model GaussianNB yang mempelajari mean dan variance setiap fitur per kelas</p></li>
+<li><p><strong>Evaluasi Model</strong>: saya menghitung Accuracy, Precision, Recall, dan F1-Score</p></li>
+</ol>
+<section id="hasil-akhir">
+<h3>Hasil Akhir<a class="headerlink" href="#hasil-akhir" title="Link to this heading">#</a></h3>
+<p>Model Gaussian Naive Bayes berhasil mengklasifikasikan bunga iris dengan:</p>
+<ul class="simple">
+<li><p><strong>Accuracy: 96.67%</strong> — 29 dari 30 data uji diprediksi dengan benar</p></li>
+<li><p><strong>Precision: 96.97%</strong> — ketepatan prediksi per kelas sangat tinggi</p></li>
+<li><p><strong>Recall: 96.67%</strong> — kemampuan mengenali setiap kelas sangat baik</p></li>
+<li><p><strong>F1-Score: 96.66%</strong> — keseimbangan precision dan recall baik</p></li>
+</ul>
+<p>Kesimpulannya, meskipun Naive Bayes menggunakan asumsi independensi yang tidak sepenuhnya terpenuhi pada dataset Iris (korelasi tinggi antara petal length dan petal width), algoritma ini tetap mampu memberikan performa klasifikasi yang <strong>sangat baik</strong> (&gt; 96%).</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading">#</a></h2>
+<p>Script Python lengkap untuk analisis ini tersedia pada file:</p>
+<blockquote>
+<div><p><strong><a class="reference download internal" download="" href="_downloads/cebda80c5f937b9502adb96cf8c3e7b5/naive_bayes_classifier.py"><span class="xref download myst">naive_bayes_classifier.py</span></a></strong></p>
+</div></blockquote>
+<p>Library yang digunakan:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scikit</span><span class="o">-</span><span class="n">learn</span>
+<span class="n">pandas</span>
+<span class="n">numpy</span>
+<span class="n">matplotlib</span>
+<span class="n">seaborn</span>
+</pre></div>
+</div>
+<p>Cara menjalankan:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>scikit-learn<span class="w"> </span>pandas<span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>seaborn
+python<span class="w"> </span>naive_bayes_classifier.py
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="referensi">
+<h2>Referensi<a class="headerlink" href="#referensi" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Fisher, R.A., 1936. <em>The Use of Multiple Measurements in Taxonomic Problems</em>. Annals of Eugenics, 7(2): 179-188.</p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/api/sklearn.naive_bayes.html">scikit-learn Naive Bayes API Documentation</a></p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/naive_bayes.html">scikit-learn Naive Bayes User Guide</a></p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html">Iris Dataset — sklearn.datasets</a></p></li>
+<li><p>Han, J., Kamber, M., Pei, J., 2011. <em>Data Mining: Concepts and Techniques</em> (3rd ed.). Morgan Kaufmann.</p></li>
+<li><p><a class="reference external" href="https://mulaab.github.io/datamining/">Mulaab - Data Mining</a></p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pertemuan9.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Materi Pertemuan 9 — Klasifikasi</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pertemuan10.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Materi Pertemuan 10 — Clustering</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nim-240411100144">NIM 240411100144</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nama-zakaria-mujur-prasetyo">Nama: Zakaria Mujur Prasetyo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mata-kuliah-penambangan-data-a">Mata Kuliah Penambangan Data A</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dosen-pengampu-mula-ab-s-si-m-kom">Dosen Pengampu: Mula’ab, S.Si., M.Kom</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daftar-isi">Daftar Isi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">Pendahuluan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#teori-naive-bayes">Teori Naive Bayes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-theorem">Bayesian Theorem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#asumsi-naive-independensi">Asumsi Naive (Independensi)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-naive-bayes">Gaussian Naive Bayes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#keuntungan-dan-kerugian">Keuntungan dan Kerugian</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informasi-dataset">Informasi Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-umum">Deskripsi Umum</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas">Distribusi Kelas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#penjelasan-fitur">Penjelasan Fitur</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistik-deskriptif">Statistik Deskriptif</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alasan-memilih-dataset-iris">Alasan Memilih Dataset Iris</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahapan-analisis">Tahapan Analisis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-dan-library">Tools dan Library</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library-load-dataset">💻 Import Library &amp; Load Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-5-data-pertama">💻 Menampilkan 5 Data Pertama</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">💻 Statistik Deskriptif</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas-missing-values">💻 Distribusi Kelas &amp; Missing Values</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data">Eksplorasi Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-fitur-per-kelas">Distribusi Fitur per Kelas</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-visualisasi-distribusi-fitur">💻 Kode Visualisasi Distribusi Fitur</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot">Scatter Plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-scatter-plot">💻 Kode Scatter Plot</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-korelasi">Matriks Korelasi</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-heatmap-korelasi">💻 Kode Heatmap Korelasi</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-split-data-train-test">💻 Kode Split Data (Train/Test)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-model">Training Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-gaussian-naive-bayes-gaussiannb">💻 Kode Gaussian Naive Bayes (GaussianNB)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-model-yang-dipelajari">Parameter Model yang Dipelajari</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-probability">Prior Probability</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-dan-variance-2-per-kelas">Mean (μ) dan Variance (σ²) per Kelas</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-evaluasi-model">Hasil Evaluasi Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-prediksi-classification-report">💻 Kode Prediksi &amp; Classification Report</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-metrik-evaluasi">Visualisasi Metrik Evaluasi</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perhitungan-metrik-evaluasi">Perhitungan Metrik Evaluasi</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelas-setosa">Kelas Setosa</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelas-versicolor">Kelas Versicolor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kelas-virginica">Kelas Virginica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy-keseluruhan">Accuracy Keseluruhan</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediksi-data-baru">Prediksi Data Baru</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-prediksi-data-baru">💻 Kode Prediksi Data Baru</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-probabilitas-prediksi">Visualisasi Probabilitas Prediksi</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-visualisasi-probabilitas">💻 Kode Visualisasi Probabilitas</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretasi-hasil">Interpretasi Hasil</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-dengan-knn-uts">Perbandingan dengan KNN (UTS)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kesimpulan">Kesimpulan</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-akhir">Hasil Akhir</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-code">Source Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#referensi">Referensi</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Zakaria Mujur Prasetyo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright Copyright 2026 Zakaria Mujur Prasetyo.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

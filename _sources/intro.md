@@ -61,8 +61,9 @@ Berikut adalah topik-topik utama yang akan dibahas dalam mata kuliah ini:
 | 8 | [Pertemuan 7](pertemuan7) | Modeling |
 | 9 | [UTS](UTS_Analisa_Kesuburan_Tanah) | Analisa Data Kesuburan Tanah (KNN) |
 | 10 | [Pertemuan 9](pertemuan9) | Klasifikasi |
-| 11 | [Pertemuan 10](pertemuan10) | Clustering |
-| 12 | [Pertemuan 11](pertemuan11) | Asosiasi |
-| 13 | [Pertemuan 12](pertemuan12) | Regresi |
-| 14 | [Pertemuan 13](pertemuan13) | Evaluasi Model |
-| 15 | [Pertemuan 14](pertemuan14) | Studi Kasus & Review |
+| 11 | [Tugas](Tugas_Naive_Bayes_Classifier) | Analisa Data Menggunakan Naive Bayes (A) |
+| 12 | [Pertemuan 10](pertemuan10) | Clustering |
+| 13 | [Pertemuan 11](pertemuan11) | Asosiasi |
+| 14 | [Pertemuan 12](pertemuan12) | Regresi |
+| 15 | [Pertemuan 13](pertemuan13) | Evaluasi Model |
+| 16 | [Pertemuan 14](pertemuan14) | Studi Kasus & Review |

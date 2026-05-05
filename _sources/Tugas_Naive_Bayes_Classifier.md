@@ -98,11 +98,11 @@ Saya menggunakan dataset ini karena datanya sudah seimbang sehingga saya tidak p
 
 ## Eksplorasi Data
 
-Sebelum masuk ke tahap modeling, saya melakukan eksplorasi data menggunakan Python untuk memahami karakteristik fitur yang ada.
+Sebelum masuk ke tahap pemodelan menggunakan KNIME, saya melakukan eksplorasi data awal secara manual menggunakan Python layaknya pada *notebook* Google Colab. Langkah ini penting agar saya bisa memahami struktur data, sebaran kelas, hingga statistik dasarnya.
 
-### Distribusi Fitur per Kelas
+### 💻 Import Library dan Load Dataset
 
-Saya membuat plot histogram untuk melihat bagaimana sebaran data pada masing-masing fitur.
+Pada sel pertama ini, saya mengimpor semua pustaka yang dibutuhkan dan memuat dataset Iris. Dataset langsung saya ambil dari bawaan `sklearn.datasets`.
 
 ```python
 import numpy as np
@@ -111,11 +111,113 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.datasets import load_iris
 
+# Memuat dataset Iris ke dalam Pandas DataFrame
 iris = load_iris()
 df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
 df['species'] = iris.target
-df['species_name'] = df['species'].map({0: 'Setosa', 1: 'Versicolor', 2: 'Virginica'})
 
+# Memetakan angka target ke dalam nama spesies yang sebenarnya
+df['species_name'] = df['species'].map(
+    {0: 'Setosa', 1: 'Versicolor', 2: 'Virginica'}
+)
+
+print(f'Jumlah sampel  : {df.shape[0]}')
+print(f'Jumlah fitur   : {df.shape[1] - 2}')
+print(f'Jumlah kelas   : {df["species"].nunique()}')
+print(f'Nama kelas     : {list(df["species_name"].unique())}')
+```
+
+**Output:**
+```text
+Jumlah sampel  : 150
+Jumlah fitur   : 4
+Jumlah kelas   : 3
+Nama kelas     : ['Setosa', 'Versicolor', 'Virginica']
+```
+
+**Penjelasan Kode:**
+Kode di atas berguna untuk menyiapkan *environment* analisis dan menyusun data ke dalam bentuk tabel (DataFrame). Saya juga memetakan label target yang asalnya berupa angka (0, 1, 2) menjadi nama spesies yang sebenarnya agar lebih mudah dibaca saat analisis.
+
+### 💻 Menampilkan 5 Data Pertama
+
+Saya selalu menampilkan beberapa baris pertama data untuk memastikan bahwa dataset sudah terstruktur dengan baik.
+
+```python
+# Menampilkan 5 baris pertama dari DataFrame
+print(df.head().to_string(index=False))
+```
+
+**Output:**
+```text
+ sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)  species species_name
+               5.1               3.5                1.4               0.2        0       Setosa
+               4.9               3.0                1.4               0.2        0       Setosa
+               4.7               3.2                1.3               0.2        0       Setosa
+               4.6               3.1                1.5               0.2        0       Setosa
+               5.0               3.6                1.4               0.2        0       Setosa
+```
+
+**Penjelasan Kode:**
+Perintah `head()` akan memunculkan 5 sampel teratas. Dari tabel di atas, saya bisa melihat bahwa fitur berisikan angka desimal dan spesies dari kelima sampel awal adalah Setosa.
+
+### 💻 Statistik Deskriptif
+
+Langkah berikutnya adalah melihat rangkuman statistik untuk setiap fitur numerik yang ada.
+
+```python
+# Melihat ringkasan nilai statistik
+print(df.describe().to_string())
+```
+
+**Output:**
+```text
+       sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)     species
+count         150.000000        150.000000         150.000000        150.000000  150.000000
+mean            5.843333          3.057333           3.758000          1.199333    1.000000
+std             0.828066          0.435866           1.765298          0.762238    0.819232
+min             4.300000          2.000000           1.000000          0.100000    0.000000
+25%             5.100000          2.800000           1.600000          0.300000    0.000000
+50%             5.800000          3.000000           4.350000          1.300000    1.000000
+75%             6.400000          3.300000           5.100000          1.800000    2.000000
+max             7.900000          4.400000           6.900000          2.500000    2.000000
+```
+
+**Penjelasan Kode:**
+Perintah `describe()` menghitung metrik penting seperti rata rata (mean), nilai tengah (median/50%), nilai minimum, dan nilai maksimum. Data ini sangat penting bagi saya untuk mendeteksi apakah ada nilai yang tidak wajar atau anomali.
+
+### 💻 Distribusi Kelas dan Missing Values
+
+Selanjutnya saya memeriksa apakah proporsi antar kelas seimbang, serta memastikan tidak ada data yang kosong atau *missing values*.
+
+```python
+# Menghitung distribusi tiap kelas
+distribusi = df['species_name'].value_counts()
+for kelas, jumlah in distribusi.items():
+    print(f'  {kelas:12s} : {jumlah} sampel ({jumlah/len(df)*100:.1f}%)')
+print(f'  {"Total":12s} : {len(df)} sampel')
+
+# Mengecek jumlah missing values
+print(f'\nMissing values: {df.isnull().sum().sum()}')
+```
+
+**Output:**
+```text
+  Setosa       : 50 sampel (33.3%)
+  Versicolor   : 50 sampel (33.3%)
+  Virginica    : 50 sampel (33.3%)
+  Total        : 150 sampel
+
+Missing values: 0
+```
+
+**Penjelasan Kode:**
+Saya menggunakan `value_counts()` untuk menghitung total setiap spesies, dan `isnull().sum()` untuk mendeteksi sel kosong. Hasilnya sangat ideal karena kelasnya terbagi rata persis 33.3% untuk tiap spesies, dan terbukti tidak ada data kosong.
+
+### 💻 Distribusi Fitur per Kelas
+
+Saya membuat plot histogram untuk melihat bagaimana sebaran data pada masing-masing fitur.
+
+```python
 fig, axes = plt.subplots(2, 2, figsize=(14, 10))
 fig.suptitle('Distribusi Fitur Dataset Iris per Kelas', fontsize=16, fontweight='bold')
 colors = {'Setosa': '#2ecc71', 'Versicolor': '#3498db', 'Virginica': '#e74c3c'}
@@ -133,11 +235,16 @@ plt.tight_layout()
 plt.show()
 ```
 
-Dari hasil plot yang saya buat, terlihat jelas bahwa spesies Setosa memiliki ukuran kelopak dalam (petal) yang lebih kecil dibandingkan dua spesies lainnya. Sedangkan untuk Versicolor dan Virginica, ukurannya sedikit tumpang tindih.
+**Output:**
 
-### Scatter Plot
+![Distribusi Fitur](Assets/NaiveBayes/distribusi_fitur.png)
 
-Saya juga menggunakan scatter plot untuk melihat hubungan antar fitur.
+**Penjelasan Kode:**
+Kode ini membuat pengulangan (*loop*) pada keempat fitur dataset, lalu memplot nilai setiap spesies dengan warna berbeda. Dari hasil histogram, terlihat jelas bahwa spesies Setosa memiliki ukuran kelopak dalam (petal) yang lebih kecil dibandingkan dua spesies lainnya. Sedangkan untuk Versicolor dan Virginica, ukurannya sedikit saling tumpang tindih.
+
+### 💻 Scatter Plot
+
+Saya juga menggunakan diagram pencar (*scatter plot*) untuk melihat korelasi antar fitur secara visual.
 
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -156,7 +263,33 @@ plt.tight_layout()
 plt.show()
 ```
 
-Berdasarkan scatter plot, fitur petal (length dan width) lebih ampuh untuk membedakan ketiga kelas tersebut dibandingkan fitur sepal.
+**Output:**
+
+![Scatter Plot](Assets/NaiveBayes/scatter_plot.png)
+
+**Penjelasan Kode:**
+Dengan memasangkan panjang dan lebar pada sepal serta petal, saya bisa melihat penyebaran kluster data. Berdasarkan grafik di atas, fitur petal sangat ampuh untuk memisahkan kelas Setosa dari yang lain, dan cukup baik untuk membedakan Versicolor dan Virginica.
+
+### 💻 Matriks Korelasi
+
+Terakhir untuk eksplorasi data, saya membuat *heatmap* matriks korelasi untuk mengetahui seberapa kuat hubungan antar fitur.
+
+```python
+fig, ax = plt.subplots(figsize=(8, 6))
+correlation = df[iris.feature_names].corr()
+sns.heatmap(correlation, annot=True, fmt='.2f', cmap='RdYlBu_r',
+            linewidths=0.5, ax=ax, vmin=-1, vmax=1, square=True)
+ax.set_title('Matriks Korelasi Fitur Iris', fontsize=14, fontweight='bold')
+plt.tight_layout()
+plt.show()
+```
+
+**Output:**
+
+![Korelasi Fitur](Assets/NaiveBayes/korelasi_fitur.png)
+
+**Penjelasan Kode:**
+Kode `corr()` menghitung tingkat korelasi atau hubungan matematis antar variabel. Nilai yang mendekati 1 artinya hubungan berbanding lurus dan sangat kuat. Dari peta panas (*heatmap*) di atas, terlihat bahwa `petal length` dan `petal width` memiliki korelasi sangat tinggi yaitu 0.96.
 
 ## Implementasi Model KNIME dengan Python Script
 
@@ -207,7 +340,7 @@ Pertama, saya mengonfigurasi node **CSV Reader** untuk mengambil file `IRIS.csv`
 
 Dari node CSV Reader tersebut, saya menarik garis ke empat node **Python Script** yang telah saya siapkan. Setiap Python script hanya mengandalkan satu output table saja untuk mencegah error indeks. Selanjutnya, saya hubungkan masing-masing script tersebut ke node **Table View** untuk melihat hasilnya.
 
-### E. Kode Python Script 1: Ringkasan Data
+### 💻 Kode Python Script 1: Ringkasan Data
 
 Pada node script pertama ini, tujuan saya adalah memberikan informasi dasar mengenai dataset dan skema pembagian data yang saya gunakan.
 
@@ -263,14 +396,18 @@ ringkasan_df = pd.DataFrame({
 
 ringkasan_df = ringkasan_df.astype(str)
 
+# Mengirimkan tabel ringkasan ke output KNIME
 knio.output_tables[0] = knio.Table.from_pandas(ringkasan_df)
 ```
 
-Berikut adalah hasil tabel ringkasan data yang muncul di KNIME:
+**Output Table View:**
 
 ![Output Table View Ringkasan Data](Assets/Tugas/Tugas_NaiveBayesClassifer/TableViewRingkasanData.png)
 
-### F. Kode Python Script 2: Evaluasi Model
+**Penjelasan Kode:**
+Dalam sel ini, saya menggunakan fungsi `train_test_split` untuk memecah dataset menjadi 80% data latih (training) dan 20% data uji (testing). Saya juga mengaktifkan parameter `stratify` agar proporsi tiap spesies tetap seimbang di kedua bagian data. Kemudian saya menyusun informasinya ke dalam sebuah DataFrame Pandas baru dan mengembalikannya ke KNIME melalui perintah `knio.output_tables`.
+
+### 💻 Kode Python Script 2: Evaluasi Model
 
 Pada script kedua, saya melatih model Gaussian Naive Bayes lalu langsung menghitung kinerja model tersebut menggunakan metrik standar.
 
@@ -314,11 +451,14 @@ evaluasi_df = pd.DataFrame({
 knio.output_tables[0] = knio.Table.from_pandas(evaluasi_df)
 ```
 
-Hasil metrik evaluasinya terlihat sangat baik, sebagaimana ditunjukkan pada gambar berikut:
+**Output Table View:**
 
 ![Output Table View Evaluasi Model](Assets/Tugas/Tugas_NaiveBayesClassifer/TableViewEvaluasiModel.png)
 
-### G. Kode Python Script 3: Confusion Matrix
+**Penjelasan Kode:**
+Setelah data dipecah, saya memanggil algoritma `GaussianNB()` dan melatihnya dengan data training (`model.fit`). Setelah itu, model diminta menebak data uji (`model.predict`). Hasil tebakan ini lalu saya bandingkan dengan kunci jawaban aslinya untuk mencari nilai Accuracy, Precision, Recall, dan F1 Score. Semua nilai tersebut dikumpulkan ke dalam tabel evaluasi.
+
+### 💻 Kode Python Script 3: Confusion Matrix
 
 Untuk melihat sebaran prediksi yang benar dan yang meleset, saya menyusun confusion matrix.
 
@@ -346,6 +486,7 @@ model = GaussianNB()
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 
+# Membuat Confusion Matrix
 cm = confusion_matrix(y_test, y_pred, labels=model.classes_)
 
 confusion_df = pd.DataFrame(
@@ -360,15 +501,18 @@ confusion_df = confusion_df.rename(columns={"index": "Actual / Predicted"})
 knio.output_tables[0] = knio.Table.from_pandas(confusion_df)
 ```
 
-Berikut tampilan matriks kebingungannya:
+**Output Table View:**
 
 ![Output Table View Confusion Matrix](Assets/Tugas/Tugas_NaiveBayesClassifer/TableViewConfusionMatrix.png)
+
+**Penjelasan Kode:**
+Fungsi `confusion_matrix` akan menghasilkan matriks perbandingan antara nilai nyata (*actual*) dengan nilai tebakan model (*predicted*). Saya mengubah format matriks keluaran tersebut menjadi DataFrame Pandas dan merapikan penamaan kolomnya agar tabelnya cantik dan mudah dibaca ketika ditampilkan di KNIME.
 
 #### Solusi Jika Confusion Matrix Hanya Muncul RowID
 
 Terkadang, Table View hanya menampilkan RowID tanpa memperlihatkan kolom datanya. Padahal datanya sudah ada di sana. Untuk mengatasinya, saya biasa membuka konfigurasi Table View lalu mengubah pengaturan kolom. Pada tab Wildcard, saya menampilkan semua kolom dengan mengetik pola bintang lalu menekan apply. Atau bisa juga melalui tab Manual dengan mencentang semua kolom yang ingin ditampilkan.
 
-### H. Kode Python Script 4: Prediksi Testing
+### 💻 Kode Python Script 4: Prediksi Testing
 
 Terakhir, saya ingin melihat secara rinci data mana saja yang tebakannya benar dan mana yang salah, beserta probabilitas keyakinan model.
 
@@ -396,7 +540,7 @@ model = GaussianNB()
 model.fit(X_train, y_train)
 
 y_pred = model.predict(X_test)
-y_proba = model.predict_proba(X_test)
+y_proba = model.predict_proba(X_test) # Mengambil nilai probabilitas
 
 prediksi_df = X_test.copy().reset_index(drop=True)
 prediksi_df["actual_species"] = y_test.reset_index(drop=True)
@@ -416,9 +560,12 @@ for index, class_name in enumerate(model.classes_):
 knio.output_tables[0] = knio.Table.from_pandas(prediksi_df)
 ```
 
-Hasil tebakan model secara rinci dapat dilihat di sini:
+**Output Table View:**
 
 ![Output Table View Hasil Prediksi Testing](Assets/Tugas/Tugas_NaiveBayesClassifer/TableViewPrediksiTraining.png)
+
+**Penjelasan Kode:**
+Selain `predict`, di sini saya juga menggunakan `predict_proba` untuk melihat seberapa yakin model menebak sebuah kelas. Nilainya dalam persentase desimal (0 sampai 1). Kemudian, dengan menggunakan `np.where`, saya secara otomatis memberikan label "Benar" jika tebakan cocok dengan kunci jawaban, atau "Salah" jika tebakan meleset. Hal ini sangat mempermudah saya mengamati data uji yang gagal diprediksi dengan tepat.
 
 ### Urutan Eksekusi
 

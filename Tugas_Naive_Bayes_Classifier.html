@@ -403,8 +403,13 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data">Eksplorasi Data</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-fitur-per-kelas">Distribusi Fitur per Kelas</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot">Scatter Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library-dan-load-dataset">💻 Import Library dan Load Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-5-data-pertama">💻 Menampilkan 5 Data Pertama</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistik-deskriptif">💻 Statistik Deskriptif</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas-dan-missing-values">💻 Distribusi Kelas dan Missing Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-fitur-per-kelas">💻 Distribusi Fitur per Kelas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot">💻 Scatter Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-korelasi">💻 Matriks Korelasi</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-model-knime-dengan-python-script">Implementasi Model KNIME dengan Python Script</a><ul class="nav section-nav flex-column">
@@ -412,13 +417,13 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-bentuk-workflow-di-knime">B. Bentuk Workflow di KNIME</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-node-yang-digunakan">C. Node yang Digunakan</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-langkah-membuat-workflow">D. Langkah Membuat Workflow</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-kode-python-script-1-ringkasan-data">E. Kode Python Script 1: Ringkasan Data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-kode-python-script-2-evaluasi-model">F. Kode Python Script 2: Evaluasi Model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#g-kode-python-script-3-confusion-matrix">G. Kode Python Script 3: Confusion Matrix</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-python-script-1-ringkasan-data">💻 Kode Python Script 1: Ringkasan Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-python-script-2-evaluasi-model">💻 Kode Python Script 2: Evaluasi Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-python-script-3-confusion-matrix">💻 Kode Python Script 3: Confusion Matrix</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solusi-jika-confusion-matrix-hanya-muncul-rowid">Solusi Jika Confusion Matrix Hanya Muncul RowID</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h-kode-python-script-4-prediksi-testing">H. Kode Python Script 4: Prediksi Testing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-python-script-4-prediksi-testing">💻 Kode Python Script 4: Prediksi Testing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#urutan-eksekusi">Urutan Eksekusi</a></li>
 </ul>
 </li>
@@ -551,22 +556,112 @@ P(x_k \mid C_j) = g(x_k, \mu_{C_j}, \sigma_{C_j}) = \frac{1}{\sqrt{2\pi} \cdot \
 </section>
 <section id="eksplorasi-data">
 <h2>Eksplorasi Data<a class="headerlink" href="#eksplorasi-data" title="Permalink to this heading">#</a></h2>
-<p>Sebelum masuk ke tahap modeling, saya melakukan eksplorasi data menggunakan Python untuk memahami karakteristik fitur yang ada.</p>
-<section id="distribusi-fitur-per-kelas">
-<h3>Distribusi Fitur per Kelas<a class="headerlink" href="#distribusi-fitur-per-kelas" title="Permalink to this heading">#</a></h3>
-<p>Saya membuat plot histogram untuk melihat bagaimana sebaran data pada masing-masing fitur.</p>
+<p>Sebelum masuk ke tahap pemodelan menggunakan KNIME, saya melakukan eksplorasi data awal secara manual menggunakan Python layaknya pada <em>notebook</em> Google Colab. Langkah ini penting agar saya bisa memahami struktur data, sebaran kelas, hingga statistik dasarnya.</p>
+<section id="import-library-dan-load-dataset">
+<h3>💻 Import Library dan Load Dataset<a class="headerlink" href="#import-library-dan-load-dataset" title="Permalink to this heading">#</a></h3>
+<p>Pada sel pertama ini, saya mengimpor semua pustaka yang dibutuhkan dan memuat dataset Iris. Dataset langsung saya ambil dari bawaan <code class="docutils literal notranslate"><span class="pre">sklearn.datasets</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
 
+<span class="c1"># Memuat dataset Iris ke dalam Pandas DataFrame</span>
 <span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;species_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;Setosa&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Versicolor&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;Virginica&#39;</span><span class="p">})</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="c1"># Memetakan angka target ke dalam nama spesies yang sebenarnya</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;species_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+    <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;Setosa&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Versicolor&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;Virginica&#39;</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Jumlah sampel  : </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Jumlah fitur   : </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Jumlah kelas   : </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Nama kelas     : </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;species_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Jumlah sampel  : 150
+Jumlah fitur   : 4
+Jumlah kelas   : 3
+Nama kelas     : [&#39;Setosa&#39;, &#39;Versicolor&#39;, &#39;Virginica&#39;]
+</pre></div>
+</div>
+<p><strong>Penjelasan Kode:</strong>
+Kode di atas berguna untuk menyiapkan <em>environment</em> analisis dan menyusun data ke dalam bentuk tabel (DataFrame). Saya juga memetakan label target yang asalnya berupa angka (0, 1, 2) menjadi nama spesies yang sebenarnya agar lebih mudah dibaca saat analisis.</p>
+</section>
+<section id="menampilkan-5-data-pertama">
+<h3>💻 Menampilkan 5 Data Pertama<a class="headerlink" href="#menampilkan-5-data-pertama" title="Permalink to this heading">#</a></h3>
+<p>Saya selalu menampilkan beberapa baris pertama data untuk memastikan bahwa dataset sudah terstruktur dengan baik.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menampilkan 5 baris pertama dari DataFrame</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)  species species_name
+               5.1               3.5                1.4               0.2        0       Setosa
+               4.9               3.0                1.4               0.2        0       Setosa
+               4.7               3.2                1.3               0.2        0       Setosa
+               4.6               3.1                1.5               0.2        0       Setosa
+               5.0               3.6                1.4               0.2        0       Setosa
+</pre></div>
+</div>
+<p><strong>Penjelasan Kode:</strong>
+Perintah <code class="docutils literal notranslate"><span class="pre">head()</span></code> akan memunculkan 5 sampel teratas. Dari tabel di atas, saya bisa melihat bahwa fitur berisikan angka desimal dan spesies dari kelima sampel awal adalah Setosa.</p>
+</section>
+<section id="statistik-deskriptif">
+<h3>💻 Statistik Deskriptif<a class="headerlink" href="#statistik-deskriptif" title="Permalink to this heading">#</a></h3>
+<p>Langkah berikutnya adalah melihat rangkuman statistik untuk setiap fitur numerik yang ada.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Melihat ringkasan nilai statistik</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>       sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)     species
+count         150.000000        150.000000         150.000000        150.000000  150.000000
+mean            5.843333          3.057333           3.758000          1.199333    1.000000
+std             0.828066          0.435866           1.765298          0.762238    0.819232
+min             4.300000          2.000000           1.000000          0.100000    0.000000
+25%             5.100000          2.800000           1.600000          0.300000    0.000000
+50%             5.800000          3.000000           4.350000          1.300000    1.000000
+75%             6.400000          3.300000           5.100000          1.800000    2.000000
+max             7.900000          4.400000           6.900000          2.500000    2.000000
+</pre></div>
+</div>
+<p><strong>Penjelasan Kode:</strong>
+Perintah <code class="docutils literal notranslate"><span class="pre">describe()</span></code> menghitung metrik penting seperti rata rata (mean), nilai tengah (median/50%), nilai minimum, dan nilai maksimum. Data ini sangat penting bagi saya untuk mendeteksi apakah ada nilai yang tidak wajar atau anomali.</p>
+</section>
+<section id="distribusi-kelas-dan-missing-values">
+<h3>💻 Distribusi Kelas dan Missing Values<a class="headerlink" href="#distribusi-kelas-dan-missing-values" title="Permalink to this heading">#</a></h3>
+<p>Selanjutnya saya memeriksa apakah proporsi antar kelas seimbang, serta memastikan tidak ada data yang kosong atau <em>missing values</em>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menghitung distribusi tiap kelas</span>
+<span class="n">distribusi</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;species_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">kelas</span><span class="p">,</span> <span class="n">jumlah</span> <span class="ow">in</span> <span class="n">distribusi</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">kelas</span><span class="si">:</span><span class="s1">12s</span><span class="si">}</span><span class="s1"> : </span><span class="si">{</span><span class="n">jumlah</span><span class="si">}</span><span class="s1"> sampel (</span><span class="si">{</span><span class="n">jumlah</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="s2">&quot;Total&quot;</span><span class="si">:</span><span class="s1">12s</span><span class="si">}</span><span class="s1"> : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s1"> sampel&#39;</span><span class="p">)</span>
+
+<span class="c1"># Mengecek jumlah missing values</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Missing values: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>  Setosa       : 50 sampel (33.3%)
+  Versicolor   : 50 sampel (33.3%)
+  Virginica    : 50 sampel (33.3%)
+  Total        : 150 sampel
+
+Missing values: 0
+</pre></div>
+</div>
+<p><strong>Penjelasan Kode:</strong>
+Saya menggunakan <code class="docutils literal notranslate"><span class="pre">value_counts()</span></code> untuk menghitung total setiap spesies, dan <code class="docutils literal notranslate"><span class="pre">isnull().sum()</span></code> untuk mendeteksi sel kosong. Hasilnya sangat ideal karena kelasnya terbagi rata persis 33.3% untuk tiap spesies, dan terbukti tidak ada data kosong.</p>
+</section>
+<section id="distribusi-fitur-per-kelas">
+<h3>💻 Distribusi Fitur per Kelas<a class="headerlink" href="#distribusi-fitur-per-kelas" title="Permalink to this heading">#</a></h3>
+<p>Saya membuat plot histogram untuk melihat bagaimana sebaran data pada masing-masing fitur.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Distribusi Fitur Dataset Iris per Kelas&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
 <span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Setosa&#39;</span><span class="p">:</span> <span class="s1">&#39;#2ecc71&#39;</span><span class="p">,</span> <span class="s1">&#39;Versicolor&#39;</span><span class="p">:</span> <span class="s1">&#39;#3498db&#39;</span><span class="p">,</span> <span class="s1">&#39;Virginica&#39;</span><span class="p">:</span> <span class="s1">&#39;#e74c3c&#39;</span><span class="p">}</span>
 
@@ -583,11 +678,14 @@ P(x_k \mid C_j) = g(x_k, \mu_{C_j}, \sigma_{C_j}) = \frac{1}{\sqrt{2\pi} \cdot \
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Dari hasil plot yang saya buat, terlihat jelas bahwa spesies Setosa memiliki ukuran kelopak dalam (petal) yang lebih kecil dibandingkan dua spesies lainnya. Sedangkan untuk Versicolor dan Virginica, ukurannya sedikit tumpang tindih.</p>
+<p><strong>Output:</strong></p>
+<p><img alt="Distribusi Fitur" src="_images/distribusi_fitur.png" /></p>
+<p><strong>Penjelasan Kode:</strong>
+Kode ini membuat pengulangan (<em>loop</em>) pada keempat fitur dataset, lalu memplot nilai setiap spesies dengan warna berbeda. Dari hasil histogram, terlihat jelas bahwa spesies Setosa memiliki ukuran kelopak dalam (petal) yang lebih kecil dibandingkan dua spesies lainnya. Sedangkan untuk Versicolor dan Virginica, ukurannya sedikit saling tumpang tindih.</p>
 </section>
 <section id="scatter-plot">
-<h3>Scatter Plot<a class="headerlink" href="#scatter-plot" title="Permalink to this heading">#</a></h3>
-<p>Saya juga menggunakan scatter plot untuk melihat hubungan antar fitur.</p>
+<h3>💻 Scatter Plot<a class="headerlink" href="#scatter-plot" title="Permalink to this heading">#</a></h3>
+<p>Saya juga menggunakan diagram pencar (<em>scatter plot</em>) untuk melihat korelasi antar fitur secara visual.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">species_name</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">colors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="n">subset</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;species_name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">species_name</span><span class="p">]</span>
@@ -604,7 +702,27 @@ P(x_k \mid C_j) = g(x_k, \mu_{C_j}, \sigma_{C_j}) = \frac{1}{\sqrt{2\pi} \cdot \
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Berdasarkan scatter plot, fitur petal (length dan width) lebih ampuh untuk membedakan ketiga kelas tersebut dibandingkan fitur sepal.</p>
+<p><strong>Output:</strong></p>
+<p><img alt="Scatter Plot" src="_images/scatter_plot.png" /></p>
+<p><strong>Penjelasan Kode:</strong>
+Dengan memasangkan panjang dan lebar pada sepal serta petal, saya bisa melihat penyebaran kluster data. Berdasarkan grafik di atas, fitur petal sangat ampuh untuk memisahkan kelas Setosa dari yang lain, dan cukup baik untuk membedakan Versicolor dan Virginica.</p>
+</section>
+<section id="matriks-korelasi">
+<h3>💻 Matriks Korelasi<a class="headerlink" href="#matriks-korelasi" title="Permalink to this heading">#</a></h3>
+<p>Terakhir untuk eksplorasi data, saya membuat <em>heatmap</em> matriks korelasi untuk mengetahui seberapa kuat hubungan antar fitur.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">correlation</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">correlation</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;.2f&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">,</span>
+            <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">square</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Matriks Korelasi Fitur Iris&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<p><img alt="Korelasi Fitur" src="_images/korelasi_fitur.png" /></p>
+<p><strong>Penjelasan Kode:</strong>
+Kode <code class="docutils literal notranslate"><span class="pre">corr()</span></code> menghitung tingkat korelasi atau hubungan matematis antar variabel. Nilai yang mendekati 1 artinya hubungan berbanding lurus dan sangat kuat. Dari peta panas (<em>heatmap</em>) di atas, terlihat bahwa <code class="docutils literal notranslate"><span class="pre">petal</span> <span class="pre">length</span></code> dan <code class="docutils literal notranslate"><span class="pre">petal</span> <span class="pre">width</span></code> memiliki korelasi sangat tinggi yaitu 0.96.</p>
 </section>
 </section>
 <section id="implementasi-model-knime-dengan-python-script">
@@ -650,8 +768,8 @@ CSV Reader ──────┼── Python Script Evaluasi Model   ──&gt;
 <p>Pertama, saya mengonfigurasi node <strong>CSV Reader</strong> untuk mengambil file <code class="docutils literal notranslate"><span class="pre">IRIS.csv</span></code>. Saya memastikan bahwa kolom-kolom seperti <code class="docutils literal notranslate"><span class="pre">sepal_length</span></code>, <code class="docutils literal notranslate"><span class="pre">sepal_width</span></code>, <code class="docutils literal notranslate"><span class="pre">petal_length</span></code>, <code class="docutils literal notranslate"><span class="pre">petal_width</span></code>, dan <code class="docutils literal notranslate"><span class="pre">species</span></code> terbaca dengan baik. Setelah itu, saya tekan Execute agar data siap disalurkan.</p>
 <p>Dari node CSV Reader tersebut, saya menarik garis ke empat node <strong>Python Script</strong> yang telah saya siapkan. Setiap Python script hanya mengandalkan satu output table saja untuk mencegah error indeks. Selanjutnya, saya hubungkan masing-masing script tersebut ke node <strong>Table View</strong> untuk melihat hasilnya.</p>
 </section>
-<section id="e-kode-python-script-1-ringkasan-data">
-<h3>E. Kode Python Script 1: Ringkasan Data<a class="headerlink" href="#e-kode-python-script-1-ringkasan-data" title="Permalink to this heading">#</a></h3>
+<section id="kode-python-script-1-ringkasan-data">
+<h3>💻 Kode Python Script 1: Ringkasan Data<a class="headerlink" href="#kode-python-script-1-ringkasan-data" title="Permalink to this heading">#</a></h3>
 <p>Pada node script pertama ini, tujuan saya adalah memberikan informasi dasar mengenai dataset dan skema pembagian data yang saya gunakan.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">knime.scripting.io</span> <span class="k">as</span> <span class="nn">knio</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -704,14 +822,17 @@ CSV Reader ──────┼── Python Script Evaluasi Model   ──&gt;
 
 <span class="n">ringkasan_df</span> <span class="o">=</span> <span class="n">ringkasan_df</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
 
+<span class="c1"># Mengirimkan tabel ringkasan ke output KNIME</span>
 <span class="n">knio</span><span class="o">.</span><span class="n">output_tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">knio</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">ringkasan_df</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Berikut adalah hasil tabel ringkasan data yang muncul di KNIME:</p>
+<p><strong>Output Table View:</strong></p>
 <p><img alt="Output Table View Ringkasan Data" src="_images/TableViewRingkasanData.png" /></p>
+<p><strong>Penjelasan Kode:</strong>
+Dalam sel ini, saya menggunakan fungsi <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> untuk memecah dataset menjadi 80% data latih (training) dan 20% data uji (testing). Saya juga mengaktifkan parameter <code class="docutils literal notranslate"><span class="pre">stratify</span></code> agar proporsi tiap spesies tetap seimbang di kedua bagian data. Kemudian saya menyusun informasinya ke dalam sebuah DataFrame Pandas baru dan mengembalikannya ke KNIME melalui perintah <code class="docutils literal notranslate"><span class="pre">knio.output_tables</span></code>.</p>
 </section>
-<section id="f-kode-python-script-2-evaluasi-model">
-<h3>F. Kode Python Script 2: Evaluasi Model<a class="headerlink" href="#f-kode-python-script-2-evaluasi-model" title="Permalink to this heading">#</a></h3>
+<section id="kode-python-script-2-evaluasi-model">
+<h3>💻 Kode Python Script 2: Evaluasi Model<a class="headerlink" href="#kode-python-script-2-evaluasi-model" title="Permalink to this heading">#</a></h3>
 <p>Pada script kedua, saya melatih model Gaussian Naive Bayes lalu langsung menghitung kinerja model tersebut menggunakan metrik standar.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">knime.scripting.io</span> <span class="k">as</span> <span class="nn">knio</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -752,11 +873,13 @@ CSV Reader ──────┼── Python Script Evaluasi Model   ──&gt;
 <span class="n">knio</span><span class="o">.</span><span class="n">output_tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">knio</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">evaluasi_df</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Hasil metrik evaluasinya terlihat sangat baik, sebagaimana ditunjukkan pada gambar berikut:</p>
+<p><strong>Output Table View:</strong></p>
 <p><img alt="Output Table View Evaluasi Model" src="_images/TableViewEvaluasiModel.png" /></p>
+<p><strong>Penjelasan Kode:</strong>
+Setelah data dipecah, saya memanggil algoritma <code class="docutils literal notranslate"><span class="pre">GaussianNB()</span></code> dan melatihnya dengan data training (<code class="docutils literal notranslate"><span class="pre">model.fit</span></code>). Setelah itu, model diminta menebak data uji (<code class="docutils literal notranslate"><span class="pre">model.predict</span></code>). Hasil tebakan ini lalu saya bandingkan dengan kunci jawaban aslinya untuk mencari nilai Accuracy, Precision, Recall, dan F1 Score. Semua nilai tersebut dikumpulkan ke dalam tabel evaluasi.</p>
 </section>
-<section id="g-kode-python-script-3-confusion-matrix">
-<h3>G. Kode Python Script 3: Confusion Matrix<a class="headerlink" href="#g-kode-python-script-3-confusion-matrix" title="Permalink to this heading">#</a></h3>
+<section id="kode-python-script-3-confusion-matrix">
+<h3>💻 Kode Python Script 3: Confusion Matrix<a class="headerlink" href="#kode-python-script-3-confusion-matrix" title="Permalink to this heading">#</a></h3>
 <p>Untuk melihat sebaran prediksi yang benar dan yang meleset, saya menyusun confusion matrix.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">knime.scripting.io</span> <span class="k">as</span> <span class="nn">knio</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -781,6 +904,7 @@ CSV Reader ──────┼── Python Script Evaluasi Model   ──&gt;
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 
+<span class="c1"># Membuat Confusion Matrix</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
 
 <span class="n">confusion_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
@@ -795,15 +919,17 @@ CSV Reader ──────┼── Python Script Evaluasi Model   ──&gt;
 <span class="n">knio</span><span class="o">.</span><span class="n">output_tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">knio</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">confusion_df</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Berikut tampilan matriks kebingungannya:</p>
+<p><strong>Output Table View:</strong></p>
 <p><img alt="Output Table View Confusion Matrix" src="_images/TableViewConfusionMatrix.png" /></p>
+<p><strong>Penjelasan Kode:</strong>
+Fungsi <code class="docutils literal notranslate"><span class="pre">confusion_matrix</span></code> akan menghasilkan matriks perbandingan antara nilai nyata (<em>actual</em>) dengan nilai tebakan model (<em>predicted</em>). Saya mengubah format matriks keluaran tersebut menjadi DataFrame Pandas dan merapikan penamaan kolomnya agar tabelnya cantik dan mudah dibaca ketika ditampilkan di KNIME.</p>
 <section id="solusi-jika-confusion-matrix-hanya-muncul-rowid">
 <h4>Solusi Jika Confusion Matrix Hanya Muncul RowID<a class="headerlink" href="#solusi-jika-confusion-matrix-hanya-muncul-rowid" title="Permalink to this heading">#</a></h4>
 <p>Terkadang, Table View hanya menampilkan RowID tanpa memperlihatkan kolom datanya. Padahal datanya sudah ada di sana. Untuk mengatasinya, saya biasa membuka konfigurasi Table View lalu mengubah pengaturan kolom. Pada tab Wildcard, saya menampilkan semua kolom dengan mengetik pola bintang lalu menekan apply. Atau bisa juga melalui tab Manual dengan mencentang semua kolom yang ingin ditampilkan.</p>
 </section>
 </section>
-<section id="h-kode-python-script-4-prediksi-testing">
-<h3>H. Kode Python Script 4: Prediksi Testing<a class="headerlink" href="#h-kode-python-script-4-prediksi-testing" title="Permalink to this heading">#</a></h3>
+<section id="kode-python-script-4-prediksi-testing">
+<h3>💻 Kode Python Script 4: Prediksi Testing<a class="headerlink" href="#kode-python-script-4-prediksi-testing" title="Permalink to this heading">#</a></h3>
 <p>Terakhir, saya ingin melihat secara rinci data mana saja yang tebakannya benar dan mana yang salah, beserta probabilitas keyakinan model.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">knime.scripting.io</span> <span class="k">as</span> <span class="nn">knio</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -828,7 +954,7 @@ CSV Reader ──────┼── Python Script Evaluasi Model   ──&gt;
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">y_proba</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_proba</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span> <span class="c1"># Mengambil nilai probabilitas</span>
 
 <span class="n">prediksi_df</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">prediksi_df</span><span class="p">[</span><span class="s2">&quot;actual_species&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -848,8 +974,10 @@ CSV Reader ──────┼── Python Script Evaluasi Model   ──&gt;
 <span class="n">knio</span><span class="o">.</span><span class="n">output_tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">knio</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">prediksi_df</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Hasil tebakan model secara rinci dapat dilihat di sini:</p>
+<p><strong>Output Table View:</strong></p>
 <p><img alt="Output Table View Hasil Prediksi Testing" src="_images/TableViewPrediksiTraining.png" /></p>
+<p><strong>Penjelasan Kode:</strong>
+Selain <code class="docutils literal notranslate"><span class="pre">predict</span></code>, di sini saya juga menggunakan <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> untuk melihat seberapa yakin model menebak sebuah kelas. Nilainya dalam persentase desimal (0 sampai 1). Kemudian, dengan menggunakan <code class="docutils literal notranslate"><span class="pre">np.where</span></code>, saya secara otomatis memberikan label “Benar” jika tebakan cocok dengan kunci jawaban, atau “Salah” jika tebakan meleset. Hal ini sangat mempermudah saya mengamati data uji yang gagal diprediksi dengan tepat.</p>
 </section>
 <section id="urutan-eksekusi">
 <h3>Urutan Eksekusi<a class="headerlink" href="#urutan-eksekusi" title="Permalink to this heading">#</a></h3>
@@ -959,8 +1087,13 @@ CSV Reader ──────┼── Python Script Evaluasi Model   ──&gt;
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data">Eksplorasi Data</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-fitur-per-kelas">Distribusi Fitur per Kelas</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot">Scatter Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library-dan-load-dataset">💻 Import Library dan Load Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#menampilkan-5-data-pertama">💻 Menampilkan 5 Data Pertama</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistik-deskriptif">💻 Statistik Deskriptif</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas-dan-missing-values">💻 Distribusi Kelas dan Missing Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-fitur-per-kelas">💻 Distribusi Fitur per Kelas</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-plot">💻 Scatter Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matriks-korelasi">💻 Matriks Korelasi</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementasi-model-knime-dengan-python-script">Implementasi Model KNIME dengan Python Script</a><ul class="nav section-nav flex-column">
@@ -968,13 +1101,13 @@ CSV Reader ──────┼── Python Script Evaluasi Model   ──&gt;
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-bentuk-workflow-di-knime">B. Bentuk Workflow di KNIME</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-node-yang-digunakan">C. Node yang Digunakan</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-langkah-membuat-workflow">D. Langkah Membuat Workflow</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-kode-python-script-1-ringkasan-data">E. Kode Python Script 1: Ringkasan Data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-kode-python-script-2-evaluasi-model">F. Kode Python Script 2: Evaluasi Model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#g-kode-python-script-3-confusion-matrix">G. Kode Python Script 3: Confusion Matrix</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-python-script-1-ringkasan-data">💻 Kode Python Script 1: Ringkasan Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-python-script-2-evaluasi-model">💻 Kode Python Script 2: Evaluasi Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-python-script-3-confusion-matrix">💻 Kode Python Script 3: Confusion Matrix</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solusi-jika-confusion-matrix-hanya-muncul-rowid">Solusi Jika Confusion Matrix Hanya Muncul RowID</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h-kode-python-script-4-prediksi-testing">H. Kode Python Script 4: Prediksi Testing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kode-python-script-4-prediksi-testing">💻 Kode Python Script 4: Prediksi Testing</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#urutan-eksekusi">Urutan Eksekusi</a></li>
 </ul>
 </li>

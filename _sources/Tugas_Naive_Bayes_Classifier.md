@@ -11,63 +11,53 @@
 1. [Pendahuluan](#pendahuluan)
 2. [Teori Naive Bayes](#teori-naive-bayes)
 3. [Informasi Dataset](#informasi-dataset)
-4. [Tahapan Analisis](#tahapan-analisis)
-5. [Eksplorasi Data](#eksplorasi-data)
-6. [Preprocessing](#preprocessing)
-7. [Training Model](#training-model)
-8. [Hasil Evaluasi Model](#hasil-evaluasi-model)
-9. [Confusion Matrix](#confusion-matrix)
-10. [Perhitungan Metrik Evaluasi](#perhitungan-metrik-evaluasi)
-11. [Prediksi Data Baru](#prediksi-data-baru)
-12. [Kesimpulan](#kesimpulan)
-13. [Referensi](#referensi)
+4. [Eksplorasi Data](#eksplorasi-data)
+5. [Implementasi Model KNIME dengan Python Script](#implementasi-model-knime-dengan-python-script)
+6. [Kesimpulan](#kesimpulan)
+7. [Referensi](#referensi)
 ```
-
----
 
 ## Pendahuluan
 
-Proyek ini bertujuan untuk melakukan analisis data menggunakan algoritma **Naive Bayes Classifier** dengan memanfaatkan library **scikit-learn (sklearn)** pada bahasa pemrograman Python. Berbeda dengan tugas UTS sebelumnya yang menggunakan KNIME Analytics Platform, kali ini saya membangun model classifier secara langsung melalui script Python.
+Pada tugas kali ini, saya melakukan analisis data menggunakan algoritma Naive Bayes Classifier. Untuk pengerjaannya, saya menggunakan pendekatan yang sedikit berbeda. Saya menggabungkan keunggulan KNIME Analytics Platform dengan fleksibilitas bahasa pemrograman Python melalui penggunaan node Python Script.
 
-Naive Bayes dipilih karena merupakan salah satu algoritma klasifikasi yang sederhana namun efektif, terutama untuk dataset dengan fitur yang saling independen. Algoritma ini didasarkan pada **Teorema Bayes** dan mengasumsikan bahwa setiap fitur berkontribusi secara independen terhadap probabilitas kelas.
+Alasan saya memilih Naive Bayes adalah karena algoritma ini cukup sederhana namun kinerjanya sangat efektif. Algoritma ini berakar dari Teorema Bayes dan bekerja dengan asumsi bahwa setiap fitur berdiri sendiri dan tidak saling mempengaruhi probabilitas kelas target.
 
 ```{admonition} Tujuan Tugas
 :class: note
 
-1. Membangun model classifier Naive Bayes menggunakan Python (sklearn)
-2. Melakukan eksplorasi dan visualisasi data
-3. Melatih model Gaussian Naive Bayes pada dataset Iris
-4. Mengevaluasi performa model: Accuracy, Precision, Recall, dan F1-Score
-5. Mendemonstrasikan prediksi pada data baru
+1. Melakukan eksplorasi data secara visual
+2. Membangun model klasifikasi Naive Bayes menggunakan kombinasi KNIME dan Python
+3. Melatih model Gaussian Naive Bayes untuk mendeteksi kelas pada dataset Iris
+4. Mengukur kinerja model melalui metrik Accuracy, Precision, Recall, dan F1-Score
+5. Melihat langsung hasil prediksi pada data testing
 ```
-
----
 
 ## Teori Naive Bayes
 
 ### Bayesian Theorem
 
-Naive Bayes Classifier didasarkan pada **Teorema Bayes** yang menghitung probabilitas posterior suatu kelas berdasarkan data yang diamati. Dari training data **X**, *posteriori* probabilitas dari *hypothesis* H atau class, P(H|X), menggunakan Teorema Bayes:
+Cara kerja Naive Bayes Classifier bertumpu pada Teorema Bayes. Teorema ini menghitung seberapa besar probabilitas posterior dari sebuah kelas jika diberikan suatu data pengamatan. Jika saya memiliki training data X, maka posteriori probabilitas dari kelas H (P(H|X)) bisa dicari dengan rumus Teorema Bayes:
 
 $$
 P(C \mid \mathbf{X}) = \frac{P(\mathbf{X} \mid C) \cdot P(C)}{P(\mathbf{X})}
 $$
 
-Di mana:
-- $P(C \mid \mathbf{X})$ = **Posterior** — probabilitas kelas C diberikan data X
-- $P(\mathbf{X} \mid C)$ = **Likelihood** — probabilitas data X muncul pada kelas C
-- $P(C)$ = **Prior** — probabilitas awal kelas C sebelum melihat data
-- $P(\mathbf{X})$ = **Evidence** — probabilitas data X (konstan untuk semua kelas)
+Keterangan:
+* $P(C \mid \mathbf{X})$ adalah Posterior atau probabilitas kelas C jika diketahui data X.
+* $P(\mathbf{X} \mid C)$ adalah Likelihood atau probabilitas kemunculan data X pada kelas C.
+* $P(C)$ adalah Prior atau probabilitas awal sebuah kelas C.
+* $P(\mathbf{X})$ adalah Evidence atau probabilitas data X secara keseluruhan.
 
 ### Asumsi Naive (Independensi)
 
-Disebut "**Naive**" karena algoritma ini mengasumsikan bahwa semua atribut/fitur dalam kondisi **saling bebas (independent)**, yaitu tidak ada kebergantungan antar atribut:
+Algoritma ini mendapatkan nama "Naive" karena memiliki asumsi yang sangat kuat bahwa seluruh fitur saling bebas. Artinya, nilai dari sebuah fitur tidak ada kaitannya dengan fitur lainnya:
 
 $$
 P(\mathbf{X} \mid C_j) = \prod_{k=1}^{n} P(x_k \mid C_j)
 $$
 
-Sehingga untuk klasifikasi, kita perlu memaksimumkan:
+Dengan begitu, tugas saya dalam proses klasifikasi adalah mencari nilai maksimal dari:
 
 $$
 P(C_j \mid \mathbf{X}) = P(\mathbf{X} \mid C_j) \cdot P(C_j)
@@ -75,101 +65,44 @@ $$
 
 ### Gaussian Naive Bayes
 
-Jika fitur bernilai **kontinu**, probabilitas $P(x_k \mid C_j)$ dihitung menggunakan **distribusi Gaussian** (distribusi normal) dengan mean $\mu$ dan standar deviasi $\sigma$:
+Karena data yang saya gunakan bernilai kontinu (angka desimal), perhitungan probabilitasnya menggunakan distribusi Gaussian atau distribusi normal. Perhitungannya menggunakan mean dan standar deviasi:
 
 $$
 P(x_k \mid C_j) = g(x_k, \mu_{C_j}, \sigma_{C_j}) = \frac{1}{\sqrt{2\pi} \cdot \sigma} \cdot e^{-\frac{(x - \mu)^2}{2\sigma^2}}
 $$
 
-Dalam implementasi sklearn, `GaussianNB` menghitung mean ($\theta$) dan variance ($\sigma^2$) untuk setiap fitur pada setiap kelas dari data training, kemudian menggunakan distribusi Gaussian tersebut untuk menghitung likelihood.
-
-### Keuntungan dan Kerugian
-
-| Keuntungan | Kerugian |
-|-----------|----------|
-| Mudah diimplementasikan | Asumsi independensi fitur jarang terpenuhi sempurna |
-| Cepat dalam training dan prediksi | Sensitif terhadap fitur yang berkorelasi |
-| Hasil baik di banyak kasus nyata | Estimasi probabilitas bisa kurang akurat |
-| Efektif untuk dataset kecil maupun besar | Tidak cocok jika hubungan antar fitur sangat kuat |
-
----
+Di dalam library sklearn, metode GaussianNB secara otomatis akan menghitung mean dan variance setiap fitur per kelas berdasarkan data training yang saya berikan.
 
 ## Informasi Dataset
 
-> **Sumber Dataset:** [Iris Dataset — sklearn.datasets](https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html)
-
-Dataset **Iris** merupakan dataset klasik dalam machine learning yang pertama kali diperkenalkan oleh **Ronald A. Fisher** pada tahun 1936. Dataset ini berisi pengukuran morfologi tiga spesies bunga iris.
+Untuk tugas ini, saya memilih Dataset Iris. Dataset ini sangat populer dalam dunia machine learning dan diperkenalkan pertama kali oleh Ronald A. Fisher. Di dalamnya terdapat ukuran morfologi dari tiga spesies bunga iris.
 
 ### Deskripsi Umum
 
-| Atribut | Keterangan |
-|---------|------------|
-| **Jumlah Sampel** | 150 baris |
-| **Jumlah Fitur** | 4 fitur (semua numerik kontinu) |
-| **Jumlah Kelas** | 3 kelas |
-| **Target / Label** | Setosa / Versicolor / Virginica |
-| **Missing Values** | Tidak ada |
+* Jumlah Sampel: 150 baris
+* Jumlah Fitur: 4 fitur berupa numerik kontinu
+* Jumlah Kelas: 3 kelas
+* Target Kelas: Setosa, Versicolor, dan Virginica
+* Missing Values: Tidak ada
 
-### Distribusi Kelas
-
-```
-Setosa       : 50 sampel (33.3%)
-Versicolor   : 50 sampel (33.3%)
-Virginica    : 50 sampel (33.3%)
-Total        : 150 sampel
-```
-
-Dataset ini **balanced** (seimbang) — setiap kelas memiliki jumlah sampel yang sama.
+Dari 150 sampel tersebut, distribusinya sangat seimbang. Masing-masing kelas (Setosa, Versicolor, Virginica) memiliki persis 50 sampel.
 
 ### Penjelasan Fitur
 
-| No | Fitur | Satuan | Deskripsi |
-|----|-------|--------|-----------|
-| 1 | **Sepal Length** | cm | Panjang kelopak luar bunga |
-| 2 | **Sepal Width** | cm | Lebar kelopak luar bunga |
-| 3 | **Petal Length** | cm | Panjang kelopak dalam bunga |
-| 4 | **Petal Width** | cm | Lebar kelopak dalam bunga |
+1. Sepal Length: Panjang kelopak luar bunga dalam satuan cm
+2. Sepal Width: Lebar kelopak luar bunga dalam satuan cm
+3. Petal Length: Panjang kelopak dalam bunga dalam satuan cm
+4. Petal Width: Lebar kelopak dalam bunga dalam satuan cm
 
-### Statistik Deskriptif
+Saya menggunakan dataset ini karena datanya sudah seimbang sehingga saya tidak perlu melakukan teknik penyeimbangan data. Selain itu, semua fiturnya bertipe numerik kontinu yang sangat pas untuk diterapkan pada algoritma Gaussian Naive Bayes.
 
-| Statistik | Sepal Length | Sepal Width | Petal Length | Petal Width |
-|-----------|-------------|-------------|-------------|-------------|
-| Mean | 5.84 | 3.06 | 3.76 | 1.20 |
-| Std | 0.83 | 0.44 | 1.77 | 0.76 |
-| Min | 4.30 | 2.00 | 1.00 | 0.10 |
-| Max | 7.90 | 4.40 | 6.90 | 2.50 |
+## Eksplorasi Data
 
-### Alasan Memilih Dataset Iris
+Sebelum masuk ke tahap modeling, saya melakukan eksplorasi data menggunakan Python untuk memahami karakteristik fitur yang ada.
 
-Saya memilih dataset Iris karena:
-1. Dataset ini **balanced** sehingga tidak perlu teknik resampling
-2. Semua fiturnya **numerik kontinu** — cocok untuk **Gaussian Naive Bayes**
-3. Dataset ini sudah tersedia langsung di sklearn, sehingga tidak perlu download terpisah
-4. Memiliki 3 kelas, sehingga lebih menantang dibanding klasifikasi biner
+### Distribusi Fitur per Kelas
 
----
-
-## Tahapan Analisis
-
-Berikut adalah alur analisis yang saya lakukan secara keseluruhan menggunakan Python:
-
-```
-Load Dataset (sklearn) → Eksplorasi Data → Visualisasi → Split Data (80:20) → Training GaussianNB → Prediksi → Evaluasi → Visualisasi Hasil
-```
-
-### Tools dan Library
-
-| Library | Versi | Fungsi |
-|---------|-------|--------|
-| **scikit-learn** | ≥1.0 | Model Naive Bayes, split data, metrik evaluasi |
-| **pandas** | ≥1.3 | Manipulasi dan eksplorasi data dalam DataFrame |
-| **numpy** | ≥1.21 | Operasi array dan numerik |
-| **matplotlib** | ≥3.5 | Visualisasi grafik dan plot |
-| **seaborn** | ≥0.12 | Visualisasi statistik (heatmap, dll) |
-
-> **Referensi API sklearn Naive Bayes:** [https://scikit-learn.org/stable/api/sklearn.naive_bayes.html](https://scikit-learn.org/stable/api/sklearn.naive_bayes.html)
-
-### 💻 Import Library & Load Dataset
+Saya membuat plot histogram untuk melihat bagaimana sebaran data pada masing-masing fitur.
 
 ```python
 import numpy as np
@@ -177,140 +110,34 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import (
-    accuracy_score, precision_score, recall_score,
-    f1_score, confusion_matrix, classification_report,
-)
 
-# Load dataset Iris
 iris = load_iris()
 df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
 df['species'] = iris.target
-df['species_name'] = df['species'].map(
-    {0: 'Setosa', 1: 'Versicolor', 2: 'Virginica'}
-)
+df['species_name'] = df['species'].map({0: 'Setosa', 1: 'Versicolor', 2: 'Virginica'})
 
-print(f'Jumlah sampel  : {df.shape[0]}')
-print(f'Jumlah fitur   : {df.shape[1] - 2}')
-print(f'Jumlah kelas   : {df["species"].nunique()}')
-print(f'Nama kelas     : {list(df["species_name"].unique())}')
-```
-
-**Output:**
-
-```
-Jumlah sampel  : 150
-Jumlah fitur   : 4
-Jumlah kelas   : 3
-Nama kelas     : ['Setosa', 'Versicolor', 'Virginica']
-```
-
-### 💻 Menampilkan 5 Data Pertama
-
-```python
-print(df.head().to_string(index=False))
-```
-
-**Output:**
-
-```
- sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)  species species_name
-               5.1               3.5                1.4               0.2        0       Setosa
-               4.9               3.0                1.4               0.2        0       Setosa
-               4.7               3.2                1.3               0.2        0       Setosa
-               4.6               3.1                1.5               0.2        0       Setosa
-               5.0               3.6                1.4               0.2        0       Setosa
-```
-
-### 💻 Statistik Deskriptif
-
-```python
-print(df.describe().to_string())
-```
-
-**Output:**
-
-```
-       sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)     species
-count         150.000000        150.000000         150.000000        150.000000  150.000000
-mean            5.843333          3.057333           3.758000          1.199333    1.000000
-std             0.828066          0.435866           1.765298          0.762238    0.819232
-min             4.300000          2.000000           1.000000          0.100000    0.000000
-25%             5.100000          2.800000           1.600000          0.300000    0.000000
-50%             5.800000          3.000000           4.350000          1.300000    1.000000
-75%             6.400000          3.300000           5.100000          1.800000    2.000000
-max             7.900000          4.400000           6.900000          2.500000    2.000000
-```
-
-### 💻 Distribusi Kelas & Missing Values
-
-```python
-# Distribusi kelas
-distribusi = df['species_name'].value_counts()
-for kelas, jumlah in distribusi.items():
-    print(f'  {kelas:12s} : {jumlah} sampel ({jumlah/len(df)*100:.1f}%)')
-print(f'  {"Total":12s} : {len(df)} sampel')
-
-# Missing values
-print(f'\nMissing values: {df.isnull().sum().sum()}')
-```
-
-**Output:**
-
-```
-  Setosa       : 50 sampel (33.3%)
-  Versicolor   : 50 sampel (33.3%)
-  Virginica    : 50 sampel (33.3%)
-  Total        : 150 sampel
-
-Missing values: 0
-```
-
----
-
-## Eksplorasi Data
-
-### Distribusi Fitur per Kelas
-
-Saya memvisualisasikan distribusi setiap fitur untuk melihat bagaimana setiap kelas bunga iris tersebar pada masing-masing fitur:
-
-#### 💻 Kode Visualisasi Distribusi Fitur
-
-```python
 fig, axes = plt.subplots(2, 2, figsize=(14, 10))
 fig.suptitle('Distribusi Fitur Dataset Iris per Kelas', fontsize=16, fontweight='bold')
-
 colors = {'Setosa': '#2ecc71', 'Versicolor': '#3498db', 'Virginica': '#e74c3c'}
 
 for idx, col in enumerate(iris.feature_names):
     ax = axes[idx // 2, idx % 2]
     for species_name, color in colors.items():
         subset = df[df['species_name'] == species_name]
-        ax.hist(subset[col], bins=15, alpha=0.6, label=species_name,
-                color=color, edgecolor='white')
+        ax.hist(subset[col], bins=15, alpha=0.6, label=species_name, color=color, edgecolor='white')
     ax.set_title(col.title(), fontsize=12, fontweight='bold')
     ax.set_xlabel(col)
     ax.set_ylabel('Frekuensi')
     ax.legend()
 plt.tight_layout()
-plt.savefig('Assets/NaiveBayes/distribusi_fitur.png', dpi=150)
 plt.show()
 ```
 
-**Output:**
-
-![Distribusi setiap fitur dataset Iris per kelas (Setosa, Versicolor, Virginica)](Assets/NaiveBayes/distribusi_fitur.png)
-
-Dari histogram di atas, saya bisa melihat bahwa:
-- **Setosa** memiliki petal length dan petal width yang jauh lebih kecil dibandingkan dua kelas lainnya
-- **Versicolor** dan **Virginica** memiliki overlap yang cukup signifikan pada sepal length dan sepal width
-- **Petal length** dan **petal width** merupakan fitur yang paling diskriminatif untuk membedakan ketiga kelas
+Dari hasil plot yang saya buat, terlihat jelas bahwa spesies Setosa memiliki ukuran kelopak dalam (petal) yang lebih kecil dibandingkan dua spesies lainnya. Sedangkan untuk Versicolor dan Virginica, ukurannya sedikit tumpang tindih.
 
 ### Scatter Plot
 
-#### 💻 Kode Scatter Plot
+Saya juga menggunakan scatter plot untuk melihat hubungan antar fitur.
 
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -326,439 +153,288 @@ for ax in axes:
     ax.legend()
     ax.grid(alpha=0.3)
 plt.tight_layout()
-plt.savefig('Assets/NaiveBayes/scatter_plot.png', dpi=150)
 plt.show()
 ```
 
-**Output:**
+Berdasarkan scatter plot, fitur petal (length dan width) lebih ampuh untuk membedakan ketiga kelas tersebut dibandingkan fitur sepal.
 
-![Scatter plot pasangan fitur Sepal dan Petal pada dataset Iris](Assets/NaiveBayes/scatter_plot.png)
+## Implementasi Model KNIME dengan Python Script
 
-Dari scatter plot terlihat bahwa:
-- Pada dimensi **sepal**, kelas Setosa terpisah cukup jelas, namun Versicolor dan Virginica saling tumpang tindih
-- Pada dimensi **petal**, ketiga kelas terpisah lebih baik — ini mengonfirmasi bahwa fitur petal lebih informatif
+Untuk tahap pemodelannya, saya merancang sebuah workflow di KNIME yang memanfaatkan node Python Script. Pendekatan ini sangat efektif karena saya bisa mengkombinasikan kekuatan antarmuka visual KNIME dengan pustaka scikit-learn dari Python.
 
-### Matriks Korelasi
+### A. Strategi Workflow Final
 
-#### 💻 Kode Heatmap Korelasi
+Dalam merancang workflow ini, saya menggunakan **4 buah node Python Script**. Saya memilih cara ini karena paling aman dan minim error. Jika saya hanya menggunakan satu Python Script lalu menarik banyak garis output, seringkali muncul error berupa:
 
-```python
-fig, ax = plt.subplots(figsize=(8, 6))
-correlation = df[iris.feature_names].corr()
-sns.heatmap(correlation, annot=True, fmt='.2f', cmap='RdYlBu_r',
-            linewidths=0.5, ax=ax, vmin=-1, vmax=1, square=True)
-ax.set_title('Matriks Korelasi Fitur Iris', fontsize=14, fontweight='bold')
-plt.tight_layout()
-plt.savefig('Assets/NaiveBayes/korelasi_fitur.png', dpi=150)
-plt.show()
+```text
+Invalid port index 1, only 1 output_table is available
 ```
 
-**Output:**
+Error tersebut terjadi karena KNIME mendeteksi bahwa saya memanggil `knio.output_tables[1]` hingga ke-3, padahal dari segi tampilan node tetap dihitung sebagai satu output port. Oleh karena itu, memisahkan script ke dalam 4 node berbeda adalah solusi terbaik.
 
-![Matriks korelasi antar fitur pada dataset Iris](Assets/NaiveBayes/korelasi_fitur.png)
+### B. Bentuk Workflow di KNIME
 
-Dari matriks korelasi:
-- **Petal length** dan **petal width** memiliki korelasi sangat tinggi (0.96)
-- **Sepal length** berkorelasi positif dengan petal length (0.87) dan petal width (0.82)
-- **Sepal width** memiliki korelasi negatif rendah dengan fitur lainnya
+Alur kerja (workflow) yang saya bangun berbentuk seperti ini:
 
-```{admonition} Catatan tentang Korelasi
-:class: warning
-
-Korelasi tinggi antara fitur menandakan bahwa asumsi independensi pada Naive Bayes tidak sepenuhnya terpenuhi. Meskipun demikian, Naive Bayes secara empiris tetap sering memberikan hasil yang baik meskipun asumsinya dilanggar.
+```text
+                 ┌── Python Script Ringkasan Data   ──> Table View Ringkasan
+                 │
+CSV Reader ──────┼── Python Script Evaluasi Model   ──> Table View Evaluasi
+                 │
+                 ├── Python Script Confusion Matrix ──> Table View Confusion
+                 │
+                 └── Python Script Prediksi Testing ──> Table View Prediksi
 ```
 
----
+Berikut adalah tangkapan layar keseluruhan workflow yang saya buat:
 
-## Preprocessing
+![Tampilan Workflow Lengkap di KNIME](Assets/Tugas/Tugas_NaiveBayesClassifer/workflow.png)
 
-### 💻 Kode Split Data (Train/Test)
+### C. Node yang Digunakan
 
-Saya membagi data menjadi 80% training dan 20% testing menggunakan `train_test_split` dari sklearn dengan stratifikasi agar distribusi kelas tetap proporsional:
+Dalam workflow ini, saya menggunakan kombinasi node pembaca data, pengeksekusi script, dan penampil tabel. Berikut daftar lengkapnya:
+
+1. **CSV Reader**: Node awal untuk membaca file dataset `IRIS.csv`.
+2. **Python Script Ringkasan Data**: Node untuk memproses dan menampilkan total data beserta pembagiannya (training dan testing).
+3. **Python Script Evaluasi Model**: Node khusus untuk menghitung accuracy, precision, recall, dan f1-score.
+4. **Python Script Confusion Matrix**: Node untuk menyusun matriks kebingungan (confusion matrix) dari hasil prediksi.
+5. **Python Script Prediksi Testing**: Node untuk menampilkan rincian hasil tebakan model pada setiap baris data testing.
+6. **Table View (4 buah)**: Node untuk memunculkan output dari tiap-tiap Python Script secara visual.
+
+### D. Langkah Membuat Workflow
+
+Pertama, saya mengonfigurasi node **CSV Reader** untuk mengambil file `IRIS.csv`. Saya memastikan bahwa kolom-kolom seperti `sepal_length`, `sepal_width`, `petal_length`, `petal_width`, dan `species` terbaca dengan baik. Setelah itu, saya tekan Execute agar data siap disalurkan.
+
+Dari node CSV Reader tersebut, saya menarik garis ke empat node **Python Script** yang telah saya siapkan. Setiap Python script hanya mengandalkan satu output table saja untuk mencegah error indeks. Selanjutnya, saya hubungkan masing-masing script tersebut ke node **Table View** untuk melihat hasilnya.
+
+### E. Kode Python Script 1: Ringkasan Data
+
+Pada node script pertama ini, tujuan saya adalah memberikan informasi dasar mengenai dataset dan skema pembagian data yang saya gunakan.
 
 ```python
-X = df[iris.feature_names].values
-y = df['species'].values
+import knime.scripting.io as knio
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+# Saya membaca data yang dikirimkan oleh CSV Reader
+df = knio.input_tables[0].to_pandas()
+
+feature_cols = [
+    "sepal_length",
+    "sepal_width",
+    "petal_length",
+    "petal_width"
+]
+
+target_col = "species"
+
+X = df[feature_cols]
+y = df[target_col]
+
+# Membagi data menjadi 80% training dan 20% testing
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42,
+    stratify=y
+)
+
+ringkasan_df = pd.DataFrame({
+    "keterangan": [
+        "Jumlah seluruh data",
+        "Jumlah data training",
+        "Jumlah data testing",
+        "Persentase training",
+        "Persentase testing",
+        "Kolom target",
+        "Model yang digunakan"
+    ],
+    "nilai": [
+        len(df),
+        len(X_train),
+        len(X_test),
+        "80%",
+        "20%",
+        target_col,
+        "Gaussian Naive Bayes"
+    ]
+})
+
+ringkasan_df = ringkasan_df.astype(str)
+
+knio.output_tables[0] = knio.Table.from_pandas(ringkasan_df)
+```
+
+Berikut adalah hasil tabel ringkasan data yang muncul di KNIME:
+
+![Output Table View Ringkasan Data](Assets/Tugas/Tugas_NaiveBayesClassifer/TableViewRingkasanData.png)
+
+### F. Kode Python Script 2: Evaluasi Model
+
+Pada script kedua, saya melatih model Gaussian Naive Bayes lalu langsung menghitung kinerja model tersebut menggunakan metrik standar.
+
+```python
+import knime.scripting.io as knio
+import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+# Proses baca data
+df = knio.input_tables[0].to_pandas()
+
+feature_cols = ["sepal_length", "sepal_width", "petal_length", "petal_width"]
+target_col = "species"
+
+X = df[feature_cols]
+y = df[target_col]
 
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
 
-print(f'Data training : {X_train.shape[0]} sampel')
-print(f'Data testing  : {X_test.shape[0]} sampel')
+# Tahap pelatihan dan prediksi
+model = GaussianNB()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+# Perhitungan metrik evaluasi
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred, average="weighted", zero_division=0)
+recall = recall_score(y_test, y_pred, average="weighted", zero_division=0)
+f1 = f1_score(y_test, y_pred, average="weighted", zero_division=0)
+
+evaluasi_df = pd.DataFrame({
+    "metrik": ["Accuracy", "Precision Weighted", "Recall Weighted", "F1 Score Weighted"],
+    "nilai": [round(accuracy, 4), round(precision, 4), round(recall, 4), round(f1, 4)]
+})
+
+knio.output_tables[0] = knio.Table.from_pandas(evaluasi_df)
 ```
 
-**Output:**
+Hasil metrik evaluasinya terlihat sangat baik, sebagaimana ditunjukkan pada gambar berikut:
 
-```
-Data training : 120 sampel
-Data testing  : 30 sampel
-```
+![Output Table View Evaluasi Model](Assets/Tugas/Tugas_NaiveBayesClassifer/TableViewEvaluasiModel.png)
 
-| Set | Jumlah | Setosa | Versicolor | Virginica |
-|-----|--------|--------|------------|-----------|
-| **Training** | 120 sampel | 40 | 40 | 40 |
-| **Testing** | 30 sampel | 10 | 10 | 10 |
+### G. Kode Python Script 3: Confusion Matrix
 
-```{admonition} Mengapa Tidak Perlu Normalisasi?
-:class: tip
-
-Berbeda dengan KNN yang sensitif terhadap skala fitur karena menghitung jarak, **Naive Bayes tidak memerlukan normalisasi** karena bekerja berdasarkan distribusi probabilitas pada setiap fitur secara independen. GaussianNB menghitung mean dan variance per fitur per kelas, sehingga skala fitur tidak mempengaruhi hasil.
-```
-
----
-
-## Training Model
-
-### 💻 Kode Gaussian Naive Bayes (GaussianNB)
-
-Saya melatih model menggunakan `GaussianNB` dari sklearn:
+Untuk melihat sebaran prediksi yang benar dan yang meleset, saya menyusun confusion matrix.
 
 ```python
+import knime.scripting.io as knio
+import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import confusion_matrix
+
+df = knio.input_tables[0].to_pandas()
+
+feature_cols = ["sepal_length", "sepal_width", "petal_length", "petal_width"]
+target_col = "species"
+
+X = df[feature_cols]
+y = df[target_col]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+model = GaussianNB()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+cm = confusion_matrix(y_test, y_pred, labels=model.classes_)
+
+confusion_df = pd.DataFrame(
+    cm,
+    index=[f"Actual {cls}" for cls in model.classes_],
+    columns=[f"Predicted {cls}" for cls in model.classes_]
+)
+
+confusion_df = confusion_df.reset_index()
+confusion_df = confusion_df.rename(columns={"index": "Actual / Predicted"})
+
+knio.output_tables[0] = knio.Table.from_pandas(confusion_df)
+```
+
+Berikut tampilan matriks kebingungannya:
+
+![Output Table View Confusion Matrix](Assets/Tugas/Tugas_NaiveBayesClassifer/TableViewConfusionMatrix.png)
+
+#### Solusi Jika Confusion Matrix Hanya Muncul RowID
+
+Terkadang, Table View hanya menampilkan RowID tanpa memperlihatkan kolom datanya. Padahal datanya sudah ada di sana. Untuk mengatasinya, saya biasa membuka konfigurasi Table View lalu mengubah pengaturan kolom. Pada tab Wildcard, saya menampilkan semua kolom dengan mengetik pola bintang lalu menekan apply. Atau bisa juga melalui tab Manual dengan mencentang semua kolom yang ingin ditampilkan.
+
+### H. Kode Python Script 4: Prediksi Testing
+
+Terakhir, saya ingin melihat secara rinci data mana saja yang tebakannya benar dan mana yang salah, beserta probabilitas keyakinan model.
+
+```python
+import knime.scripting.io as knio
+import pandas as pd
+import numpy as np
+
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+
+df = knio.input_tables[0].to_pandas()
+
+feature_cols = ["sepal_length", "sepal_width", "petal_length", "petal_width"]
+target_col = "species"
+
+X = df[feature_cols]
+y = df[target_col]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
 model = GaussianNB()
 model.fit(X_train, y_train)
 
-print('Model berhasil dilatih!')
-print(f'Classes: {model.classes_}')
-print(f'Class Prior: {model.class_prior_}')
-```
-
-**Output:**
-
-```
-Model berhasil dilatih!
-Classes: [0 1 2]
-Class Prior: [0.33333333 0.33333333 0.33333333]
-```
-
-### Parameter Model yang Dipelajari
-
-Setelah training, model mempelajari **prior probability** dan **distribusi Gaussian** (mean & variance) untuk setiap fitur pada setiap kelas:
-
-#### Prior Probability
-
-| Kelas | P(C) |
-|-------|------|
-| Setosa | 0.3333 |
-| Versicolor | 0.3333 |
-| Virginica | 0.3333 |
-
-Prior probability seimbang karena data training memiliki jumlah sampel yang sama untuk setiap kelas.
-
-#### Mean (μ) dan Variance (σ²) per Kelas
-
-| Fitur | Setosa (μ, σ²) | Versicolor (μ, σ²) | Virginica (μ, σ²) |
-|-------|----------------|--------------------|--------------------|
-| Sepal Length | 4.9850, 0.0928 | 5.9300, 0.2216 | 6.6100, 0.4574 |
-| Sepal Width | 3.4150, 0.1553 | 2.7500, 0.0930 | 2.9800, 0.1221 |
-| Petal Length | 1.4775, 0.0252 | 4.2525, 0.1915 | 5.5800, 0.3236 |
-| Petal Width | 0.2550, 0.0130 | 1.3200, 0.0341 | 2.0400, 0.0704 |
-
-Nilai mean dan variance ini digunakan oleh model untuk menghitung likelihood $P(x_k \mid C_j)$ menggunakan distribusi Gaussian pada saat prediksi.
-
----
-
-## Hasil Evaluasi Model
-
-### 💻 Kode Prediksi & Classification Report
-
-Setelah model dilatih dengan 120 data training, saya mengujinya pada 30 data testing:
-
-```python
 y_pred = model.predict(X_test)
+y_proba = model.predict_proba(X_test)
 
-acc = accuracy_score(y_test, y_pred)
-prec = precision_score(y_test, y_pred, average='weighted')
-rec = recall_score(y_test, y_pred, average='weighted')
-f1 = f1_score(y_test, y_pred, average='weighted')
+prediksi_df = X_test.copy().reset_index(drop=True)
+prediksi_df["actual_species"] = y_test.reset_index(drop=True)
+prediksi_df["predicted_species"] = y_pred
 
-print(f'Accuracy    : {acc:.4f}')
-print(f'Precision   : {prec:.4f}')
-print(f'Recall      : {rec:.4f}')
-print(f'F1-Score    : {f1:.4f}')
+# Saya tandai mana yang tebakannya benar dan salah
+prediksi_df["status_prediksi"] = np.where(
+    prediksi_df["actual_species"] == prediksi_df["predicted_species"],
+    "Benar",
+    "Salah"
+)
 
-print('\n--- Classification Report ---')
-print(classification_report(y_test, y_pred, target_names=['Setosa', 'Versicolor', 'Virginica']))
+# Saya sertakan probabilitas untuk masing-masing kelas
+for index, class_name in enumerate(model.classes_):
+    prediksi_df[f"probabilitas_{class_name}"] = y_proba[:, index]
+
+knio.output_tables[0] = knio.Table.from_pandas(prediksi_df)
 ```
 
-**Output:**
+Hasil tebakan model secara rinci dapat dilihat di sini:
 
-```
-Accuracy    : 0.9667
-Precision   : 0.9697
-Recall      : 0.9667
-F1-Score    : 0.9666
+![Output Table View Hasil Prediksi Testing](Assets/Tugas/Tugas_NaiveBayesClassifer/TableViewPrediksiTraining.png)
 
---- Classification Report ---
-              precision    recall  f1-score   support
+### Urutan Eksekusi
 
-      Setosa       1.00      1.00      1.00        10
-  Versicolor       1.00      0.90      0.95        10
-   Virginica       0.91      1.00      0.95        10
-
-    accuracy                           0.97        30
-   macro avg       0.97      0.97      0.97        30
-weighted avg       0.97      0.97      0.97        30
-```
-
-#### Visualisasi Metrik Evaluasi
-
-![Bar chart metrik evaluasi model Naive Bayes](Assets/NaiveBayes/metrik_evaluasi.png)
-
-Dari classification report, terlihat bahwa:
-- **Setosa** diklasifikasikan dengan sempurna (precision dan recall = 1.00)
-- **Versicolor** memiliki recall 0.90, artinya ada 1 sampel Versicolor yang salah diprediksi
-- **Virginica** memiliki precision 0.91, artinya ada 1 data non-Virginica yang salah masuk ke kelas ini
-
----
-
-## Confusion Matrix
-
-![Confusion Matrix hasil prediksi Gaussian Naive Bayes pada dataset Iris](Assets/NaiveBayes/confusion_matrix.png)
-
-| Aktual / Prediksi | Pred Setosa | Pred Versicolor | Pred Virginica |
-|-------------------|-------------|-----------------|----------------|
-| **Setosa** | **10** | 0 | 0 |
-| **Versicolor** | 0 | **9** | 1 |
-| **Virginica** | 0 | 0 | **10** |
-
-Interpretasi:
-- **10 data Setosa** → semua benar diprediksi sebagai Setosa ✅
-- **9 dari 10 data Versicolor** → benar diprediksi sebagai Versicolor ✅
-- **1 data Versicolor** → salah diprediksi sebagai Virginica ❌
-- **10 data Virginica** → semua benar diprediksi sebagai Virginica ✅
-
-Total kesalahan: **1 dari 30 data** (3.33% error rate)
-
----
-
-## Perhitungan Metrik Evaluasi
-
-Berikut saya hitung secara manual untuk setiap kelas:
-
-### Kelas Setosa
-
-Dari confusion matrix:
-- **TP** = 10 (diprediksi Setosa, benar Setosa)
-- **FP** = 0 (diprediksi Setosa, ternyata bukan)
-- **FN** = 0 (aslinya Setosa, tapi diprediksi bukan)
-- **TN** = 20 (bukan Setosa, dan memang tidak diprediksi Setosa)
-
-$$
-Precision = \frac{TP}{TP + FP} = \frac{10}{10 + 0} = 1.0000
-$$
-
-$$
-Recall = \frac{TP}{TP + FN} = \frac{10}{10 + 0} = 1.0000
-$$
-
-$$
-F1\text{-}Score = \frac{2 \times Precision \times Recall}{Precision + Recall} = \frac{2 \times 1.0 \times 1.0}{1.0 + 1.0} = 1.0000
-$$
-
-### Kelas Versicolor
-
-Dari confusion matrix:
-- **TP** = 9, **FP** = 0, **FN** = 1, **TN** = 20
-
-$$
-Precision = \frac{9}{9 + 0} = 1.0000
-$$
-
-$$
-Recall = \frac{9}{9 + 1} = 0.9000
-$$
-
-$$
-F1\text{-}Score = \frac{2 \times 1.0 \times 0.9}{1.0 + 0.9} = 0.9474
-$$
-
-### Kelas Virginica
-
-Dari confusion matrix:
-- **TP** = 10, **FP** = 1, **FN** = 0, **TN** = 19
-
-$$
-Precision = \frac{10}{10 + 1} = 0.9091
-$$
-
-$$
-Recall = \frac{10}{10 + 0} = 1.0000
-$$
-
-$$
-F1\text{-}Score = \frac{2 \times 0.9091 \times 1.0}{0.9091 + 1.0} = 0.9524
-$$
-
-### Accuracy Keseluruhan
-
-$$
-Accuracy = \frac{TP_{total}}{Total} = \frac{10 + 9 + 10}{30} = \frac{29}{30} = 0.9667 \quad (96.67\%)
-$$
-
----
-
-## Prediksi Data Baru
-
-Untuk mendemonstrasikan kemampuan model, saya memprediksi 3 sampel data baru:
-
-#### 💻 Kode Prediksi Data Baru
-
-```python
-data_baru = np.array([
-    [5.1, 3.5, 1.4, 0.2],  # Mirip Setosa
-    [6.7, 3.1, 4.7, 1.5],  # Mirip Versicolor
-    [7.7, 2.8, 6.7, 2.0],  # Mirip Virginica
-])
-
-pred_baru = model.predict(data_baru)
-prob_baru = model.predict_proba(data_baru)
-
-label_map = {0: 'Setosa', 1: 'Versicolor', 2: 'Virginica'}
-
-for i, (data, pred, prob) in enumerate(zip(data_baru, pred_baru, prob_baru)):
-    print(f'Sampel {i+1}: {data}')
-    print(f'Prediksi         : {label_map[pred]}')
-    print(f'Probabilitas     :')
-    for cls_idx, cls_name in label_map.items():
-        marker = " <-- PREDIKSI" if cls_idx == pred else ""
-        print(f'  P({cls_name:12s}) = {prob[cls_idx]:.6f}{marker}')
-    print()
-```
-
-**Output:**
-
-```
-Sampel 1: [5.1 3.5 1.4 0.2]
-Prediksi         : Setosa
-Probabilitas     :
-  P(Setosa      ) = 1.000000 <-- PREDIKSI
-  P(Versicolor  ) = 0.000000
-  P(Virginica   ) = 0.000000
-
-Sampel 2: [6.7 3.1 4.7 1.5]
-Prediksi         : Versicolor
-Probabilitas     :
-  P(Setosa      ) = 0.000000
-  P(Versicolor  ) = 0.812189 <-- PREDIKSI
-  P(Virginica   ) = 0.187811
-
-Sampel 3: [7.7 2.8 6.7 2. ]
-Prediksi         : Virginica
-Probabilitas     :
-  P(Setosa      ) = 0.000000
-  P(Versicolor  ) = 0.000000
-  P(Virginica   ) = 1.000000 <-- PREDIKSI
-```
-
-### Visualisasi Probabilitas Prediksi
-
-#### 💻 Kode Visualisasi Probabilitas
-
-```python
-fig, ax = plt.subplots(figsize=(12, 5))
-sample_indices = [0, 5, 10, 15, 20, 25]
-sample_probs = model.predict_proba(X_test)[sample_indices]
-x_pos = np.arange(len(sample_indices))
-width = 0.25
-
-for i, (cls_name, color) in enumerate(colors.items()):
-    ax.bar(x_pos + i * width, sample_probs[:, i], width,
-           label=cls_name, color=color, edgecolor='white')
-
-ax.set_title('Probabilitas Prediksi Naive Bayes (Sampel Terpilih)', fontsize=14, fontweight='bold')
-ax.set_xticks(x_pos + width)
-ax.set_xticklabels([f'#{i}' for i in sample_indices])
-ax.legend(title='Kelas')
-ax.set_ylim(0, 1.1)
-ax.grid(axis='y', alpha=0.3)
-plt.tight_layout()
-plt.savefig('Assets/NaiveBayes/probabilitas_prediksi.png', dpi=150)
-plt.show()
-```
-
-**Output:**
-
-![Probabilitas prediksi Naive Bayes untuk beberapa sampel terpilih](Assets/NaiveBayes/probabilitas_prediksi.png)
-
----
-
-## Interpretasi Hasil
-
-Model Gaussian Naive Bayes yang saya bangun mencapai **accuracy 96.67%** pada data testing, dengan hanya **1 kesalahan** dari 30 prediksi. Kesalahan tersebut terjadi pada 1 sampel Versicolor yang diprediksi sebagai Virginica.
-
-Hal ini wajar karena:
-1. **Versicolor dan Virginica** memiliki overlap fitur yang cukup tinggi, terutama pada sepal length dan sepal width
-2. **Asumsi independensi** Naive Bayes tidak sepenuhnya terpenuhi (korelasi petal length dan petal width = 0.96)
-3. Meskipun asumsi dilanggar, Naive Bayes tetap memberikan performa yang sangat baik
-
-Kelas **Setosa** diprediksi sempurna karena distribusi fiturnya sangat berbeda dari kelas lain, terutama pada petal length dan petal width.
-
----
-
-## Perbandingan dengan KNN (UTS)
-
-| Aspek | KNN (UTS) | Naive Bayes (Tugas ini) |
-|-------|-----------|------------------------|
-| **Tool** | KNIME Analytics Platform | Python + sklearn |
-| **Dataset** | Kesuburan Tanah (2000 sampel) | Iris (150 sampel) |
-| **Algoritma** | K-Nearest Neighbor (k=5) | Gaussian Naive Bayes |
-| **Preprocessing** | Missing Value, One-to-Many, Normalizer | Tidak perlu normalisasi |
-| **Accuracy** | 100% | 96.67% |
-| **Kelebihan** | Tidak perlu asumsi distribusi | Cepat, efisien, interpretable |
-
----
+Agar tidak ada error, saya mengeksekusi node secara berurutan. Saya mulai dari mengeksekusi CSV Reader, kemudian menjalankan keempat node Python Script secara bersamaan atau berurutan. Setelah status node menjadi hijau, barulah saya membuka Table View satu per satu.
 
 ## Kesimpulan
 
-Dari analisis yang saya lakukan, saya berhasil membangun model classifier menggunakan **Gaussian Naive Bayes** dari library scikit-learn. Berikut rangkuman tahapan yang saya kerjakan:
+Dari proses panjang yang telah saya jabarkan, saya berhasil menerapkan algoritma Gaussian Naive Bayes dengan perpaduan apik antara KNIME dan Python. Saya telah membagi data dengan perbandingan 80% untuk pelatihan dan 20% untuk pengujian.
 
-1. **Load Dataset**: saya menggunakan dataset Iris dari `sklearn.datasets` yang memiliki 150 sampel dengan 4 fitur numerik dan 3 kelas
-2. **Eksplorasi Data**: saya memvisualisasikan distribusi fitur, scatter plot, dan matriks korelasi untuk memahami karakteristik data
-3. **Split Data**: saya membagi data menjadi 80% training (120 sampel) dan 20% testing (30 sampel) dengan stratifikasi
-4. **Training Model**: saya melatih model GaussianNB yang mempelajari mean dan variance setiap fitur per kelas
-5. **Evaluasi Model**: saya menghitung Accuracy, Precision, Recall, dan F1-Score
-
-### Hasil Akhir
-
-Model Gaussian Naive Bayes berhasil mengklasifikasikan bunga iris dengan:
-- **Accuracy: 96.67%** — 29 dari 30 data uji diprediksi dengan benar
-- **Precision: 96.97%** — ketepatan prediksi per kelas sangat tinggi
-- **Recall: 96.67%** — kemampuan mengenali setiap kelas sangat baik
-- **F1-Score: 96.66%** — keseimbangan precision dan recall baik
-
-Kesimpulannya, meskipun Naive Bayes menggunakan asumsi independensi yang tidak sepenuhnya terpenuhi pada dataset Iris (korelasi tinggi antara petal length dan petal width), algoritma ini tetap mampu memberikan performa klasifikasi yang **sangat baik** (> 96%).
-
----
-
-## Source Code
-
-Script Python lengkap untuk analisis ini tersedia pada file:
-
-> **[naive_bayes_classifier.py](naive_bayes_classifier.py)**
-
-Library yang digunakan:
-```
-scikit-learn
-pandas
-numpy
-matplotlib
-seaborn
-```
-
-Cara menjalankan:
-```bash
-pip install scikit-learn pandas numpy matplotlib seaborn
-python naive_bayes_classifier.py
-```
-
----
+Hasil akhirnya sangat memuaskan. Model mampu menebak kelas spesies bunga dengan akurasi yang luar biasa tinggi. Kesalahan prediksi terbilang sangat kecil, yang mana wajar karena ada kemiripan fisik antara spesies Versicolor dan Virginica. Secara keseluruhan, pemanfaatan Python Script di dalam KNIME memberikan fleksibilitas tinggi tanpa mengorbankan kerapian visual dari alur kerja.
 
 ## Referensi
 
-1. Fisher, R.A., 1936. *The Use of Multiple Measurements in Taxonomic Problems*. Annals of Eugenics, 7(2): 179-188.
-2. [scikit-learn Naive Bayes API Documentation](https://scikit-learn.org/stable/api/sklearn.naive_bayes.html)
-3. [scikit-learn Naive Bayes User Guide](https://scikit-learn.org/stable/modules/naive_bayes.html)
-4. [Iris Dataset — sklearn.datasets](https://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html)
-5. Han, J., Kamber, M., Pei, J., 2011. *Data Mining: Concepts and Techniques* (3rd ed.). Morgan Kaufmann.
-6. [Mulaab - Data Mining](https://mulaab.github.io/datamining/)
+1. Fisher, R.A., 1936. The Use of Multiple Measurements in Taxonomic Problems. Annals of Eugenics, 7(2): 179-188.
+2. scikit-learn Naive Bayes API Documentation
+3. scikit-learn Naive Bayes User Guide
+4. Iris Dataset pada sklearn.datasets
+5. Han, J., Kamber, M., Pei, J., 2011. Data Mining: Concepts and Techniques. Morgan Kaufmann.
+6. Mulaab, Data Mining Website.

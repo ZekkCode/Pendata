@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Penambangan Data (Data Mining) &#8212; Penambangan Data A - Materi Perkuliahan</title>
+    <title>Tugas Decision Tree C4.5 (Gain Ratio) &#8212; Penambangan Data A - Materi Perkuliahan</title>
   
   
   
@@ -61,10 +61,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tugas_Decision_Tree_Gain_Ratio';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Materi Pertemuan 1 — Pengantar Data Mining" href="pertemuan1.html" />
+    <link rel="next" title="Materi Pertemuan 10 — Clustering" href="pertemuan10.html" />
+    <link rel="prev" title="Tugas | Analisa Data Menggunakan Naive Bayes (A)" href="Tugas_Naive_Bayes_Classifier.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -130,7 +131,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="sidebar-primary-item">
   
 
-<a class="navbar-brand logo" href="#">
+<a class="navbar-brand logo" href="intro.html">
   
   
   
@@ -149,13 +150,13 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
                     Penambangan Data (Data Mining)
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pertemuan1.html">Materi Pertemuan 1 — Pengantar Data Mining</a></li>
 
 <li class="toctree-l1"><a class="reference internal" href="pertemuan2.html">Materi Pertemuan 2 — Memahami Data</a></li>
@@ -184,7 +185,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l1"><a class="reference internal" href="pertemuan9.html">Materi Pertemuan 9 — Klasifikasi</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tugas_Naive_Bayes_Classifier.html">Tugas | Analisa Data Menggunakan Naive Bayes (A)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tugas_Decision_Tree_Gain_Ratio.html">Tugas Decision Tree C4.5 (Gain Ratio)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tugas Decision Tree C4.5 (Gain Ratio)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pertemuan10.html">Materi Pertemuan 10 — Clustering</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pertemuan11.html">Materi Pertemuan 11 — Asosiasi</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pertemuan12.html">Materi Pertemuan 12 — Regresi</a></li>
@@ -261,7 +262,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/ZekkCode/Pendata.git/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/ZekkCode/Pendata.git/issues/new?title=Issue%20on%20page%20%2FTugas_Decision_Tree_Gain_Ratio.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -291,7 +292,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/intro.md" target="_blank"
+      <li><a href="_sources/Tugas_Decision_Tree_Gain_Ratio.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -373,7 +374,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Penambangan Data (Data Mining)</h1>
+    <h1>Tugas Decision Tree C4.5 (Gain Ratio)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -383,11 +384,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informasi-mata-kuliah">Informasi Mata Kuliah</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tentang-saya">Tentang Saya</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-mata-kuliah">Deskripsi Mata Kuliah</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-yang-akan-dipelajari">Apa yang Akan Dipelajari?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daftar-pertemuan">Daftar Pertemuan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-data-perhitungan-c4-5-tennis">Raw Data Perhitungan C4.5 Tennis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#impor-data-ke-knime">Impor Data ke KNIME</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pembagian-data-dengan-table-partitioner">Pembagian Data dengan Table Partitioner</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelajaran-model-dengan-decision-tree-learner">Pembelajaran Model dengan Decision Tree Learner</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-pohon-keputusan">Visualisasi Pohon Keputusan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediksi-menggunakan-decision-tree-predictor">Prediksi menggunakan Decision Tree Predictor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-prediksi">Hasil Prediksi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi-akurasi-dengan-scorer">Evaluasi Akurasi dengan Scorer</a></li>
 </ul>
             </nav>
         </div>
@@ -399,161 +403,159 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="penambangan-data-data-mining">
-<h1>Penambangan Data (Data Mining)<a class="headerlink" href="#penambangan-data-data-mining" title="Permalink to this heading">#</a></h1>
-<section id="informasi-mata-kuliah">
-<h2>Informasi Mata Kuliah<a class="headerlink" href="#informasi-mata-kuliah" title="Permalink to this heading">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="tugas-decision-tree-c4-5-gain-ratio">
+<h1>Tugas Decision Tree C4.5 (Gain Ratio)<a class="headerlink" href="#tugas-decision-tree-c4-5-gain-ratio" title="Permalink to this heading">#</a></h1>
+<p>Pada tugas ini, saya mendemonstrasikan proses pembuatan model Decision Tree C4.5 menggunakan aplikasi KNIME. Dataset yang digunakan adalah dataset Play Tennis. Penjelasan untuk masing-masing tahap dan komponen di dalam workflow KNIME dijelaskan secara berurutan di bawah.</p>
+<section id="raw-data-perhitungan-c4-5-tennis">
+<h2>Raw Data Perhitungan C4.5 Tennis<a class="headerlink" href="#raw-data-perhitungan-c4-5-tennis" title="Permalink to this heading">#</a></h2>
+<p>Data awal bersumber dari file Excel yang berisi histori kondisi cuaca dan keputusan bermain tenis. Di dalam dataset ini terdapat 14 baris rekaman dengan atribut prediktor: Outlook, Temp., Humidity, dan Wind, serta satu atribut target yaitu Play Tennis.</p>
 <table class="table">
 <thead>
-<tr class="row-odd"><th class="head"><p></p></th>
-<th class="head"><p></p></th>
+<tr class="row-odd"><th class="head text-right"><p>#</p></th>
+<th class="head text-left"><p>Outlook</p></th>
+<th class="head text-left"><p>Temp.</p></th>
+<th class="head text-left"><p>Humidity</p></th>
+<th class="head text-left"><p>Wind</p></th>
+<th class="head text-left"><p>Play Tennis</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><strong>Mata Kuliah</strong></p></td>
-<td><p>Penambangan Data (Data Mining)</p></td>
+<tr class="row-even"><td class="text-right"><p>0</p></td>
+<td class="text-left"><p>Sunny</p></td>
+<td class="text-left"><p>Hot</p></td>
+<td class="text-left"><p>High</p></td>
+<td class="text-left"><p>False</p></td>
+<td class="text-left"><p>No</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>Kelas</strong></p></td>
-<td><p>A</p></td>
+<tr class="row-odd"><td class="text-right"><p>1</p></td>
+<td class="text-left"><p>Sunny</p></td>
+<td class="text-left"><p>Hot</p></td>
+<td class="text-left"><p>High</p></td>
+<td class="text-left"><p>True</p></td>
+<td class="text-left"><p>No</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>Dosen Pengampu</strong></p></td>
-<td><p>Bapak Mula’ab, <a class="reference external" href="http://S.Si">S.Si</a>., M.Kom. (NIP 197305202002121001)</p></td>
+<tr class="row-even"><td class="text-right"><p>2</p></td>
+<td class="text-left"><p>Overcast</p></td>
+<td class="text-left"><p>Hot</p></td>
+<td class="text-left"><p>High</p></td>
+<td class="text-left"><p>False</p></td>
+<td class="text-left"><p>Yes</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>Semester</strong></p></td>
-<td><p>4 (Empat)</p></td>
+<tr class="row-odd"><td class="text-right"><p>3</p></td>
+<td class="text-left"><p>Rain</p></td>
+<td class="text-left"><p>Mild</p></td>
+<td class="text-left"><p>High</p></td>
+<td class="text-left"><p>False</p></td>
+<td class="text-left"><p>Yes</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>Program Studi</strong></p></td>
-<td><p>S1 Teknik Informatika</p></td>
+<tr class="row-even"><td class="text-right"><p>4</p></td>
+<td class="text-left"><p>Rain</p></td>
+<td class="text-left"><p>Cool</p></td>
+<td class="text-left"><p>Normal</p></td>
+<td class="text-left"><p>False</p></td>
+<td class="text-left"><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>5</p></td>
+<td class="text-left"><p>Rain</p></td>
+<td class="text-left"><p>Cool</p></td>
+<td class="text-left"><p>Normal</p></td>
+<td class="text-left"><p>True</p></td>
+<td class="text-left"><p>No</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>6</p></td>
+<td class="text-left"><p>Overcast</p></td>
+<td class="text-left"><p>Cool</p></td>
+<td class="text-left"><p>Normal</p></td>
+<td class="text-left"><p>True</p></td>
+<td class="text-left"><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>7</p></td>
+<td class="text-left"><p>Sunny</p></td>
+<td class="text-left"><p>Mild</p></td>
+<td class="text-left"><p>High</p></td>
+<td class="text-left"><p>False</p></td>
+<td class="text-left"><p>No</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>8</p></td>
+<td class="text-left"><p>Sunny</p></td>
+<td class="text-left"><p>Cold</p></td>
+<td class="text-left"><p>Normal</p></td>
+<td class="text-left"><p>False</p></td>
+<td class="text-left"><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>9</p></td>
+<td class="text-left"><p>Rain</p></td>
+<td class="text-left"><p>Mild</p></td>
+<td class="text-left"><p>Normal</p></td>
+<td class="text-left"><p>False</p></td>
+<td class="text-left"><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>10</p></td>
+<td class="text-left"><p>Sunny</p></td>
+<td class="text-left"><p>Mild</p></td>
+<td class="text-left"><p>Normal</p></td>
+<td class="text-left"><p>True</p></td>
+<td class="text-left"><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>11</p></td>
+<td class="text-left"><p>Overcast</p></td>
+<td class="text-left"><p>Mild</p></td>
+<td class="text-left"><p>High</p></td>
+<td class="text-left"><p>True</p></td>
+<td class="text-left"><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>12</p></td>
+<td class="text-left"><p>Overcast</p></td>
+<td class="text-left"><p>Hot</p></td>
+<td class="text-left"><p>Normal</p></td>
+<td class="text-left"><p>False</p></td>
+<td class="text-left"><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>13</p></td>
+<td class="text-left"><p>Rain</p></td>
+<td class="text-left"><p>Mild</p></td>
+<td class="text-left"><p>High</p></td>
+<td class="text-left"><p>True</p></td>
+<td class="text-left"><p>No</p></td>
 </tr>
 </tbody>
 </table>
 </section>
-<hr class="docutils" />
-<section id="tentang-saya">
-<h2>Tentang Saya<a class="headerlink" href="#tentang-saya" title="Permalink to this heading">#</a></h2>
-<table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p></p></th>
-<th class="head"><p></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><strong>Nama</strong></p></td>
-<td><p>Zakaria Mujur Prasetyo</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>NIM</strong></p></td>
-<td><p>240411100144</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Program Studi</strong></p></td>
-<td><p>S1 Teknik Informatika</p></td>
-</tr>
-</tbody>
-</table>
+<section id="impor-data-ke-knime">
+<h2>Impor Data ke KNIME<a class="headerlink" href="#impor-data-ke-knime" title="Permalink to this heading">#</a></h2>
+<p><img alt="Data Raw" src="_images/DataRaw.png" /></p>
+<p>Pada KNIME, saya menggunakan node <strong>Excel Reader</strong> untuk mengimpor file data tersebut. Tampilan di atas adalah hasil pembacaan data. Saya mengecek kembali tipe datanya dan terlihat bahwa semua kolom bertipe String, yang memang sesuai mengingat seluruh variabelnya merupakan data kategorikal.</p>
 </section>
-<hr class="docutils" />
-<section id="deskripsi-mata-kuliah">
-<h2>Deskripsi Mata Kuliah<a class="headerlink" href="#deskripsi-mata-kuliah" title="Permalink to this heading">#</a></h2>
-<p>Mata kuliah <strong>Penambangan Data (Data Mining)</strong> mempelajari proses menemukan pola, korelasi, dan informasi tersembunyi yang bermanfaat dari kumpulan data yang besar. Penambangan data melibatkan teknik <strong>statistik, matematika, kecerdasan buatan, dan machine learning</strong> untuk mengekstraksi pengetahuan dari berbagai database besar.</p>
-<p>Istilah “penambangan data” dianalogikan seperti menambang emas dari tumpukan batu, tanah, dan pasir — di mana yang dicari adalah informasi berharga dari data mentah yang tersedia.</p>
-<blockquote>
-<div><p><strong>Referensi utama situs dosen pengampu:</strong> <a class="reference external" href="https://mulaab.github.io/datamining/">https://mulaab.github.io/datamining/</a></p>
-</div></blockquote>
+<section id="pembagian-data-dengan-table-partitioner">
+<h2>Pembagian Data dengan Table Partitioner<a class="headerlink" href="#pembagian-data-dengan-table-partitioner" title="Permalink to this heading">#</a></h2>
+<p><img alt="Table Partitioner" src="_images/TablePartioner.png" /></p>
+<p>Untuk melatih dan menguji model, saya perlu membagi data. Saya menggunakan node <strong>Table Partitioner</strong> untuk memecah dataset mentah menjadi dua bagian terpisah: data latih (training set) dan data uji (test set). Data latih nantinya akan digunakan oleh algoritma untuk belajar, sedangkan data uji saya pakai untuk mengukur seberapa baik performa model yang sudah jadi.</p>
 </section>
-<hr class="docutils" />
-<section id="apa-yang-akan-dipelajari">
-<h2>Apa yang Akan Dipelajari?<a class="headerlink" href="#apa-yang-akan-dipelajari" title="Permalink to this heading">#</a></h2>
-<p>Berikut adalah topik-topik utama yang akan dibahas dalam mata kuliah ini:</p>
-<ol class="arabic simple">
-<li><p><strong>Pengantar Data Mining</strong> — Konsep dasar, definisi, keunggulan, tugas utama, dan proses data mining (CRISP-DM).</p></li>
-<li><p><strong>Memahami Data</strong> — Macam-macam data, tipe atribut (nominal, biner, ordinal, numerik), data terstruktur dan tidak terstruktur.</p></li>
-<li><p><strong>Pengantar Data Science</strong> — Hubungan data mining dengan data science secara umum.</p></li>
-<li><p><strong>Distribusi &amp; Statistik Deskriptif</strong> — Mean, median, modus, variansi, standar deviasi, skewness, boxplot.</p></li>
-<li><p><strong>Mengukur Jarak/Similaritas Data</strong> — Euclidean, Manhattan, Minkowski, Cosine, Jaccard, Mahalanobis, dll.</p></li>
-<li><p><strong>Praproses Data</strong> — Pembersihan data, seleksi atribut, integrasi, transformasi, dan analisa bivariat.</p></li>
-<li><p><strong>Modeling</strong> — Membangun model dengan berbagai metode (klasifikasi, clustering, dll).</p></li>
-<li><p><strong>Evaluasi</strong> — Mengevaluasi performa model data mining.</p></li>
-</ol>
+<section id="pembelajaran-model-dengan-decision-tree-learner">
+<h2>Pembelajaran Model dengan Decision Tree Learner<a class="headerlink" href="#pembelajaran-model-dengan-decision-tree-learner" title="Permalink to this heading">#</a></h2>
+<p><img alt="Decision Tree Learner" src="_images/DecisonTreeLearner.png" /></p>
+<p>Data latih kemudian saya hubungkan ke node <strong>Decision Tree Learner</strong>. Di dalam node ini, model membaca pola dari atribut input dan secara rekursif memilih atribut dengan metrik pemisahan terbaik (misalnya metrik Gain Ratio pada algoritma C4.5) untuk membagi data. Hasil akhir dari pemrosesan node ini berupa model pohon keputusan.</p>
 </section>
-<hr class="docutils" />
-<section id="daftar-pertemuan">
-<h2>Daftar Pertemuan<a class="headerlink" href="#daftar-pertemuan" title="Permalink to this heading">#</a></h2>
-<table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>No</p></th>
-<th class="head"><p>Pertemuan</p></th>
-<th class="head"><p>Topik</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>1</p></td>
-<td><p><a class="reference internal" href="pertemuan1.html"><span class="doc std std-doc">Pertemuan 1</span></a></p></td>
-<td><p>Pengantar Data Mining</p></td>
-</tr>
-<tr class="row-odd"><td><p>2</p></td>
-<td><p><a class="reference internal" href="pertemuan2.html"><span class="doc std std-doc">Pertemuan 2</span></a></p></td>
-<td><p>Memahami Data</p></td>
-</tr>
-<tr class="row-even"><td><p>3</p></td>
-<td><p><a class="reference internal" href="pertemuan3.html"><span class="doc std std-doc">Pertemuan 3</span></a></p></td>
-<td><p>Data Preparation (Extensi)</p></td>
-</tr>
-<tr class="row-odd"><td><p>4</p></td>
-<td><p><a class="reference internal" href="pertemuan4.html"><span class="doc std std-doc">Pertemuan 4</span></a></p></td>
-<td><p>Preprocessing &amp; Normalisasi</p></td>
-</tr>
-<tr class="row-even"><td><p>5</p></td>
-<td><p><a class="reference internal" href="Tugas%20-%20Missing%20Values%20Inputation%20%2B%20Materi%20Normalisasi%20Data.html"><span class="doc std std-doc">Tugas</span></a></p></td>
-<td><p>Missing Values Imputation + Normalisasi</p></td>
-</tr>
-<tr class="row-odd"><td><p>6</p></td>
-<td><p><a class="reference internal" href="pertemuan5.html"><span class="doc std std-doc">Pertemuan 5</span></a></p></td>
-<td><p>Mengukur Jarak / Similaritas Data</p></td>
-</tr>
-<tr class="row-even"><td><p>7</p></td>
-<td><p><a class="reference internal" href="pertemuan6.html"><span class="doc std std-doc">Pertemuan 6</span></a></p></td>
-<td><p>Praproses Data</p></td>
-</tr>
-<tr class="row-odd"><td><p>8</p></td>
-<td><p><a class="reference internal" href="pertemuan7.html"><span class="doc std std-doc">Pertemuan 7</span></a></p></td>
-<td><p>Modeling</p></td>
-</tr>
-<tr class="row-even"><td><p>9</p></td>
-<td><p><a class="reference internal" href="UTS_Analisa_Kesuburan_Tanah.html"><span class="doc std std-doc">UTS</span></a></p></td>
-<td><p>Analisa Data Kesuburan Tanah (KNN)</p></td>
-</tr>
-<tr class="row-odd"><td><p>10</p></td>
-<td><p><a class="reference internal" href="pertemuan9.html"><span class="doc std std-doc">Pertemuan 9</span></a></p></td>
-<td><p>Klasifikasi</p></td>
-</tr>
-<tr class="row-even"><td><p>11</p></td>
-<td><p><a class="reference internal" href="Tugas_Naive_Bayes_Classifier.html"><span class="doc std std-doc">Tugas</span></a></p></td>
-<td><p>Analisa Data Menggunakan Naive Bayes (A)</p></td>
-</tr>
-<tr class="row-odd"><td><p>12</p></td>
-<td><p><a class="reference internal" href="pertemuan10.html"><span class="doc std std-doc">Pertemuan 10</span></a></p></td>
-<td><p>Clustering</p></td>
-</tr>
-<tr class="row-even"><td><p>13</p></td>
-<td><p><a class="reference internal" href="pertemuan11.html"><span class="doc std std-doc">Pertemuan 11</span></a></p></td>
-<td><p>Asosiasi</p></td>
-</tr>
-<tr class="row-odd"><td><p>14</p></td>
-<td><p><a class="reference internal" href="pertemuan12.html"><span class="doc std std-doc">Pertemuan 12</span></a></p></td>
-<td><p>Regresi</p></td>
-</tr>
-<tr class="row-even"><td><p>15</p></td>
-<td><p><a class="reference internal" href="pertemuan13.html"><span class="doc std std-doc">Pertemuan 13</span></a></p></td>
-<td><p>Evaluasi Model</p></td>
-</tr>
-<tr class="row-odd"><td><p>16</p></td>
-<td><p><a class="reference internal" href="pertemuan14.html"><span class="doc std std-doc">Pertemuan 14</span></a></p></td>
-<td><p>Studi Kasus &amp; Review</p></td>
-</tr>
-</tbody>
-</table>
+<section id="visualisasi-pohon-keputusan">
+<h2>Visualisasi Pohon Keputusan<a class="headerlink" href="#visualisasi-pohon-keputusan" title="Permalink to this heading">#</a></h2>
+<p><img alt="Decision Tree View" src="_images/DecisionTreeView.png" /></p>
+<p>Untuk mengecek dan memahami logika yang dibuat oleh model, saya menambahkan node <strong>Decision Tree View</strong>. Node ini menerima output model yang sudah dilatih dan menampilkan grafis struktur pohon keputusannya. Melalui visualisasi interaktif tersebut, saya bisa melakukan penelusuran untuk melihat alasan pemilihan setiap percabangan dari akar (root) sampai ke daun (leaf).</p>
 </section>
-<div class="toctree-wrapper compound">
-</div>
+<section id="prediksi-menggunakan-decision-tree-predictor">
+<h2>Prediksi menggunakan Decision Tree Predictor<a class="headerlink" href="#prediksi-menggunakan-decision-tree-predictor" title="Permalink to this heading">#</a></h2>
+<p><img alt="Decision Tree Predictor" src="_images/DecisionTreePredictor.png" /></p>
+<p>Setelah model selesai dilatih, langkah selanjutnya adalah menerapkannya ke data uji. Saya memakai node <strong>Decision Tree Predictor</strong> dengan memasukkan dua input: model pohon keputusan dan partisi data uji. Node ini akan mencocokkan setiap baris data uji ke dalam aturan model untuk menghasilkan sebuah prediksi baru.</p>
+</section>
+<section id="hasil-prediksi">
+<h2>Hasil Prediksi<a class="headerlink" href="#hasil-prediksi" title="Permalink to this heading">#</a></h2>
+<p><img alt="Hasil Decision Tree" src="_images/HasilDecisionTree.png" /></p>
+<p>Tabel di atas menampilkan keluaran dari node predictor. Terdapat penambahan kolom baru di bagian paling kanan bernama “Prediction (Play Tennis)”. Dari tabel ini, saya bisa langsung mengobservasi perbandingan antara label target yang sebenarnya (Play Tennis) dengan label hasil tebakan algoritma.</p>
+</section>
+<section id="evaluasi-akurasi-dengan-scorer">
+<h2>Evaluasi Akurasi dengan Scorer<a class="headerlink" href="#evaluasi-akurasi-dengan-scorer" title="Permalink to this heading">#</a></h2>
+<p><img alt="Accuracy Statistics Scorer" src="_images/AccuracyStatictsScorer.png" /></p>
+<p>Sebagai tahap akhir evaluasi, saya melampirkan node <strong>Scorer</strong> untuk mengukur seberapa akurat prediksi yang dihasilkan. Node ini mengambil data hasil prediksi, lalu membandingkan kolom kelas target asli dengan kelas prediksinya. Output akhirnya berupa nilai akurasi secara umum serta confusion matrix yang memudahkan saya mengetahui secara detail jumlah tebakan yang benar dan meleset.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -587,12 +589,21 @@ document.write(`
   
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="Tugas_Naive_Bayes_Classifier.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Tugas | Analisa Data Menggunakan Naive Bayes (A)</p>
+      </div>
+    </a>
     <a class="right-next"
-       href="pertemuan1.html"
+       href="pertemuan10.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Materi Pertemuan 1 — Pengantar Data Mining</p>
+        <p class="prev-next-title">Materi Pertemuan 10 — Clustering</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -614,11 +625,14 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informasi-mata-kuliah">Informasi Mata Kuliah</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tentang-saya">Tentang Saya</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-mata-kuliah">Deskripsi Mata Kuliah</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apa-yang-akan-dipelajari">Apa yang Akan Dipelajari?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daftar-pertemuan">Daftar Pertemuan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-data-perhitungan-c4-5-tennis">Raw Data Perhitungan C4.5 Tennis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#impor-data-ke-knime">Impor Data ke KNIME</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pembagian-data-dengan-table-partitioner">Pembagian Data dengan Table Partitioner</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pembelajaran-model-dengan-decision-tree-learner">Pembelajaran Model dengan Decision Tree Learner</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-pohon-keputusan">Visualisasi Pohon Keputusan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prediksi-menggunakan-decision-tree-predictor">Prediksi menggunakan Decision Tree Predictor</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hasil-prediksi">Hasil Prediksi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi-akurasi-dengan-scorer">Evaluasi Akurasi dengan Scorer</a></li>
 </ul>
   </nav></div>
 

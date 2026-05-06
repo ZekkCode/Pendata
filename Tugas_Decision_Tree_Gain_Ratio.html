@@ -61,6 +61,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Tugas_Decision_Tree_Gain_Ratio';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -534,12 +536,33 @@ document.write(`
 <section id="pembelajaran-model-dengan-decision-tree-learner">
 <h2>Pembelajaran Model dengan Decision Tree Learner<a class="headerlink" href="#pembelajaran-model-dengan-decision-tree-learner" title="Permalink to this heading">#</a></h2>
 <p><img alt="Decision Tree Learner" src="_images/DecisonTreeLearner.png" /></p>
-<p>Data latih kemudian saya hubungkan ke node <strong>Decision Tree Learner</strong>. Di dalam node ini, model membaca pola dari atribut input dan secara rekursif memilih atribut dengan metrik pemisahan terbaik (misalnya metrik Gain Ratio pada algoritma C4.5) untuk membagi data. Hasil akhir dari pemrosesan node ini berupa model pohon keputusan.</p>
+<p>Data latih kemudian saya hubungkan ke node <strong>Decision Tree Learner</strong>. Di dalam node ini, model membaca pola dari atribut input dan secara rekursif memilih atribut dengan metrik pemisahan terbaik untuk membagi data. Algoritma C4.5 yang digunakan dalam node ini bekerja berdasarkan perhitungan metrik matematis berikut:</p>
+<ol class="arabic simple">
+<li><p><strong>Entropy</strong>: Mengukur tingkat ketidakpastian atau <em>impurity</em> (ketidakmurnian) dari sekumpulan data.
+$<span class="math notranslate nohighlight">\(Entropy(S) = - \sum_{i=1}^{c} p_i \log_2 p_i\)</span><span class="math notranslate nohighlight">\(
+Di mana \)</span>p_i<span class="math notranslate nohighlight">\( adalah probabilitas kelas \)</span>i<span class="math notranslate nohighlight">\( pada himpunan data \)</span>S$.</p></li>
+<li><p><strong>Information Gain</strong>: Mengukur seberapa besar penurunan Entropy setelah dataset dipisah berdasarkan suatu atribut tertentu.
+$<span class="math notranslate nohighlight">\(GAIN_{split} = Entropy(Parent) - \sum_{v \in Values(A)} \frac{|S_v|}{|S|} Entropy(S_v)\)</span>$</p></li>
+<li><p><strong>SplitINFO (Split Information)</strong>: Nilai yang digunakan untuk mengontrol bias <em>Information Gain</em> terhadap atribut yang memiliki terlalu banyak cabang partisi.
+$<span class="math notranslate nohighlight">\(SplitINFO = - \sum_{i=1}^{k} \frac{n_i}{n} \log_2 \frac{n_i}{n}\)</span>$
+Keterangan:</p>
+<ul class="simple">
+<li><p>Parent Node dipisah ke dalam <span class="math notranslate nohighlight">\(k\)</span> partisi.</p></li>
+<li><p><span class="math notranslate nohighlight">\(n_i\)</span> = jumlah record (baris data) di dalam partisi ke-<span class="math notranslate nohighlight">\(i\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(n\)</span> = jumlah total record pada parent node.</p></li>
+</ul>
+</li>
+<li><p><strong>Gain Ratio</strong>: Metrik final yang menentukan atribut mana yang paling optimal untuk dijadikan cabang.
+$<span class="math notranslate nohighlight">\(GainRATIO_{split} = \frac{GAIN_{split}}{SplitINFO}\)</span>$</p></li>
+</ol>
+<p>Node ini menghitung nilai <em>Gain Ratio</em> untuk semua prediktor, lalu atribut dengan <em>Gain Ratio</em> tertinggi akan terpilih sebagai node pemecah (pemisah) utama. Hasil akhir dari pemrosesan node ini berupa model pohon keputusan yang utuh.</p>
 </section>
 <section id="visualisasi-pohon-keputusan">
 <h2>Visualisasi Pohon Keputusan<a class="headerlink" href="#visualisasi-pohon-keputusan" title="Permalink to this heading">#</a></h2>
 <p><img alt="Decision Tree View" src="_images/DecisionTreeView.png" /></p>
 <p>Untuk mengecek dan memahami logika yang dibuat oleh model, saya menambahkan node <strong>Decision Tree View</strong>. Node ini menerima output model yang sudah dilatih dan menampilkan grafis struktur pohon keputusannya. Melalui visualisasi interaktif tersebut, saya bisa melakukan penelusuran untuk melihat alasan pemilihan setiap percabangan dari akar (root) sampai ke daun (leaf).</p>
+<p><strong>Ringkasan Spesifik Visualisasi Pohon Keputusan:</strong>
+Visualisasi ini merupakan perwujudan langsung dari perhitungan <em>Gain Ratio</em> yang dibahas sebelumnya. Atribut yang menduduki posisi paling atas (<strong>Root Node</strong>) dipastikan merupakan atribut dengan nilai <em>Gain Ratio</em> paling besar dari seluruh dataset utuh. Cabang-cabang (edges) yang mengarah ke bawah mencerminkan partisi subset data (<span class="math notranslate nohighlight">\(k\)</span> partisi pada rumus <em>SplitINFO</em>). Jika data pada sebuah node turunan sudah seragam atau murni (contoh: semua record adalah “Yes”), maka <em>Entropy</em> menjadi 0 dan node tersebut ditutup sebagai daun keputusan (<strong>Leaf Node</strong>). Jika belum murni, algoritma menghitung ulang <em>Gain Ratio</em> dari atribut tersisa untuk memecah simpul tersebut lagi.</p>
 </section>
 <section id="prediksi-menggunakan-decision-tree-predictor">
 <h2>Prediksi menggunakan Decision Tree Predictor<a class="headerlink" href="#prediksi-menggunakan-decision-tree-predictor" title="Permalink to this heading">#</a></h2>
@@ -554,7 +577,9 @@ document.write(`
 <section id="evaluasi-akurasi-dengan-scorer">
 <h2>Evaluasi Akurasi dengan Scorer<a class="headerlink" href="#evaluasi-akurasi-dengan-scorer" title="Permalink to this heading">#</a></h2>
 <p><img alt="Accuracy Statistics Scorer" src="_images/AccuracyStatictsScorer.png" /></p>
-<p>Sebagai tahap akhir evaluasi, saya melampirkan node <strong>Scorer</strong> untuk mengukur seberapa akurat prediksi yang dihasilkan. Node ini mengambil data hasil prediksi, lalu membandingkan kolom kelas target asli dengan kelas prediksinya. Output akhirnya berupa nilai akurasi secara umum serta confusion matrix yang memudahkan saya mengetahui secara detail jumlah tebakan yang benar dan meleset.</p>
+<p>Sebagai tahap akhir evaluasi, saya melampirkan node <strong>Scorer</strong> untuk mengukur seberapa akurat prediksi yang dihasilkan. Node ini mengambil data hasil prediksi, lalu membandingkan kolom kelas target asli dengan kelas prediksinya.</p>
+<p><strong>Ringkasan Spesifik Hasil Evaluasi:</strong>
+Output dari <em>Scorer</em> memunculkan matriks kebingungan (<em>Confusion Matrix</em>) yang mengategorikan tebakan ke dalam <em>True Positives</em>, <em>True Negatives</em>, <em>False Positives</em>, dan <em>False Negatives</em>. Dari angka-angka spesifik tersebut, model secara otomatis menghitung <em>Accuracy</em> (Akurasi keseluruhan). Tingkat akurasi ini memvalidasi seberapa baik rumus <em>Gain Ratio</em> dalam merumuskan aturan di data latih, dan apakah aturan tersebut cukup kuat (tidak <em>overfitting</em>) saat dites pada baris data uji yang benar-benar baru.</p>
 </section>
 </section>
 

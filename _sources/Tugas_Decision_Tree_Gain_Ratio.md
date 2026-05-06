@@ -39,13 +39,35 @@ Untuk melatih dan menguji model, saya perlu membagi data. Saya menggunakan node 
 
 ![Decision Tree Learner](Assets/Tugas/TugasDecisionTreeGainRatio/DecisonTreeLearner.png)
 
-Data latih kemudian saya hubungkan ke node **Decision Tree Learner**. Di dalam node ini, model membaca pola dari atribut input dan secara rekursif memilih atribut dengan metrik pemisahan terbaik (misalnya metrik Gain Ratio pada algoritma C4.5) untuk membagi data. Hasil akhir dari pemrosesan node ini berupa model pohon keputusan.
+Data latih kemudian saya hubungkan ke node **Decision Tree Learner**. Di dalam node ini, model membaca pola dari atribut input dan secara rekursif memilih atribut dengan metrik pemisahan terbaik untuk membagi data. Algoritma C4.5 yang digunakan dalam node ini bekerja berdasarkan perhitungan metrik matematis berikut:
+
+1. **Entropy**: Mengukur tingkat ketidakpastian atau *impurity* (ketidakmurnian) dari sekumpulan data.
+   $$Entropy(S) = - \sum_{i=1}^{c} p_i \log_2 p_i$$
+   Di mana $p_i$ adalah probabilitas kelas $i$ pada himpunan data $S$.
+
+2. **Information Gain**: Mengukur seberapa besar penurunan Entropy setelah dataset dipisah berdasarkan suatu atribut tertentu.
+   $$GAIN_{split} = Entropy(Parent) - \sum_{v \in Values(A)} \frac{|S_v|}{|S|} Entropy(S_v)$$
+
+3. **SplitINFO (Split Information)**: Nilai yang digunakan untuk mengontrol bias *Information Gain* terhadap atribut yang memiliki terlalu banyak cabang partisi.
+   $$SplitINFO = - \sum_{i=1}^{k} \frac{n_i}{n} \log_2 \frac{n_i}{n}$$
+   Keterangan:
+   * Parent Node dipisah ke dalam $k$ partisi.
+   * $n_i$ = jumlah record (baris data) di dalam partisi ke-$i$.
+   * $n$ = jumlah total record pada parent node.
+
+4. **Gain Ratio**: Metrik final yang menentukan atribut mana yang paling optimal untuk dijadikan cabang.
+   $$GainRATIO_{split} = \frac{GAIN_{split}}{SplitINFO}$$
+
+Node ini menghitung nilai *Gain Ratio* untuk semua prediktor, lalu atribut dengan *Gain Ratio* tertinggi akan terpilih sebagai node pemecah (pemisah) utama. Hasil akhir dari pemrosesan node ini berupa model pohon keputusan yang utuh.
 
 ## Visualisasi Pohon Keputusan
 
 ![Decision Tree View](Assets/Tugas/TugasDecisionTreeGainRatio/DecisionTreeView.png)
 
 Untuk mengecek dan memahami logika yang dibuat oleh model, saya menambahkan node **Decision Tree View**. Node ini menerima output model yang sudah dilatih dan menampilkan grafis struktur pohon keputusannya. Melalui visualisasi interaktif tersebut, saya bisa melakukan penelusuran untuk melihat alasan pemilihan setiap percabangan dari akar (root) sampai ke daun (leaf).
+
+**Ringkasan Spesifik Visualisasi Pohon Keputusan:**
+Visualisasi ini merupakan perwujudan langsung dari perhitungan *Gain Ratio* yang dibahas sebelumnya. Atribut yang menduduki posisi paling atas (**Root Node**) dipastikan merupakan atribut dengan nilai *Gain Ratio* paling besar dari seluruh dataset utuh. Cabang-cabang (edges) yang mengarah ke bawah mencerminkan partisi subset data ($k$ partisi pada rumus *SplitINFO*). Jika data pada sebuah node turunan sudah seragam atau murni (contoh: semua record adalah "Yes"), maka *Entropy* menjadi 0 dan node tersebut ditutup sebagai daun keputusan (**Leaf Node**). Jika belum murni, algoritma menghitung ulang *Gain Ratio* dari atribut tersisa untuk memecah simpul tersebut lagi.
 
 ## Prediksi menggunakan Decision Tree Predictor
 
@@ -63,4 +85,7 @@ Tabel di atas menampilkan keluaran dari node predictor. Terdapat penambahan kolo
 
 ![Accuracy Statistics Scorer](Assets/Tugas/TugasDecisionTreeGainRatio/AccuracyStatictsScorer.png)
 
-Sebagai tahap akhir evaluasi, saya melampirkan node **Scorer** untuk mengukur seberapa akurat prediksi yang dihasilkan. Node ini mengambil data hasil prediksi, lalu membandingkan kolom kelas target asli dengan kelas prediksinya. Output akhirnya berupa nilai akurasi secara umum serta confusion matrix yang memudahkan saya mengetahui secara detail jumlah tebakan yang benar dan meleset.
+Sebagai tahap akhir evaluasi, saya melampirkan node **Scorer** untuk mengukur seberapa akurat prediksi yang dihasilkan. Node ini mengambil data hasil prediksi, lalu membandingkan kolom kelas target asli dengan kelas prediksinya. 
+
+**Ringkasan Spesifik Hasil Evaluasi:**
+Output dari *Scorer* memunculkan matriks kebingungan (*Confusion Matrix*) yang mengategorikan tebakan ke dalam *True Positives*, *True Negatives*, *False Positives*, dan *False Negatives*. Dari angka-angka spesifik tersebut, model secara otomatis menghitung *Accuracy* (Akurasi keseluruhan). Tingkat akurasi ini memvalidasi seberapa baik rumus *Gain Ratio* dalam merumuskan aturan di data latih, dan apakah aturan tersebut cukup kuat (tidak *overfitting*) saat dites pada baris data uji yang benar-benar baru.

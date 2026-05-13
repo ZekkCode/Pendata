@@ -51,33 +51,61 @@ Yang penting diperhatikan adalah saya menggunakan strategi **Stratified Sampling
 
 ## Pelatihan Decision Tree (Satu Pohon Keputusan)
 
-Pada blok pertama, saya melatih satu buah Decision Tree dengan konfigurasi:
+![Decision Tree Learner Configuration](Assets/Tugas/AnalisaDataMenggunakanRandomForest/decision_tree_learner_config.png)
 
-- **Jumlah pohon**: 1 (Decision Tree tunggal)
-- **Minimum node size**: 2
+Pada blok pertama, saya melatih satu buah Decision Tree. Node **Decision Tree Learner** menerima data latih dari output pertama Table Partitioner. Konfigurasi yang saya gunakan:
 
-Node **Decision Tree Learner** menerima data latih dari output pertama Table Partitioner. Algoritma ini bekerja dengan cara:
+| Parameter | Nilai |
+|:---|:---|
+| **Class column** | sex |
+| **Quality measure** | Gini index |
+| **Pruning method** | No pruning |
+| **Reduced error pruning** | Tidak dicentang |
+| **Minimum number of records per node** | 2 |
+| **Number of records to store for view** | 10000 |
 
-1. Menghitung **Entropy** pada setiap node untuk mengukur tingkat ketidakmurnian data:
-   $$Entropy(S) = - \sum_{i=1}^{c} p_i \log_2 p_i$$
+Saya memilih **Gini Index** sebagai metrik kualitas pemisahan. Gini Index mengukur tingkat ketidakmurnian (*impurity*) dari suatu node:
 
-2. Menghitung **Information Gain** untuk menentukan atribut terbaik sebagai pemisah:
-   $$Gain(S, A) = Entropy(S) - \sum_{v \in Values(A)} \frac{|S_v|}{|S|} Entropy(S_v)$$
+$$Gini(S) = 1 - \sum_{i=1}^{c} p_i^2$$
 
-3. Proses ini berlangsung secara rekursif sampai data di setiap daun menjadi murni atau mencapai batas minimum ukuran node (2 rekord).
+Di mana $p_i$ adalah probabilitas kelas $i$ pada himpunan data $S$. Semakin rendah nilai Gini, semakin murni node tersebut. Pada setiap pemisahan, algoritma memilih atribut yang menghasilkan penurunan Gini terbesar.
 
-Setelah model selesai dilatih, output modelnya dihubungkan ke dua node:
-- **Decision Tree View (JavaScript)** — Untuk menampilkan visualisasi interaktif pohon keputusan, sehingga saya bisa menelusuri logika percabangan dari akar hingga daun.
-- **Decision Tree Predictor** — Untuk menerapkan model ke data uji dan menghasilkan prediksi.
+Saya juga memilih **No pruning** agar pohon keputusan tumbuh sepenuhnya tanpa dipangkas, sehingga bisa dilihat seluruh pola yang dipelajari model dari data.
 
-Hasil prediksi kemudian dievaluasi menggunakan node **Scorer (JavaScript)** yang menghitung *Confusion Matrix* dan metrik akurasi.
+### Visualisasi Pohon Keputusan
+
+![Decision Tree View](Assets/Tugas/AnalisaDataMenggunakanRandomForest/decision_tree_view.png)
+
+Setelah model selesai dilatih, saya menghubungkan output modelnya ke node **Decision Tree View (JavaScript)** untuk melihat struktur pohon keputusan yang terbentuk. Dari visualisasi di atas, dapat dilihat:
+
+- **Root Node**: Atribut **relationship** terpilih sebagai pemisah pertama karena memiliki nilai Gini Gain tertinggi. Node akar menunjukkan prediksi default `Male (17431/26048)` — artinya dari total 26.048 data latih, 17.431 berjenis kelamin Male.
+- **Percabangan berdasarkan `relationship`**:
+  - `= Not-in-family` → **Male** (3545/6668)
+  - `= Husband` → **Male** (10553/10553) — 100% Male, node murni
+  - `= Wife` → **Female** (1239/1241) — hampir seluruhnya Female
+  - `= Own-child` → **Male** (2232/4038)
+  - `= Unmarried` → **Female** (2118/2761)
+  - `= Other-relative` → **Male** (456/787)
+
+Atribut `relationship` sangat informatif karena nilai-nilai seperti "Husband" dan "Wife" memiliki korelasi kuat dengan jenis kelamin. Pada cabang yang belum murni (misalnya `Not-in-family` dan `Own-child`), pohon melanjutkan pemisahan menggunakan atribut **occupation** dan **native-country** untuk memperbaiki prediksi.
+
+Setelah visualisasi, output model juga dihubungkan ke node **Decision Tree Predictor** untuk menerapkan model ke data uji, lalu hasilnya dievaluasi menggunakan node **Scorer (JavaScript)** yang menghitung *Confusion Matrix* dan metrik akurasi.
 
 ## Pelatihan Random Forest (Ensemble 50 Pohon)
 
-Pada blok kedua, saya menggunakan pendekatan **Random Forest** — sebuah metode ensemble yang membangun banyak pohon keputusan dan menggabungkan hasilnya. Konfigurasi yang saya gunakan:
+![Random Forest Learner Configuration](Assets/Tugas/AnalisaDataMenggunakanRandomForest/random_forest_learner_config.png)
 
-- **Jumlah pohon keputusan**: 50
-- **Minimum node size**: 2
+Pada blok kedua, saya menggunakan pendekatan **Random Forest** — sebuah metode ensemble yang membangun banyak pohon keputusan dan menggabungkan hasilnya. Konfigurasi node **Random Forest Learner**:
+
+| Parameter | Nilai |
+|:---|:---|
+| **Target column** | sex |
+| **Training attributes** | Use column |
+| **Attribute selection** | Manual — semua kolom di-*include* (age, workclass, dll.) |
+| **Jumlah pohon (dec trees)** | 50 |
+| **Minimum node size** | 2 |
+
+Saya menggunakan seleksi atribut **Manual** dan memasukkan semua kolom ke dalam daftar *Includes* (age, workclass, dan seterusnya) sebagai fitur prediktor. Kolom **sex** otomatis menjadi target dan tidak dimasukkan sebagai fitur input.
 
 ### Mengapa Random Forest Lebih Baik dari Decision Tree Tunggal?
 
@@ -96,12 +124,46 @@ Setiap pohon dalam Random Forest dilatih menggunakan:
 
 Prediksi akhir ditentukan melalui **majority voting** — kelas yang paling banyak dipilih oleh 50 pohon menjadi prediksi final.
 
-### Komponen Node pada Blok Random Forest
+### Statistik Tree Ensemble
 
-1. **Random Forest Learner** — Menerima data latih dan membangun ensemble 50 pohon keputusan.
-2. **Random Forest Predictor** — Menerapkan model ensemble ke data uji untuk menghasilkan prediksi.
-3. **Tree Ensemble Statistics** — Menampilkan statistik detail dari setiap pohon dalam ensemble, termasuk kontribusi masing-masing fitur.
-4. **Scorer (JavaScript)** — Mengevaluasi akurasi prediksi Random Forest dengan *Confusion Matrix*.
+![Tree Ensemble Statistics](Assets/Tugas/AnalisaDataMenggunakanRandomForest/tree_ensemble_statistics.png)
+
+Node **Tree Ensemble Statistics** menampilkan ringkasan statistik dari 50 pohon yang dibangun oleh Random Forest. Dari tabel statistik di atas, dapat diringkas:
+
+| Metrik | Nilai |
+|:---|:---|
+| **Number of models** | 50 |
+| **Minimal depth** | 10 |
+| **Maximal depth** | 10 |
+| **Average depth** | 10 |
+| **Minimal number of nodes** | 373 |
+| **Maximal number of nodes** | 787 |
+| **Average number of nodes** | 582.04 |
+
+Semua 50 pohon memiliki kedalaman yang seragam yaitu **10 level**, yang menunjukkan bahwa pohon-pohon tersebut tumbuh cukup dalam untuk menangkap pola-pola kompleks dalam data. Jumlah node bervariasi dari **373 hingga 787** node per pohon (rata-rata 582 node), yang mencerminkan efek *random feature selection* — setiap pohon memiliki struktur yang berbeda karena hanya mempertimbangkan subset acak dari fitur pada setiap pemisahan.
+
+### Evaluasi Random Forest dengan Scorer
+
+![Random Forest Scorer - Confusion Matrix](Assets/Tugas/AnalisaDataMenggunakanRandomForest/random_forest_scorer.png)
+
+Node **Scorer (JavaScript)** mengevaluasi prediksi Random Forest pada data uji. Dari *Confusion Matrix* yang dihasilkan:
+
+| | Prediksi: Female | Prediksi: Male |
+|:---|:---:|:---:|
+| **Aktual: Female** | **1747** (True Positive) | 407 (False Negative) |
+| **Aktual: Male** | 587 (False Positive) | **3772** (True Negative) |
+
+Dari matriks ini, dapat dihitung metrik evaluasi:
+
+- **Total data uji**: 1747 + 407 + 587 + 3772 = **6.513**
+- **Prediksi benar**: 1747 + 3772 = **5.519**
+- **Akurasi keseluruhan**: 5519 / 6513 = **84,7%**
+- **Precision (Female)**: 1747 / (1747 + 587) = **74,8%**
+- **Recall (Female)**: 1747 / (1747 + 407) = **81,1%**
+- **Precision (Male)**: 3772 / (3772 + 407) = **90,3%**
+- **Recall (Male)**: 3772 / (3772 + 587) = **86,5%**
+
+Model Random Forest berhasil memprediksi jenis kelamin dengan akurasi **84,7%**. Performa prediksi untuk kelas **Male** lebih tinggi (precision 90,3%) dibanding kelas **Female** (precision 74,8%), yang kemungkinan disebabkan oleh distribusi data yang tidak seimbang — jumlah Male lebih banyak dari Female dalam dataset Adult.
 
 ## Opsional: Export Model ke PMML
 
@@ -116,8 +178,8 @@ Format PMML memungkinkan model yang sudah dilatih untuk di-*deploy* dan digunaka
 
 Melalui analisa ini, saya membandingkan dua pendekatan klasifikasi pada dataset Adult:
 
-1. **Decision Tree tunggal** memberikan model yang mudah diinterpretasi melalui visualisasi pohon keputusan, namun rentan terhadap overfitting terutama pada dataset yang besar dan kompleks seperti Adult.
+1. **Decision Tree tunggal** memberikan model yang mudah diinterpretasi — dari visualisasi terlihat bahwa atribut `relationship` menjadi pemisah utama karena korelasinya yang kuat dengan jenis kelamin. Namun, pohon tunggal tanpa pruning rentan terhadap overfitting pada dataset besar.
 
-2. **Random Forest dengan 50 pohon** memberikan prediksi yang lebih akurat dan stabil berkat mekanisme ensemble (bootstrap + random feature selection + majority voting). Trade-off-nya adalah model menjadi lebih sulit diinterpretasi secara langsung.
+2. **Random Forest dengan 50 pohon** menghasilkan akurasi **84,7%** pada data uji, dengan performa prediksi yang lebih baik untuk kelas Male (precision 90,3%) dibanding Female (precision 74,8%). Kedalaman seragam (10 level) dan variasi jumlah node (373–787) menunjukkan bahwa setiap pohon belajar pola yang berbeda berkat mekanisme bootstrap dan random feature selection.
 
-Penggunaan **Stratified Sampling** pada Table Partitioner memastikan bahwa evaluasi kedua model dilakukan secara fair dengan distribusi kelas target yang seimbang di kedua partisi data.
+3. Penggunaan **Stratified Sampling** pada Table Partitioner memastikan bahwa proporsi Male dan Female tetap terjaga di kedua partisi, sehingga evaluasi model dilakukan secara fair.

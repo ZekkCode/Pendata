@@ -390,10 +390,14 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gambaran-umum-workflow">Gambaran Umum Workflow</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-dataset-dengan-csv-reader">Membaca Dataset dengan CSV Reader</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pembagian-data-dengan-table-partitioner">Pembagian Data dengan Table Partitioner</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pelatihan-decision-tree-satu-pohon-keputusan">Pelatihan Decision Tree (Satu Pohon Keputusan)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pelatihan-decision-tree-satu-pohon-keputusan">Pelatihan Decision Tree (Satu Pohon Keputusan)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-pohon-keputusan">Visualisasi Pohon Keputusan</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pelatihan-random-forest-ensemble-50-pohon">Pelatihan Random Forest (Ensemble 50 Pohon)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-random-forest-lebih-baik-dari-decision-tree-tunggal">Mengapa Random Forest Lebih Baik dari Decision Tree Tunggal?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#komponen-node-pada-blok-random-forest">Komponen Node pada Blok Random Forest</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistik-tree-ensemble">Statistik Tree Ensemble</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi-random-forest-dengan-scorer">Evaluasi Random Forest dengan Scorer</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opsional-export-model-ke-pmml">Opsional: Export Model ke PMML</a></li>
@@ -487,33 +491,90 @@ document.write(`
 </section>
 <section id="pelatihan-decision-tree-satu-pohon-keputusan">
 <h2>Pelatihan Decision Tree (Satu Pohon Keputusan)<a class="headerlink" href="#pelatihan-decision-tree-satu-pohon-keputusan" title="Permalink to this heading">#</a></h2>
-<p>Pada blok pertama, saya melatih satu buah Decision Tree dengan konfigurasi:</p>
+<p><img alt="Decision Tree Learner Configuration" src="_images/decision_tree_learner_config.png" /></p>
+<p>Pada blok pertama, saya melatih satu buah Decision Tree. Node <strong>Decision Tree Learner</strong> menerima data latih dari output pertama Table Partitioner. Konfigurasi yang saya gunakan:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Parameter</p></th>
+<th class="head text-left"><p>Nilai</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Class column</strong></p></td>
+<td class="text-left"><p>sex</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Quality measure</strong></p></td>
+<td class="text-left"><p>Gini index</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Pruning method</strong></p></td>
+<td class="text-left"><p>No pruning</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Reduced error pruning</strong></p></td>
+<td class="text-left"><p>Tidak dicentang</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Minimum number of records per node</strong></p></td>
+<td class="text-left"><p>2</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Number of records to store for view</strong></p></td>
+<td class="text-left"><p>10000</p></td>
+</tr>
+</tbody>
+</table>
+<p>Saya memilih <strong>Gini Index</strong> sebagai metrik kualitas pemisahan. Gini Index mengukur tingkat ketidakmurnian (<em>impurity</em>) dari suatu node:</p>
+<div class="math notranslate nohighlight">
+\[Gini(S) = 1 - \sum_{i=1}^{c} p_i^2\]</div>
+<p>Di mana <span class="math notranslate nohighlight">\(p_i\)</span> adalah probabilitas kelas <span class="math notranslate nohighlight">\(i\)</span> pada himpunan data <span class="math notranslate nohighlight">\(S\)</span>. Semakin rendah nilai Gini, semakin murni node tersebut. Pada setiap pemisahan, algoritma memilih atribut yang menghasilkan penurunan Gini terbesar.</p>
+<p>Saya juga memilih <strong>No pruning</strong> agar pohon keputusan tumbuh sepenuhnya tanpa dipangkas, sehingga bisa dilihat seluruh pola yang dipelajari model dari data.</p>
+<section id="visualisasi-pohon-keputusan">
+<h3>Visualisasi Pohon Keputusan<a class="headerlink" href="#visualisasi-pohon-keputusan" title="Permalink to this heading">#</a></h3>
+<p><img alt="Decision Tree View" src="_images/decision_tree_view.png" /></p>
+<p>Setelah model selesai dilatih, saya menghubungkan output modelnya ke node <strong>Decision Tree View (JavaScript)</strong> untuk melihat struktur pohon keputusan yang terbentuk. Dari visualisasi di atas, dapat dilihat:</p>
 <ul class="simple">
-<li><p><strong>Jumlah pohon</strong>: 1 (Decision Tree tunggal)</p></li>
-<li><p><strong>Minimum node size</strong>: 2</p></li>
+<li><p><strong>Root Node</strong>: Atribut <strong>relationship</strong> terpilih sebagai pemisah pertama karena memiliki nilai Gini Gain tertinggi. Node akar menunjukkan prediksi default <code class="docutils literal notranslate"><span class="pre">Male</span> <span class="pre">(17431/26048)</span></code> — artinya dari total 26.048 data latih, 17.431 berjenis kelamin Male.</p></li>
+<li><p><strong>Percabangan berdasarkan <code class="docutils literal notranslate"><span class="pre">relationship</span></code></strong>:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">Not-in-family</span></code> → <strong>Male</strong> (3545/6668)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">Husband</span></code> → <strong>Male</strong> (10553/10553) — 100% Male, node murni</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">Wife</span></code> → <strong>Female</strong> (1239/1241) — hampir seluruhnya Female</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">Own-child</span></code> → <strong>Male</strong> (2232/4038)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">Unmarried</span></code> → <strong>Female</strong> (2118/2761)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">=</span> <span class="pre">Other-relative</span></code> → <strong>Male</strong> (456/787)</p></li>
 </ul>
-<p>Node <strong>Decision Tree Learner</strong> menerima data latih dari output pertama Table Partitioner. Algoritma ini bekerja dengan cara:</p>
-<ol class="arabic simple">
-<li><p>Menghitung <strong>Entropy</strong> pada setiap node untuk mengukur tingkat ketidakmurnian data:
-$<span class="math notranslate nohighlight">\(Entropy(S) = - \sum_{i=1}^{c} p_i \log_2 p_i\)</span>$</p></li>
-<li><p>Menghitung <strong>Information Gain</strong> untuk menentukan atribut terbaik sebagai pemisah:
-$<span class="math notranslate nohighlight">\(Gain(S, A) = Entropy(S) - \sum_{v \in Values(A)} \frac{|S_v|}{|S|} Entropy(S_v)\)</span>$</p></li>
-<li><p>Proses ini berlangsung secara rekursif sampai data di setiap daun menjadi murni atau mencapai batas minimum ukuran node (2 rekord).</p></li>
-</ol>
-<p>Setelah model selesai dilatih, output modelnya dihubungkan ke dua node:</p>
-<ul class="simple">
-<li><p><strong>Decision Tree View (JavaScript)</strong> — Untuk menampilkan visualisasi interaktif pohon keputusan, sehingga saya bisa menelusuri logika percabangan dari akar hingga daun.</p></li>
-<li><p><strong>Decision Tree Predictor</strong> — Untuk menerapkan model ke data uji dan menghasilkan prediksi.</p></li>
+</li>
 </ul>
-<p>Hasil prediksi kemudian dievaluasi menggunakan node <strong>Scorer (JavaScript)</strong> yang menghitung <em>Confusion Matrix</em> dan metrik akurasi.</p>
+<p>Atribut <code class="docutils literal notranslate"><span class="pre">relationship</span></code> sangat informatif karena nilai-nilai seperti “Husband” dan “Wife” memiliki korelasi kuat dengan jenis kelamin. Pada cabang yang belum murni (misalnya <code class="docutils literal notranslate"><span class="pre">Not-in-family</span></code> dan <code class="docutils literal notranslate"><span class="pre">Own-child</span></code>), pohon melanjutkan pemisahan menggunakan atribut <strong>occupation</strong> dan <strong>native-country</strong> untuk memperbaiki prediksi.</p>
+<p>Setelah visualisasi, output model juga dihubungkan ke node <strong>Decision Tree Predictor</strong> untuk menerapkan model ke data uji, lalu hasilnya dievaluasi menggunakan node <strong>Scorer (JavaScript)</strong> yang menghitung <em>Confusion Matrix</em> dan metrik akurasi.</p>
+</section>
 </section>
 <section id="pelatihan-random-forest-ensemble-50-pohon">
 <h2>Pelatihan Random Forest (Ensemble 50 Pohon)<a class="headerlink" href="#pelatihan-random-forest-ensemble-50-pohon" title="Permalink to this heading">#</a></h2>
-<p>Pada blok kedua, saya menggunakan pendekatan <strong>Random Forest</strong> — sebuah metode ensemble yang membangun banyak pohon keputusan dan menggabungkan hasilnya. Konfigurasi yang saya gunakan:</p>
-<ul class="simple">
-<li><p><strong>Jumlah pohon keputusan</strong>: 50</p></li>
-<li><p><strong>Minimum node size</strong>: 2</p></li>
-</ul>
+<p><img alt="Random Forest Learner Configuration" src="_images/random_forest_learner_config.png" /></p>
+<p>Pada blok kedua, saya menggunakan pendekatan <strong>Random Forest</strong> — sebuah metode ensemble yang membangun banyak pohon keputusan dan menggabungkan hasilnya. Konfigurasi node <strong>Random Forest Learner</strong>:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Parameter</p></th>
+<th class="head text-left"><p>Nilai</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Target column</strong></p></td>
+<td class="text-left"><p>sex</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Training attributes</strong></p></td>
+<td class="text-left"><p>Use column</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Attribute selection</strong></p></td>
+<td class="text-left"><p>Manual — semua kolom di-<em>include</em> (age, workclass, dll.)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Jumlah pohon (dec trees)</strong></p></td>
+<td class="text-left"><p>50</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Minimum node size</strong></p></td>
+<td class="text-left"><p>2</p></td>
+</tr>
+</tbody>
+</table>
+<p>Saya menggunakan seleksi atribut <strong>Manual</strong> dan memasukkan semua kolom ke dalam daftar <em>Includes</em> (age, workclass, dan seterusnya) sebagai fitur prediktor. Kolom <strong>sex</strong> otomatis menjadi target dan tidak dimasukkan sebagai fitur input.</p>
 <section id="mengapa-random-forest-lebih-baik-dari-decision-tree-tunggal">
 <h3>Mengapa Random Forest Lebih Baik dari Decision Tree Tunggal?<a class="headerlink" href="#mengapa-random-forest-lebih-baik-dari-decision-tree-tunggal" title="Permalink to this heading">#</a></h3>
 <p>Random Forest mengatasi kelemahan utama Decision Tree tunggal, yaitu <strong>overfitting</strong>. Berikut perbandingannya:</p>
@@ -550,14 +611,75 @@ $<span class="math notranslate nohighlight">\(Gain(S, A) = Entropy(S) - \sum_{v 
 </ul>
 <p>Prediksi akhir ditentukan melalui <strong>majority voting</strong> — kelas yang paling banyak dipilih oleh 50 pohon menjadi prediksi final.</p>
 </section>
-<section id="komponen-node-pada-blok-random-forest">
-<h3>Komponen Node pada Blok Random Forest<a class="headerlink" href="#komponen-node-pada-blok-random-forest" title="Permalink to this heading">#</a></h3>
-<ol class="arabic simple">
-<li><p><strong>Random Forest Learner</strong> — Menerima data latih dan membangun ensemble 50 pohon keputusan.</p></li>
-<li><p><strong>Random Forest Predictor</strong> — Menerapkan model ensemble ke data uji untuk menghasilkan prediksi.</p></li>
-<li><p><strong>Tree Ensemble Statistics</strong> — Menampilkan statistik detail dari setiap pohon dalam ensemble, termasuk kontribusi masing-masing fitur.</p></li>
-<li><p><strong>Scorer (JavaScript)</strong> — Mengevaluasi akurasi prediksi Random Forest dengan <em>Confusion Matrix</em>.</p></li>
-</ol>
+<section id="statistik-tree-ensemble">
+<h3>Statistik Tree Ensemble<a class="headerlink" href="#statistik-tree-ensemble" title="Permalink to this heading">#</a></h3>
+<p><img alt="Tree Ensemble Statistics" src="_images/tree_ensemble_statistics.png" /></p>
+<p>Node <strong>Tree Ensemble Statistics</strong> menampilkan ringkasan statistik dari 50 pohon yang dibangun oleh Random Forest. Dari tabel statistik di atas, dapat diringkas:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Metrik</p></th>
+<th class="head text-left"><p>Nilai</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Number of models</strong></p></td>
+<td class="text-left"><p>50</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Minimal depth</strong></p></td>
+<td class="text-left"><p>10</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Maximal depth</strong></p></td>
+<td class="text-left"><p>10</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Average depth</strong></p></td>
+<td class="text-left"><p>10</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Minimal number of nodes</strong></p></td>
+<td class="text-left"><p>373</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Maximal number of nodes</strong></p></td>
+<td class="text-left"><p>787</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Average number of nodes</strong></p></td>
+<td class="text-left"><p>582.04</p></td>
+</tr>
+</tbody>
+</table>
+<p>Semua 50 pohon memiliki kedalaman yang seragam yaitu <strong>10 level</strong>, yang menunjukkan bahwa pohon-pohon tersebut tumbuh cukup dalam untuk menangkap pola-pola kompleks dalam data. Jumlah node bervariasi dari <strong>373 hingga 787</strong> node per pohon (rata-rata 582 node), yang mencerminkan efek <em>random feature selection</em> — setiap pohon memiliki struktur yang berbeda karena hanya mempertimbangkan subset acak dari fitur pada setiap pemisahan.</p>
+</section>
+<section id="evaluasi-random-forest-dengan-scorer">
+<h3>Evaluasi Random Forest dengan Scorer<a class="headerlink" href="#evaluasi-random-forest-dengan-scorer" title="Permalink to this heading">#</a></h3>
+<p><img alt="Random Forest Scorer - Confusion Matrix" src="_images/random_forest_scorer.png" /></p>
+<p>Node <strong>Scorer (JavaScript)</strong> mengevaluasi prediksi Random Forest pada data uji. Dari <em>Confusion Matrix</em> yang dihasilkan:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p></p></th>
+<th class="head text-center"><p>Prediksi: Female</p></th>
+<th class="head text-center"><p>Prediksi: Male</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Aktual: Female</strong></p></td>
+<td class="text-center"><p><strong>1747</strong> (True Positive)</p></td>
+<td class="text-center"><p>407 (False Negative)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Aktual: Male</strong></p></td>
+<td class="text-center"><p>587 (False Positive)</p></td>
+<td class="text-center"><p><strong>3772</strong> (True Negative)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Dari matriks ini, dapat dihitung metrik evaluasi:</p>
+<ul class="simple">
+<li><p><strong>Total data uji</strong>: 1747 + 407 + 587 + 3772 = <strong>6.513</strong></p></li>
+<li><p><strong>Prediksi benar</strong>: 1747 + 3772 = <strong>5.519</strong></p></li>
+<li><p><strong>Akurasi keseluruhan</strong>: 5519 / 6513 = <strong>84,7%</strong></p></li>
+<li><p><strong>Precision (Female)</strong>: 1747 / (1747 + 587) = <strong>74,8%</strong></p></li>
+<li><p><strong>Recall (Female)</strong>: 1747 / (1747 + 407) = <strong>81,1%</strong></p></li>
+<li><p><strong>Precision (Male)</strong>: 3772 / (3772 + 407) = <strong>90,3%</strong></p></li>
+<li><p><strong>Recall (Male)</strong>: 3772 / (3772 + 587) = <strong>86,5%</strong></p></li>
+</ul>
+<p>Model Random Forest berhasil memprediksi jenis kelamin dengan akurasi <strong>84,7%</strong>. Performa prediksi untuk kelas <strong>Male</strong> lebih tinggi (precision 90,3%) dibanding kelas <strong>Female</strong> (precision 74,8%), yang kemungkinan disebabkan oleh distribusi data yang tidak seimbang — jumlah Male lebih banyak dari Female dalam dataset Adult.</p>
 </section>
 </section>
 <section id="opsional-export-model-ke-pmml">
@@ -573,10 +695,10 @@ $<span class="math notranslate nohighlight">\(Gain(S, A) = Entropy(S) - \sum_{v 
 <h2>Kesimpulan<a class="headerlink" href="#kesimpulan" title="Permalink to this heading">#</a></h2>
 <p>Melalui analisa ini, saya membandingkan dua pendekatan klasifikasi pada dataset Adult:</p>
 <ol class="arabic simple">
-<li><p><strong>Decision Tree tunggal</strong> memberikan model yang mudah diinterpretasi melalui visualisasi pohon keputusan, namun rentan terhadap overfitting terutama pada dataset yang besar dan kompleks seperti Adult.</p></li>
-<li><p><strong>Random Forest dengan 50 pohon</strong> memberikan prediksi yang lebih akurat dan stabil berkat mekanisme ensemble (bootstrap + random feature selection + majority voting). Trade-off-nya adalah model menjadi lebih sulit diinterpretasi secara langsung.</p></li>
+<li><p><strong>Decision Tree tunggal</strong> memberikan model yang mudah diinterpretasi — dari visualisasi terlihat bahwa atribut <code class="docutils literal notranslate"><span class="pre">relationship</span></code> menjadi pemisah utama karena korelasinya yang kuat dengan jenis kelamin. Namun, pohon tunggal tanpa pruning rentan terhadap overfitting pada dataset besar.</p></li>
+<li><p><strong>Random Forest dengan 50 pohon</strong> menghasilkan akurasi <strong>84,7%</strong> pada data uji, dengan performa prediksi yang lebih baik untuk kelas Male (precision 90,3%) dibanding Female (precision 74,8%). Kedalaman seragam (10 level) dan variasi jumlah node (373–787) menunjukkan bahwa setiap pohon belajar pola yang berbeda berkat mekanisme bootstrap dan random feature selection.</p></li>
+<li><p>Penggunaan <strong>Stratified Sampling</strong> pada Table Partitioner memastikan bahwa proporsi Male dan Female tetap terjaga di kedua partisi, sehingga evaluasi model dilakukan secara fair.</p></li>
 </ol>
-<p>Penggunaan <strong>Stratified Sampling</strong> pada Table Partitioner memastikan bahwa evaluasi kedua model dilakukan secara fair dengan distribusi kelas target yang seimbang di kedua partisi data.</p>
 </section>
 </section>
 
@@ -650,10 +772,14 @@ $<span class="math notranslate nohighlight">\(Gain(S, A) = Entropy(S) - \sum_{v 
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gambaran-umum-workflow">Gambaran Umum Workflow</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-dataset-dengan-csv-reader">Membaca Dataset dengan CSV Reader</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pembagian-data-dengan-table-partitioner">Pembagian Data dengan Table Partitioner</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pelatihan-decision-tree-satu-pohon-keputusan">Pelatihan Decision Tree (Satu Pohon Keputusan)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pelatihan-decision-tree-satu-pohon-keputusan">Pelatihan Decision Tree (Satu Pohon Keputusan)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-pohon-keputusan">Visualisasi Pohon Keputusan</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pelatihan-random-forest-ensemble-50-pohon">Pelatihan Random Forest (Ensemble 50 Pohon)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mengapa-random-forest-lebih-baik-dari-decision-tree-tunggal">Mengapa Random Forest Lebih Baik dari Decision Tree Tunggal?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#komponen-node-pada-blok-random-forest">Komponen Node pada Blok Random Forest</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#statistik-tree-ensemble">Statistik Tree Ensemble</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi-random-forest-dengan-scorer">Evaluasi Random Forest dengan Scorer</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opsional-export-model-ke-pmml">Opsional: Export Model ke PMML</a></li>

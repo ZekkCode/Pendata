@@ -1,0 +1,621 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Tugas Pertemuan 13: Analisa Data Menggunakan Regresi Linier &#8212; Penambangan Data A - Materi Perkuliahan</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tugas_Analisa_Data_Menggunakan_Regresi_Linier';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Materi Pertemuan 14 — Studi Kasus &amp; Review" href="pertemuan14.html" />
+    <link rel="prev" title="Materi Pertemuan 13 — Evaluasi Model" href="pertemuan13.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Penambangan Data (Data Mining)
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pertemuan1.html">Materi Pertemuan 1 — Pengantar Data Mining</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="pertemuan2.html">Materi Pertemuan 2 — Memahami Data</a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="pertemuan3.html">Materi Pertemuan 3 — Data Preparation (Extensi)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan4.html">Materi Pertemuan 4 — Preprocessing &amp; Normalisasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas%20-%20Missing%20Values%20Inputation%20%2B%20Materi%20Normalisasi%20Data.html">Tugas — Missing Values (WKNN) &amp; Normalisasi Data</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="pertemuan5.html">Materi Pertemuan 5 — Mengukur Jarak/Similaritas Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan6.html">Materi Pertemuan 6 — Praproses Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan7.html">Materi Pertemuan 7 — Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UTS_Analisa_Kesuburan_Tanah.html">UTS | Analisa Data Kesuburan Tanah</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="pertemuan9.html">Materi Pertemuan 9 — Klasifikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas_Naive_Bayes_Classifier.html">Tugas | Analisa Data Menggunakan Naive Bayes (A)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas_Decision_Tree_Gain_Ratio.html">Tugas Decision Tree C4.5 (Gain Ratio)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tugas_Analisa_Data_Menggunakan_Random_Forest.html">Tugas Analisa Data Menggunakan Random Forest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan10.html">Materi Pertemuan 10 — Clustering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan11.html">Materi Pertemuan 11 — Asosiasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan12.html">Materi Pertemuan 12 — Regresi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan13.html">Materi Pertemuan 13 — Evaluasi Model</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tugas Pertemuan 13: Analisa Data Menggunakan Regresi Linier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pertemuan14.html">Materi Pertemuan 14 — Studi Kasus &amp; Review</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ZekkCode/Pendata.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ZekkCode/Pendata.git/issues/new?title=Issue%20on%20page%20%2FTugas_Analisa_Data_Menggunakan_Regresi_Linier.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Tugas_Analisa_Data_Menggunakan_Regresi_Linier.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tugas Pertemuan 13: Analisa Data Menggunakan Regresi Linier</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-koefisien-regresi-dengan-scikit-learn">1. Menghitung Koefisien Regresi dengan Scikit-Learn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-secara-analitik-rumus-matriks">2. Menghitung Secara Analitik (Rumus Matriks)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pembuktian-dengan-geogebra">3. Pembuktian dengan GeoGebra</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="tugas-pertemuan-13-analisa-data-menggunakan-regresi-linier">
+<h1>Tugas Pertemuan 13: Analisa Data Menggunakan Regresi Linier<a class="headerlink" href="#tugas-pertemuan-13-analisa-data-menggunakan-regresi-linier" title="Permalink to this heading">#</a></h1>
+<p>Perkenalkan saya Zakaria Mujur Prasetyo dengan NIM 240411100144. Pada kesempatan kali ini, saya akan berbagi pengalaman saya dalam menyelesaikan tugas mata kuliah Penambangan Data untuk <strong>Pertemuan 13</strong> yang membahas tentang <strong>Regresi Linier</strong>. Referensi utama untuk materi ini saya ambil dari <a class="reference external" href="https://moelaab.github.io/pendata/ligres.html">website materi bapak dosen</a>.</p>
+<p>Awalnya, bapak dosen memberikan sebuah tugas berupa sekumpulan titik data yang harus dicari garis regresinya. Selain itu, di gambar soal juga terdapat instruksi tambahan untuk mengerjakan tugas ini menggunakan dua metode (secara pemrograman dan analitik). Soal lengkap dan titik-titik data tersebut dapat dilihat pada gambar di bawah ini:</p>
+<p><img alt="Soal dari Bapak Dosen" src="_images/soal-bapak-dosen.png" /></p>
+<p>Dari soal tersebut, saya memodelkan titik-titik koordinatnya menjadi sebuah dataset sederhana sebagai berikut:</p>
+<ul class="simple">
+<li><p>A(2, 2)</p></li>
+<li><p>B(4, 3)</p></li>
+<li><p>C(5, 5)</p></li>
+<li><p>D(3, 4)</p></li>
+<li><p>E(3, 3)</p></li>
+<li><p>F(4, 5)</p></li>
+<li><p>G(5, 6)</p></li>
+</ul>
+<p>Tugas saya di sini ada dua, yaitu:</p>
+<ol class="arabic simple">
+<li><p>Menghitung koefisien regresi menggunakan <em>library</em> <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> pada Python.</p></li>
+<li><p>Menghitung koefisien regresi secara analitik menggunakan rumus matriks.</p></li>
+</ol>
+<p>Mari kita bahas satu per satu!</p>
+<hr class="docutils" />
+<section id="menghitung-koefisien-regresi-dengan-scikit-learn">
+<h2>1. Menghitung Koefisien Regresi dengan Scikit-Learn<a class="headerlink" href="#menghitung-koefisien-regresi-dengan-scikit-learn" title="Permalink to this heading">#</a></h2>
+<p>Untuk cara pertama ini, saya memanfaatkan <em>library</em> <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> yang sangat populer di Python, khususnya <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code>. Langkah pertama yang saya lakukan adalah mengimpor <em>library</em> tersebut dan menyiapkan datanya ke dalam bentuk <em>array</em> <code class="docutils literal notranslate"><span class="pre">numpy</span></code>.</p>
+<p>Berikut adalah kode program yang saya buat:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="c1"># Menyiapkan data titik X dan Y</span>
+<span class="c1"># X adalah array 2D karena sklearn mengharapkan format matriks untuk fitur</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+
+<span class="c1"># Membuat model regresi linier dan melakukan fitting data</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan hasil koefisien dan intercept</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nilai Intercept (a)  : </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nilai Koefisien (b)  : </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Ketika saya menjalankan kode tersebut, hasil output di terminal adalah:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Nilai Intercept (a)  : 0.0000
+Nilai Koefisien (b)  : 1.0769
+</pre></div>
+</div>
+<p>Hal ini berarti persamaan garis regresinya adalah <strong>y = 1.0769x + 0</strong>.</p>
+</section>
+<hr class="docutils" />
+<section id="menghitung-secara-analitik-rumus-matriks">
+<h2>2. Menghitung Secara Analitik (Rumus Matriks)<a class="headerlink" href="#menghitung-secara-analitik-rumus-matriks" title="Permalink to this heading">#</a></h2>
+<p>Selain menggunakan <em>library</em> instan, saya juga penasaran untuk menghitungnya secara manual (analitik) menggunakan rumus regresi linier berbasis matriks. Rumus yang saya gunakan adalah sebagai berikut:</p>
+<p><img alt="Rumus Regresi Linier" src="_images/rumus-dipake.png" /></p>
+<p>Rumus tersebut adalah <span class="math notranslate nohighlight">\(\hat{\beta} = (X^T X)^{-1} X^T Y\)</span>, di mana matriks <span class="math notranslate nohighlight">\(X\)</span> harus ditambahkan kolom konstanta (berisi angka 1) untuk menghitung <em>intercept</em>.</p>
+<p>Saya pun menuliskan implementasinya di Python dengan memanfaatkan operasi matriks dari <code class="docutils literal notranslate"><span class="pre">numpy</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Menyiapkan data X dan y</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+
+<span class="c1"># Menambahkan kolom angka 1 pada matriks X untuk menghitung intercept (X_b)</span>
+<span class="n">X_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">X</span><span class="p">]</span>
+
+<span class="c1"># Menggunakan rumus analitik: Beta = (X^T * X)^-1 * X^T * y</span>
+<span class="c1"># np.linalg.inv() digunakan untuk mencari invers matriks</span>
+<span class="c1"># .dot() digunakan untuk perkalian matriks</span>
+<span class="n">beta_hat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X_b</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_b</span><span class="p">))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_b</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nilai Intercept (a) analitik : </span><span class="si">{</span><span class="n">beta_hat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nilai Koefisien (b) analitik : </span><span class="si">{</span><span class="n">beta_hat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sama halnya dengan program sebelumnya, hasil output ketika dijalankan ternyata persis sama dengan hasil dari <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Nilai Intercept (a) analitik : 0.0000
+Nilai Koefisien (b) analitik : 1.0769
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="pembuktian-dengan-geogebra">
+<h2>3. Pembuktian dengan GeoGebra<a class="headerlink" href="#pembuktian-dengan-geogebra" title="Permalink to this heading">#</a></h2>
+<p>Untuk memastikan bahwa hasil yang saya dapatkan benar, saya mencoba memplot titik-titik data tersebut ke dalam aplikasi <strong>GeoGebra</strong>. Di GeoGebra, saya menggunakan fungsi <code class="docutils literal notranslate"><span class="pre">FitLine</span></code> untuk secara otomatis mencari garis regresi linear terbaik yang mewakili kumpulan titik (A sampai G) tersebut.</p>
+<p>Berikut adalah hasil implementasi saya di GeoGebra:</p>
+<p><img alt="Implementasi GeoGebra" src="_images/implementasi-geogebra.png" /></p>
+<p>Berdasarkan hasil pemrosesan GeoGebra, persamaan garis yang terbentuk adalah <strong>y = 1.0769230769231x</strong>.
+Karena nilai <em>intercept</em>-nya bernilai 0, maka hanya ditampilkan koefisien regresi x. Hal ini membuktikan bahwa perhitungan yang saya lakukan menggunakan program Python, baik itu melalui <em>library</em> <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> maupun perhitungan matriks secara analitik, <strong>sudah sangat akurat</strong> dan sejalan dengan hasil simulasi geometris di GeoGebra.</p>
+<p>Itulah perjalanan saya dalam memecahkan tugas analisis data menggunakan regresi linier kali ini. Dengan bereksperimen langsung menggunakan berbagai cara, saya jadi lebih memahami bagaimana konsep dasar regresi linier bekerja di balik layar kode. Semoga penjelasan saya ini bisa bermanfaat dan mudah dipahami ya!</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="pertemuan13.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Materi Pertemuan 13 — Evaluasi Model</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="pertemuan14.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Materi Pertemuan 14 — Studi Kasus &amp; Review</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-koefisien-regresi-dengan-scikit-learn">1. Menghitung Koefisien Regresi dengan Scikit-Learn</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-secara-analitik-rumus-matriks">2. Menghitung Secara Analitik (Rumus Matriks)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pembuktian-dengan-geogebra">3. Pembuktian dengan GeoGebra</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Zakaria Mujur Prasetyo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright Copyright 2026 Zakaria Mujur Prasetyo.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

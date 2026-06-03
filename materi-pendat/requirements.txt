@@ -2,3 +2,6 @@ jupyter-book==1.0.0
 ghp-import
 matplotlib
 numpy
+pandas
+scikit-learn
+netCDF4

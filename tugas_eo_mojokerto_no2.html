@@ -398,7 +398,10 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengumpulan-data">1. Pengumpulan Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengumpulan-data">1. Pengumpulan Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-aoi-geojson-kabupaten-mojokerto">Visualisasi AOI GeoJSON Kabupaten Mojokerto</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-data">2. Preprocessing Data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-pengecekan-missing-value-pada-runtun-tanggal-harian">a. Pengecekan Missing Value Pada Runtun Tanggal Harian</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-deteksi-anomali-outlier-metode-iqr">b. Deteksi Anomali / Outlier (Metode IQR)</a></li>
@@ -475,6 +478,56 @@ Jika file NO2Mojokerto.nc tersedia, cell preprocessing otomatis memakai data Net
 </div>
 </div>
 </div>
+<section id="visualisasi-aoi-geojson-kabupaten-mojokerto">
+<h3>Visualisasi AOI GeoJSON Kabupaten Mojokerto<a class="headerlink" href="#visualisasi-aoi-geojson-kabupaten-mojokerto" title="Link to this heading">#</a></h3>
+<p>Gambar berikut menunjukkan bahwa polygon yang dimasukkan pada GeoJSON adalah area <strong>Kabupaten Mojokerto</strong>. Titik koordinat longitude-latitude pada bagian <code class="docutils literal notranslate"><span class="pre">coordinates</span></code> membentuk batas AOI yang berada di sekitar Mojokerto, sehingga pengambilan data Sentinel-5P NO2 diarahkan ke wilayah tersebut, bukan ke wilayah lain seperti Surabaya, Pasuruan, atau Malang.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">aoi</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">coords</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#7876c8&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;AOI Kabupaten Mojokerto&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">coords</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#26267f&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.4</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">coords</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#26267f&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+
+<span class="c1"># Label kota sekitar sebagai orientasi spasial sederhana.</span>
+<span class="n">reference_points</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Surabaya&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">112.75</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.25</span><span class="p">),</span>
+    <span class="s2">&quot;Mojokerto&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">112.43</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.47</span><span class="p">),</span>
+    <span class="s2">&quot;Pasuruan&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">112.90</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.65</span><span class="p">),</span>
+    <span class="s2">&quot;Malang&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">112.63</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.98</span><span class="p">),</span>
+    <span class="s2">&quot;Kediri&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mf">112.02</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.82</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span> <span class="ow">in</span> <span class="n">reference_points</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#333333&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">lon</span> <span class="o">+</span> <span class="mf">0.015</span><span class="p">,</span> <span class="n">lat</span> <span class="o">+</span> <span class="mf">0.015</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#333333&quot;</span><span class="p">)</span>
+
+<span class="n">centroid</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+    <span class="n">centroid</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">centroid</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;Kabupaten</span><span class="se">\n</span><span class="s2">Mojokerto&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#1f1f5f&quot;</span><span class="p">,</span>
+    <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s2">&quot;round,pad=0.35&quot;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Visualisasi AOI GeoJSON Kabupaten Mojokerto&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Longitude&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Latitude&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">,</span> <span class="n">adjustable</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.35</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3e16b15e5b1895dfb80a9797719c1744267f47712aff00110d95c01238c05b4c.png" src="_images/3e16b15e5b1895dfb80a9797719c1744267f47712aff00110d95c01238c05b4c.png" />
+</div>
+</div>
+</section>
 </section>
 <section id="preprocessing-data">
 <h2>2. Preprocessing Data<a class="headerlink" href="#preprocessing-data" title="Link to this heading">#</a></h2>
@@ -538,16 +591,16 @@ Jika file NO2Mojokerto.nc tersedia, cell preprocessing otomatis memakai data Net
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variabel dalam file:
-dict_keys([&#39;t&#39;, &#39;x&#39;, &#39;y&#39;, &#39;crs&#39;, &#39;NO2&#39;])
-Sumber data: NetCDF hasil OpenEO Copernicus.
-Berkas NO2_Mojokerto_timeseries.csv sudah diekspor.
-         date       NO2
-0  2023-10-01  0.000058
-1  2023-10-02  0.000057
-2  2023-10-03  0.000053
-3  2023-10-04  0.000035
-4  2023-10-05  0.000033
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">~</span>\<span class="n">AppData</span>\<span class="n">Local</span>\<span class="n">Temp</span>\<span class="n">ipykernel_8260</span>\<span class="mf">3049346725.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> 
+<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">OUTPUT_NETCDF</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">28</span>     <span class="kn">import</span><span class="w"> </span><span class="nn">netCDF4</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span>     <span class="n">ds</span> <span class="o">=</span> <span class="n">netCDF4</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">OUTPUT_NETCDF</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Variabel dalam file:&quot;</span><span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;netCDF4&#39;
 </pre></div>
 </div>
 </div>
@@ -828,7 +881,10 @@ RMSE: 0.190449 | R2 Score: -0.2105 | MAPE: 56.7267%
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengumpulan-data">1. Pengumpulan Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pengumpulan-data">1. Pengumpulan Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-aoi-geojson-kabupaten-mojokerto">Visualisasi AOI GeoJSON Kabupaten Mojokerto</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-data">2. Preprocessing Data</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-pengecekan-missing-value-pada-runtun-tanggal-harian">a. Pengecekan Missing Value Pada Runtun Tanggal Harian</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-deteksi-anomali-outlier-metode-iqr">b. Deteksi Anomali / Outlier (Metode IQR)</a></li>

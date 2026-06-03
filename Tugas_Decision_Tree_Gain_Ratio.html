@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Tugas Decision Tree C4.5 (Gain Ratio) &#8212; Penambangan Data A - Materi Perkuliahan</title>
   
@@ -15,52 +14,52 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Tugas_Decision_Tree_Gain_Ratio';</script>
@@ -70,6 +69,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="prev" title="Tugas | Analisa Data Menggunakan Naive Bayes (A)" href="Tugas_Naive_Bayes_Classifier.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -77,23 +77,16 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+  <div id="pst-scroll-pixel-helper"></div>
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -101,7 +94,6 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -109,16 +101,25 @@ const thebe_selector_output = ".output, .cell_output"
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -131,9 +132,13 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="intro.html">
+  
   
   
   
@@ -143,12 +148,19 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data A - Materi Perkuliahan - Home"/>
+    <img src="_static/logo.png" class="logo__image only-dark pst-js-only" alt="Penambangan Data A - Materi Perkuliahan - Home"/>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -195,6 +207,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="pertemuan13.html">Materi Pertemuan 13 — Evaluasi Model</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tugas_Analisa_Data_Menggunakan_Regresi_Linier.html">Tugas Pertemuan 13: Analisa Data Menggunakan Regresi Linier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pertemuan14.html">Materi Pertemuan 14 — Studi Kasus &amp; Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tugas_eo_mojokerto_no2.html">Peramalan Kadar NO2 di Daerah Mojokerto</a></li>
 </ul>
 
     </div>
@@ -203,14 +216,19 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -219,14 +237,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -335,7 +353,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
   title="Fullscreen mode"
   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
@@ -348,26 +366,20 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
-<script>
-document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
-  </button>
-`);
-</script>
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -405,15 +417,15 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="tugas-decision-tree-c4-5-gain-ratio">
-<h1>Tugas Decision Tree C4.5 (Gain Ratio)<a class="headerlink" href="#tugas-decision-tree-c4-5-gain-ratio" title="Permalink to this heading">#</a></h1>
+<h1>Tugas Decision Tree C4.5 (Gain Ratio)<a class="headerlink" href="#tugas-decision-tree-c4-5-gain-ratio" title="Link to this heading">#</a></h1>
 <p>Pada tugas ini, saya mendemonstrasikan proses pembuatan model Decision Tree C4.5 menggunakan aplikasi KNIME. Dataset yang digunakan adalah dataset Play Tennis. Penjelasan untuk masing-masing tahap dan komponen di dalam workflow KNIME dijelaskan secara berurutan di bawah.</p>
 <section id="raw-data-perhitungan-c4-5-tennis">
-<h2>Raw Data Perhitungan C4.5 Tennis<a class="headerlink" href="#raw-data-perhitungan-c4-5-tennis" title="Permalink to this heading">#</a></h2>
+<h2>Raw Data Perhitungan C4.5 Tennis<a class="headerlink" href="#raw-data-perhitungan-c4-5-tennis" title="Link to this heading">#</a></h2>
 <p>Data awal bersumber dari file Excel yang berisi histori kondisi cuaca dan keputusan bermain tenis. Di dalam dataset ini terdapat 14 baris rekaman dengan atribut prediktor: Outlook, Temp., Humidity, dan Wind, serta satu atribut target yaitu Play Tennis.</p>
-<table class="table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-right"><p>#</p></th>
 <th class="head text-left"><p>Outlook</p></th>
@@ -524,19 +536,20 @@ document.write(`
 </tr>
 </tbody>
 </table>
+</div>
 </section>
 <section id="impor-data-ke-knime">
-<h2>Impor Data ke KNIME<a class="headerlink" href="#impor-data-ke-knime" title="Permalink to this heading">#</a></h2>
+<h2>Impor Data ke KNIME<a class="headerlink" href="#impor-data-ke-knime" title="Link to this heading">#</a></h2>
 <p><img alt="Data Raw" src="_images/DataRaw.png" /></p>
 <p>Pada KNIME, saya menggunakan node <strong>Excel Reader</strong> untuk mengimpor file data tersebut. Tampilan di atas adalah hasil pembacaan data. Saya mengecek kembali tipe datanya dan terlihat bahwa semua kolom bertipe String, yang memang sesuai mengingat seluruh variabelnya merupakan data kategorikal.</p>
 </section>
 <section id="pembagian-data-dengan-table-partitioner">
-<h2>Pembagian Data dengan Table Partitioner<a class="headerlink" href="#pembagian-data-dengan-table-partitioner" title="Permalink to this heading">#</a></h2>
+<h2>Pembagian Data dengan Table Partitioner<a class="headerlink" href="#pembagian-data-dengan-table-partitioner" title="Link to this heading">#</a></h2>
 <p><img alt="Table Partitioner" src="_images/TablePartioner.png" /></p>
 <p>Untuk melatih dan menguji model, saya perlu membagi data. Saya menggunakan node <strong>Table Partitioner</strong> untuk memecah dataset mentah menjadi dua bagian terpisah: data latih (training set) dan data uji (test set). Data latih nantinya akan digunakan oleh algoritma untuk belajar, sedangkan data uji saya pakai untuk mengukur seberapa baik performa model yang sudah jadi.</p>
 </section>
 <section id="pembelajaran-model-dengan-decision-tree-learner">
-<h2>Pembelajaran Model dengan Decision Tree Learner<a class="headerlink" href="#pembelajaran-model-dengan-decision-tree-learner" title="Permalink to this heading">#</a></h2>
+<h2>Pembelajaran Model dengan Decision Tree Learner<a class="headerlink" href="#pembelajaran-model-dengan-decision-tree-learner" title="Link to this heading">#</a></h2>
 <p><img alt="Decision Tree Learner" src="_images/DecisonTreeLearner.png" /></p>
 <p>Data latih kemudian saya hubungkan ke node <strong>Decision Tree Learner</strong>. Di dalam node ini, model membaca pola dari atribut input dan secara rekursif memilih atribut dengan metrik pemisahan terbaik untuk membagi data. Algoritma C4.5 yang digunakan dalam node ini bekerja berdasarkan perhitungan metrik matematis berikut:</p>
 <ol class="arabic simple">
@@ -560,24 +573,24 @@ $<span class="math notranslate nohighlight">\(GainRATIO_{split} = \frac{GAIN_{sp
 <p>Node ini menghitung nilai <em>Gain Ratio</em> untuk semua prediktor, lalu atribut dengan <em>Gain Ratio</em> tertinggi akan terpilih sebagai node pemecah (pemisah) utama. Hasil akhir dari pemrosesan node ini berupa model pohon keputusan yang utuh.</p>
 </section>
 <section id="visualisasi-pohon-keputusan">
-<h2>Visualisasi Pohon Keputusan<a class="headerlink" href="#visualisasi-pohon-keputusan" title="Permalink to this heading">#</a></h2>
+<h2>Visualisasi Pohon Keputusan<a class="headerlink" href="#visualisasi-pohon-keputusan" title="Link to this heading">#</a></h2>
 <p><img alt="Decision Tree View" src="_images/DecisionTreeView.png" /></p>
 <p>Untuk mengecek dan memahami logika yang dibuat oleh model, saya menambahkan node <strong>Decision Tree View</strong>. Node ini menerima output model yang sudah dilatih dan menampilkan grafis struktur pohon keputusannya. Melalui visualisasi interaktif tersebut, saya bisa melakukan penelusuran untuk melihat alasan pemilihan setiap percabangan dari akar (root) sampai ke daun (leaf).</p>
 <p><strong>Ringkasan Spesifik Visualisasi Pohon Keputusan:</strong>
 Visualisasi ini merupakan perwujudan langsung dari perhitungan <em>Gain Ratio</em> yang dibahas sebelumnya. Atribut yang menduduki posisi paling atas (<strong>Root Node</strong>) dipastikan merupakan atribut dengan nilai <em>Gain Ratio</em> paling besar dari seluruh dataset utuh. Cabang-cabang (edges) yang mengarah ke bawah mencerminkan partisi subset data (<span class="math notranslate nohighlight">\(k\)</span> partisi pada rumus <em>SplitINFO</em>). Jika data pada sebuah node turunan sudah seragam atau murni (contoh: semua record adalah “Yes”), maka <em>Entropy</em> menjadi 0 dan node tersebut ditutup sebagai daun keputusan (<strong>Leaf Node</strong>). Jika belum murni, algoritma menghitung ulang <em>Gain Ratio</em> dari atribut tersisa untuk memecah simpul tersebut lagi.</p>
 </section>
 <section id="prediksi-menggunakan-decision-tree-predictor">
-<h2>Prediksi menggunakan Decision Tree Predictor<a class="headerlink" href="#prediksi-menggunakan-decision-tree-predictor" title="Permalink to this heading">#</a></h2>
+<h2>Prediksi menggunakan Decision Tree Predictor<a class="headerlink" href="#prediksi-menggunakan-decision-tree-predictor" title="Link to this heading">#</a></h2>
 <p><img alt="Decision Tree Predictor" src="_images/DecisionTreePredictor.png" /></p>
 <p>Setelah model selesai dilatih, langkah selanjutnya adalah menerapkannya ke data uji. Saya memakai node <strong>Decision Tree Predictor</strong> dengan memasukkan dua input: model pohon keputusan dan partisi data uji. Node ini akan mencocokkan setiap baris data uji ke dalam aturan model untuk menghasilkan sebuah prediksi baru.</p>
 </section>
 <section id="hasil-prediksi">
-<h2>Hasil Prediksi<a class="headerlink" href="#hasil-prediksi" title="Permalink to this heading">#</a></h2>
+<h2>Hasil Prediksi<a class="headerlink" href="#hasil-prediksi" title="Link to this heading">#</a></h2>
 <p><img alt="Hasil Decision Tree" src="_images/HasilDecisionTree.png" /></p>
 <p>Tabel di atas menampilkan keluaran dari node predictor. Terdapat penambahan kolom baru di bagian paling kanan bernama “Prediction (Play Tennis)”. Dari tabel ini, saya bisa langsung mengobservasi perbandingan antara label target yang sebenarnya (Play Tennis) dengan label hasil tebakan algoritma.</p>
 </section>
 <section id="evaluasi-akurasi-dengan-scorer">
-<h2>Evaluasi Akurasi dengan Scorer<a class="headerlink" href="#evaluasi-akurasi-dengan-scorer" title="Permalink to this heading">#</a></h2>
+<h2>Evaluasi Akurasi dengan Scorer<a class="headerlink" href="#evaluasi-akurasi-dengan-scorer" title="Link to this heading">#</a></h2>
 <p><img alt="Accuracy Statistics Scorer" src="_images/AccuracyStatictsScorer.png" /></p>
 <p>Sebagai tahap akhir evaluasi, saya melampirkan node <strong>Scorer</strong> untuk mengukur seberapa akurat prediksi yang dihasilkan. Node ini mengambil data hasil prediksi, lalu membandingkan kolom kelas target asli dengan kelas prediksinya.</p>
 <p><strong>Ringkasan Spesifik Hasil Evaluasi:</strong>
@@ -610,11 +623,10 @@ Output dari <em>Scorer</em> memunculkan matriks kebingungan (<em>Confusion Matri
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="Tugas_Naive_Bayes_Classifier.html"
@@ -634,23 +646,23 @@ Output dari <em>Scorer</em> memunculkan matriks kebingungan (<em>Confusion Matri
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
-  <nav class="bd-toc-nav page-toc">
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-data-perhitungan-c4-5-tennis">Raw Data Perhitungan C4.5 Tennis</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#impor-data-ke-knime">Impor Data ke KNIME</a></li>
@@ -681,6 +693,7 @@ By Zakaria Mujur Prasetyo
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright Copyright 2026 Zakaria Mujur Prasetyo.
@@ -707,8 +720,8 @@ By Zakaria Mujur Prasetyo
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>

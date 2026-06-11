@@ -1,5 +1,10 @@
 # Ignore all Markdown files
 *.md
-# Exception: UTS material
+# Exception: Markdown files needed for Jupyter Book
 !materi-pendat/UTS_Analisa_Kesuburan_Tanah.md
 !materi-pendat/Tugas_Analisa_Data_Menggunakan_Random_Forest.md
+!materi-pendat/Tugas_Analisa_Data_Menggunakan_Regresi_Linier.md
+!materi-pendat/Tugas_Naive_Bayes_Classifier.md
+!materi-pendat/Tugas_Decision_Tree_Gain_Ratio.md
+!materi-pendat/Tugas - Missing Values Inputation + Materi Normalisasi Data.md
+!README.md

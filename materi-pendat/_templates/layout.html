@@ -1,0 +1,18 @@
+{% extends "!layout.html" %}
+
+{% block extrahead %}
+{{ super() }}
+<!-- Open Graph Meta Tags untuk preview di sosial media -->
+<meta property="og:title" content="{{ title|striptags|e }}" />
+<meta property="og:description" content="Buku Materi Perkuliahan Penambangan Data Kelas A - Zakaria Mujur Prasetyo" />
+<meta property="og:image" content="https://zekkcode.github.io/Pendata/_static/logo.png" />
+<meta property="og:url" content="https://zekkcode.github.io/Pendata/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Penambangan Data A - Materi Perkuliahan" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="{{ title|striptags|e }}" />
+<meta name="twitter:description" content="Buku Materi Perkuliahan Penambangan Data Kelas A - Zakaria Mujur Prasetyo" />
+<meta name="twitter:image" content="https://zekkcode.github.io/Pendata/_static/logo.png" />
+{% endblock %}

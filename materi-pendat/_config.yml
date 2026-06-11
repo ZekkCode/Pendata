@@ -37,11 +37,14 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
+  favicon: logo.png
 
 sphinx:
   config:
     html_extra_path:
       - Assets
+    templates_path:
+      - _templates
 
 # Hanya build file yang ada di _toc.yml
 only_build_toc_files: true

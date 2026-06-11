@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Tugas | Analisa Data Menggunakan Naive Bayes (A) &#8212; Penambangan Data A - Materi Perkuliahan</title>
   
@@ -15,52 +14,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Tugas_Naive_Bayes_Classifier';</script>
@@ -77,19 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -111,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -131,9 +139,13 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="intro.html">
+  
   
   
   
@@ -143,12 +155,23 @@ const thebe_selector_output = ".output, .cell_output"
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data A - Materi Perkuliahan - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Penambangan Data A - Materi Perkuliahan - Home"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -196,6 +219,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Tugas_Analisa_Data_Menggunakan_Regresi_Linier.html">Tugas Pertemuan 13: Analisa Data Menggunakan Regresi Linier</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pertemuan14.html">Materi Pertemuan 14 — Studi Kasus &amp; Review</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tugas_eo_mojokerto_no2.html">Peramalan Kadar NO2 di Daerah Mojokerto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tugas_skforecast.html">Tugas Mata Kuliah Penambangan Data – Reproduksi Analisis Explainability Skforecast</a></li>
+
+
 </ul>
 
     </div>
@@ -211,7 +237,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -220,14 +246,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -349,26 +375,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -442,44 +470,40 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="tugas-analisa-data-menggunakan-naive-bayes-a">
-<h1>Tugas | Analisa Data Menggunakan Naive Bayes (A)<a class="headerlink" href="#tugas-analisa-data-menggunakan-naive-bayes-a" title="Permalink to this heading">#</a></h1>
+<h1>Tugas | Analisa Data Menggunakan Naive Bayes (A)<a class="headerlink" href="#tugas-analisa-data-menggunakan-naive-bayes-a" title="Link to this heading">#</a></h1>
 <section id="nim-240411100144">
-<h2>NIM 240411100144<a class="headerlink" href="#nim-240411100144" title="Permalink to this heading">#</a></h2>
+<h2>NIM 240411100144<a class="headerlink" href="#nim-240411100144" title="Link to this heading">#</a></h2>
 </section>
 <section id="nama-zakaria-mujur-prasetyo">
-<h2>Nama: Zakaria Mujur Prasetyo<a class="headerlink" href="#nama-zakaria-mujur-prasetyo" title="Permalink to this heading">#</a></h2>
+<h2>Nama: Zakaria Mujur Prasetyo<a class="headerlink" href="#nama-zakaria-mujur-prasetyo" title="Link to this heading">#</a></h2>
 </section>
 <section id="mata-kuliah-penambangan-data-a">
-<h2>Mata Kuliah Penambangan Data A<a class="headerlink" href="#mata-kuliah-penambangan-data-a" title="Permalink to this heading">#</a></h2>
+<h2>Mata Kuliah Penambangan Data A<a class="headerlink" href="#mata-kuliah-penambangan-data-a" title="Link to this heading">#</a></h2>
 </section>
 <section id="dosen-pengampu-mula-ab-s-si-m-kom">
-<h2>Dosen Pengampu: Mula’ab, <a class="reference external" href="http://S.Si">S.Si</a>., M.Kom<a class="headerlink" href="#dosen-pengampu-mula-ab-s-si-m-kom" title="Permalink to this heading">#</a></h2>
+<h2>Dosen Pengampu: Mula’ab, <a class="reference external" href="http://S.Si">S.Si</a>., M.Kom<a class="headerlink" href="#dosen-pengampu-mula-ab-s-si-m-kom" title="Link to this heading">#</a></h2>
 </section>
 <section id="daftar-isi">
-<h2>Daftar Isi<a class="headerlink" href="#daftar-isi" title="Permalink to this heading">#</a></h2>
+<h2>Daftar Isi<a class="headerlink" href="#daftar-isi" title="Link to this heading">#</a></h2>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3" open="open">
 <summary class="sd-summary-title sd-card-header">
-Klik untuk membuka Daftar Isi<div class="sd-summary-down docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-down" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5.22 8.72a.75.75 0 000 1.06l6.25 6.25a.75.75 0 001.06 0l6.25-6.25a.75.75 0 00-1.06-1.06L12 14.44 6.28 8.72a.75.75 0 00-1.06 0z"></path></svg></div>
-<div class="sd-summary-up docutils">
-<svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-up" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M18.78 15.28a.75.75 0 000-1.06l-6.25-6.25a.75.75 0 00-1.06 0l-6.25 6.25a.75.75 0 101.06 1.06L12 9.56l5.72 5.72a.75.75 0 001.06 0z"></path></svg></div>
-</summary><div class="sd-summary-content sd-card-body docutils">
+<span class="sd-summary-text">Klik untuk membuka Daftar Isi</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <ol class="arabic simple">
-<li><p class="sd-card-text"><span class="xref myst">Pendahuluan</span></p></li>
-<li><p class="sd-card-text"><span class="xref myst">Teori Naive Bayes</span></p></li>
-<li><p class="sd-card-text"><span class="xref myst">Informasi Dataset</span></p></li>
-<li><p class="sd-card-text"><span class="xref myst">Eksplorasi Data</span></p></li>
-<li><p class="sd-card-text"><span class="xref myst">Implementasi Model KNIME dengan Python Script</span></p></li>
-<li><p class="sd-card-text"><span class="xref myst">Kesimpulan</span></p></li>
-<li><p class="sd-card-text"><span class="xref myst">Referensi</span></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#pendahuluan"><span class="xref myst">Pendahuluan</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#teori-naive-bayes"><span class="xref myst">Teori Naive Bayes</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#informasi-dataset"><span class="xref myst">Informasi Dataset</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#eksplorasi-data"><span class="xref myst">Eksplorasi Data</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#implementasi-model-knime-dengan-python-script"><span class="xref myst">Implementasi Model KNIME dengan Python Script</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#kesimpulan"><span class="xref myst">Kesimpulan</span></a></p></li>
+<li><p class="sd-card-text"><a class="reference internal" href="#referensi"><span class="xref myst">Referensi</span></a></p></li>
 </ol>
 </div>
 </details></section>
 <section id="pendahuluan">
-<h2>Pendahuluan<a class="headerlink" href="#pendahuluan" title="Permalink to this heading">#</a></h2>
+<h2>Pendahuluan<a class="headerlink" href="#pendahuluan" title="Link to this heading">#</a></h2>
 <p>Pada tugas kali ini, saya melakukan analisis data menggunakan algoritma Naive Bayes Classifier. Untuk pengerjaannya, saya menggunakan pendekatan yang sedikit berbeda. Saya menggabungkan keunggulan KNIME Analytics Platform dengan fleksibilitas bahasa pemrograman Python melalui penggunaan node Python Script.</p>
 <p>Alasan saya memilih Naive Bayes adalah karena algoritma ini cukup sederhana namun kinerjanya sangat efektif. Algoritma ini berakar dari Teorema Bayes dan bekerja dengan asumsi bahwa setiap fitur berdiri sendiri dan tidak saling mempengaruhi probabilitas kelas target.</p>
 <div class="note admonition">
@@ -494,9 +518,9 @@ Klik untuk membuka Daftar Isi<div class="sd-summary-down docutils">
 </div>
 </section>
 <section id="teori-naive-bayes">
-<h2>Teori Naive Bayes<a class="headerlink" href="#teori-naive-bayes" title="Permalink to this heading">#</a></h2>
+<h2>Teori Naive Bayes<a class="headerlink" href="#teori-naive-bayes" title="Link to this heading">#</a></h2>
 <section id="bayesian-theorem">
-<h3>Bayesian Theorem<a class="headerlink" href="#bayesian-theorem" title="Permalink to this heading">#</a></h3>
+<h3>Bayesian Theorem<a class="headerlink" href="#bayesian-theorem" title="Link to this heading">#</a></h3>
 <p>Cara kerja Naive Bayes Classifier bertumpu pada Teorema Bayes. Teorema ini menghitung seberapa besar probabilitas posterior dari sebuah kelas jika diberikan suatu data pengamatan. Jika saya memiliki training data X, maka posteriori probabilitas dari kelas H (P(H|X)) bisa dicari dengan rumus Teorema Bayes:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -511,7 +535,7 @@ P(C \mid \mathbf{X}) = \frac{P(\mathbf{X} \mid C) \cdot P(C)}{P(\mathbf{X})}
 </ul>
 </section>
 <section id="asumsi-naive-independensi">
-<h3>Asumsi Naive (Independensi)<a class="headerlink" href="#asumsi-naive-independensi" title="Permalink to this heading">#</a></h3>
+<h3>Asumsi Naive (Independensi)<a class="headerlink" href="#asumsi-naive-independensi" title="Link to this heading">#</a></h3>
 <p>Algoritma ini mendapatkan nama “Naive” karena memiliki asumsi yang sangat kuat bahwa seluruh fitur saling bebas. Artinya, nilai dari sebuah fitur tidak ada kaitannya dengan fitur lainnya:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -524,7 +548,7 @@ P(C_j \mid \mathbf{X}) = P(\mathbf{X} \mid C_j) \cdot P(C_j)
 \]</div>
 </section>
 <section id="gaussian-naive-bayes">
-<h3>Gaussian Naive Bayes<a class="headerlink" href="#gaussian-naive-bayes" title="Permalink to this heading">#</a></h3>
+<h3>Gaussian Naive Bayes<a class="headerlink" href="#gaussian-naive-bayes" title="Link to this heading">#</a></h3>
 <p>Karena data yang saya gunakan bernilai kontinu (angka desimal), perhitungan probabilitasnya menggunakan distribusi Gaussian atau distribusi normal. Perhitungannya menggunakan mean dan standar deviasi:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -534,10 +558,10 @@ P(x_k \mid C_j) = g(x_k, \mu_{C_j}, \sigma_{C_j}) = \frac{1}{\sqrt{2\pi} \cdot \
 </section>
 </section>
 <section id="informasi-dataset">
-<h2>Informasi Dataset<a class="headerlink" href="#informasi-dataset" title="Permalink to this heading">#</a></h2>
+<h2>Informasi Dataset<a class="headerlink" href="#informasi-dataset" title="Link to this heading">#</a></h2>
 <p>Untuk tugas ini, saya memilih Dataset Iris. Dataset ini sangat populer dalam dunia machine learning dan diperkenalkan pertama kali oleh Ronald A. Fisher. Di dalamnya terdapat ukuran morfologi dari tiga spesies bunga iris.</p>
 <section id="deskripsi-umum">
-<h3>Deskripsi Umum<a class="headerlink" href="#deskripsi-umum" title="Permalink to this heading">#</a></h3>
+<h3>Deskripsi Umum<a class="headerlink" href="#deskripsi-umum" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Jumlah Sampel: 150 baris</p></li>
 <li><p>Jumlah Fitur: 4 fitur berupa numerik kontinu</p></li>
@@ -548,7 +572,7 @@ P(x_k \mid C_j) = g(x_k, \mu_{C_j}, \sigma_{C_j}) = \frac{1}{\sqrt{2\pi} \cdot \
 <p>Dari 150 sampel tersebut, distribusinya sangat seimbang. Masing-masing kelas (Setosa, Versicolor, Virginica) memiliki persis 50 sampel.</p>
 </section>
 <section id="penjelasan-fitur">
-<h3>Penjelasan Fitur<a class="headerlink" href="#penjelasan-fitur" title="Permalink to this heading">#</a></h3>
+<h3>Penjelasan Fitur<a class="headerlink" href="#penjelasan-fitur" title="Link to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Sepal Length: Panjang kelopak luar bunga dalam satuan cm</p></li>
 <li><p>Sepal Width: Lebar kelopak luar bunga dalam satuan cm</p></li>
@@ -559,16 +583,16 @@ P(x_k \mid C_j) = g(x_k, \mu_{C_j}, \sigma_{C_j}) = \frac{1}{\sqrt{2\pi} \cdot \
 </section>
 </section>
 <section id="eksplorasi-data">
-<h2>Eksplorasi Data<a class="headerlink" href="#eksplorasi-data" title="Permalink to this heading">#</a></h2>
+<h2>Eksplorasi Data<a class="headerlink" href="#eksplorasi-data" title="Link to this heading">#</a></h2>
 <p>Sebelum masuk ke tahap pemodelan menggunakan KNIME, saya melakukan eksplorasi data awal secara manual menggunakan Python layaknya pada <em>notebook</em> Google Colab. Langkah ini penting agar saya bisa memahami struktur data, sebaran kelas, hingga statistik dasarnya.</p>
 <section id="import-library-dan-load-dataset">
-<h3>💻 Import Library dan Load Dataset<a class="headerlink" href="#import-library-dan-load-dataset" title="Permalink to this heading">#</a></h3>
+<h3>💻 Import Library dan Load Dataset<a class="headerlink" href="#import-library-dan-load-dataset" title="Link to this heading">#</a></h3>
 <p>Pada sel pertama ini, saya mengimpor semua pustaka yang dibutuhkan dan memuat dataset Iris. Dataset langsung saya ambil dari bawaan <code class="docutils literal notranslate"><span class="pre">sklearn.datasets</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
 
 <span class="c1"># Memuat dataset Iris ke dalam Pandas DataFrame</span>
 <span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
@@ -597,7 +621,7 @@ Nama kelas     : [&#39;Setosa&#39;, &#39;Versicolor&#39;, &#39;Virginica&#39;]
 Kode di atas berguna untuk menyiapkan <em>environment</em> analisis dan menyusun data ke dalam bentuk tabel (DataFrame). Saya juga memetakan label target yang asalnya berupa angka (0, 1, 2) menjadi nama spesies yang sebenarnya agar lebih mudah dibaca saat analisis.</p>
 </section>
 <section id="menampilkan-5-data-pertama">
-<h3>💻 Menampilkan 5 Data Pertama<a class="headerlink" href="#menampilkan-5-data-pertama" title="Permalink to this heading">#</a></h3>
+<h3>💻 Menampilkan 5 Data Pertama<a class="headerlink" href="#menampilkan-5-data-pertama" title="Link to this heading">#</a></h3>
 <p>Saya selalu menampilkan beberapa baris pertama data untuk memastikan bahwa dataset sudah terstruktur dengan baik.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menampilkan 5 baris pertama dari DataFrame</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
@@ -616,7 +640,7 @@ Kode di atas berguna untuk menyiapkan <em>environment</em> analisis dan menyusun
 Perintah <code class="docutils literal notranslate"><span class="pre">head()</span></code> akan memunculkan 5 sampel teratas. Dari tabel di atas, saya bisa melihat bahwa fitur berisikan angka desimal dan spesies dari kelima sampel awal adalah Setosa.</p>
 </section>
 <section id="statistik-deskriptif">
-<h3>💻 Statistik Deskriptif<a class="headerlink" href="#statistik-deskriptif" title="Permalink to this heading">#</a></h3>
+<h3>💻 Statistik Deskriptif<a class="headerlink" href="#statistik-deskriptif" title="Link to this heading">#</a></h3>
 <p>Langkah berikutnya adalah melihat rangkuman statistik untuk setiap fitur numerik yang ada.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Melihat ringkasan nilai statistik</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
@@ -638,7 +662,7 @@ max             7.900000          4.400000           6.900000          2.500000 
 Perintah <code class="docutils literal notranslate"><span class="pre">describe()</span></code> menghitung metrik penting seperti rata rata (mean), nilai tengah (median/50%), nilai minimum, dan nilai maksimum. Data ini sangat penting bagi saya untuk mendeteksi apakah ada nilai yang tidak wajar atau anomali.</p>
 </section>
 <section id="distribusi-kelas-dan-missing-values">
-<h3>💻 Distribusi Kelas dan Missing Values<a class="headerlink" href="#distribusi-kelas-dan-missing-values" title="Permalink to this heading">#</a></h3>
+<h3>💻 Distribusi Kelas dan Missing Values<a class="headerlink" href="#distribusi-kelas-dan-missing-values" title="Link to this heading">#</a></h3>
 <p>Selanjutnya saya memeriksa apakah proporsi antar kelas seimbang, serta memastikan tidak ada data yang kosong atau <em>missing values</em>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menghitung distribusi tiap kelas</span>
 <span class="n">distribusi</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;species_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -663,7 +687,7 @@ Missing values: 0
 Saya menggunakan <code class="docutils literal notranslate"><span class="pre">value_counts()</span></code> untuk menghitung total setiap spesies, dan <code class="docutils literal notranslate"><span class="pre">isnull().sum()</span></code> untuk mendeteksi sel kosong. Hasilnya sangat ideal karena kelasnya terbagi rata persis 33.3% untuk tiap spesies, dan terbukti tidak ada data kosong.</p>
 </section>
 <section id="distribusi-fitur-per-kelas">
-<h3>💻 Distribusi Fitur per Kelas<a class="headerlink" href="#distribusi-fitur-per-kelas" title="Permalink to this heading">#</a></h3>
+<h3>💻 Distribusi Fitur per Kelas<a class="headerlink" href="#distribusi-fitur-per-kelas" title="Link to this heading">#</a></h3>
 <p>Saya membuat plot histogram untuk melihat bagaimana sebaran data pada masing-masing fitur.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Distribusi Fitur Dataset Iris per Kelas&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
@@ -688,7 +712,7 @@ Saya menggunakan <code class="docutils literal notranslate"><span class="pre">va
 Kode ini membuat pengulangan (<em>loop</em>) pada keempat fitur dataset, lalu memplot nilai setiap spesies dengan warna berbeda. Dari hasil histogram, terlihat jelas bahwa spesies Setosa memiliki ukuran kelopak dalam (petal) yang lebih kecil dibandingkan dua spesies lainnya. Sedangkan untuk Versicolor dan Virginica, ukurannya sedikit saling tumpang tindih.</p>
 </section>
 <section id="scatter-plot">
-<h3>💻 Scatter Plot<a class="headerlink" href="#scatter-plot" title="Permalink to this heading">#</a></h3>
+<h3>💻 Scatter Plot<a class="headerlink" href="#scatter-plot" title="Link to this heading">#</a></h3>
 <p>Saya juga menggunakan diagram pencar (<em>scatter plot</em>) untuk melihat korelasi antar fitur secara visual.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">species_name</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">colors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -712,7 +736,7 @@ Kode ini membuat pengulangan (<em>loop</em>) pada keempat fitur dataset, lalu me
 Dengan memasangkan panjang dan lebar pada sepal serta petal, saya bisa melihat penyebaran kluster data. Berdasarkan grafik di atas, fitur petal sangat ampuh untuk memisahkan kelas Setosa dari yang lain, dan cukup baik untuk membedakan Versicolor dan Virginica.</p>
 </section>
 <section id="matriks-korelasi">
-<h3>💻 Matriks Korelasi<a class="headerlink" href="#matriks-korelasi" title="Permalink to this heading">#</a></h3>
+<h3>💻 Matriks Korelasi<a class="headerlink" href="#matriks-korelasi" title="Link to this heading">#</a></h3>
 <p>Terakhir untuk eksplorasi data, saya membuat <em>heatmap</em> matriks korelasi untuk mengetahui seberapa kuat hubungan antar fitur.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">correlation</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">iris</span><span class="o">.</span><span class="n">feature_names</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
@@ -730,10 +754,10 @@ Kode <code class="docutils literal notranslate"><span class="pre">corr()</span><
 </section>
 </section>
 <section id="implementasi-model-knime-dengan-python-script">
-<h2>Implementasi Model KNIME dengan Python Script<a class="headerlink" href="#implementasi-model-knime-dengan-python-script" title="Permalink to this heading">#</a></h2>
+<h2>Implementasi Model KNIME dengan Python Script<a class="headerlink" href="#implementasi-model-knime-dengan-python-script" title="Link to this heading">#</a></h2>
 <p>Untuk tahap pemodelannya, saya merancang sebuah workflow di KNIME yang memanfaatkan node Python Script. Pendekatan ini sangat efektif karena saya bisa mengkombinasikan kekuatan antarmuka visual KNIME dengan pustaka scikit-learn dari Python.</p>
 <section id="a-strategi-workflow-final">
-<h3>A. Strategi Workflow Final<a class="headerlink" href="#a-strategi-workflow-final" title="Permalink to this heading">#</a></h3>
+<h3>A. Strategi Workflow Final<a class="headerlink" href="#a-strategi-workflow-final" title="Link to this heading">#</a></h3>
 <p>Dalam merancang workflow ini, saya menggunakan <strong>4 buah node Python Script</strong>. Saya memilih cara ini karena paling aman dan minim error. Jika saya hanya menggunakan satu Python Script lalu menarik banyak garis output, seringkali muncul error berupa:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Invalid port index 1, only 1 output_table is available
 </pre></div>
@@ -741,7 +765,7 @@ Kode <code class="docutils literal notranslate"><span class="pre">corr()</span><
 <p>Error tersebut terjadi karena KNIME mendeteksi bahwa saya memanggil <code class="docutils literal notranslate"><span class="pre">knio.output_tables[1]</span></code> hingga ke-3, padahal dari segi tampilan node tetap dihitung sebagai satu output port. Oleh karena itu, memisahkan script ke dalam 4 node berbeda adalah solusi terbaik.</p>
 </section>
 <section id="b-bentuk-workflow-di-knime">
-<h3>B. Bentuk Workflow di KNIME<a class="headerlink" href="#b-bentuk-workflow-di-knime" title="Permalink to this heading">#</a></h3>
+<h3>B. Bentuk Workflow di KNIME<a class="headerlink" href="#b-bentuk-workflow-di-knime" title="Link to this heading">#</a></h3>
 <p>Alur kerja (workflow) yang saya bangun berbentuk seperti ini:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>                 ┌── Python Script Ringkasan Data   ──&gt; Table View Ringkasan
                  │
@@ -756,7 +780,7 @@ CSV Reader ──────┼── Python Script Evaluasi Model   ──&gt;
 <p><img alt="Tampilan Workflow Lengkap di KNIME" src="_images/workflow.png" /></p>
 </section>
 <section id="c-node-yang-digunakan">
-<h3>C. Node yang Digunakan<a class="headerlink" href="#c-node-yang-digunakan" title="Permalink to this heading">#</a></h3>
+<h3>C. Node yang Digunakan<a class="headerlink" href="#c-node-yang-digunakan" title="Link to this heading">#</a></h3>
 <p>Dalam workflow ini, saya menggunakan kombinasi node pembaca data, pengeksekusi script, dan penampil tabel. Berikut daftar lengkapnya:</p>
 <ol class="arabic simple">
 <li><p><strong>CSV Reader</strong>: Node awal untuk membaca file dataset <code class="docutils literal notranslate"><span class="pre">IRIS.csv</span></code>.</p></li>
@@ -768,16 +792,16 @@ CSV Reader ──────┼── Python Script Evaluasi Model   ──&gt;
 </ol>
 </section>
 <section id="d-langkah-membuat-workflow">
-<h3>D. Langkah Membuat Workflow<a class="headerlink" href="#d-langkah-membuat-workflow" title="Permalink to this heading">#</a></h3>
+<h3>D. Langkah Membuat Workflow<a class="headerlink" href="#d-langkah-membuat-workflow" title="Link to this heading">#</a></h3>
 <p>Pertama, saya mengonfigurasi node <strong>CSV Reader</strong> untuk mengambil file <code class="docutils literal notranslate"><span class="pre">IRIS.csv</span></code>. Saya memastikan bahwa kolom-kolom seperti <code class="docutils literal notranslate"><span class="pre">sepal_length</span></code>, <code class="docutils literal notranslate"><span class="pre">sepal_width</span></code>, <code class="docutils literal notranslate"><span class="pre">petal_length</span></code>, <code class="docutils literal notranslate"><span class="pre">petal_width</span></code>, dan <code class="docutils literal notranslate"><span class="pre">species</span></code> terbaca dengan baik. Setelah itu, saya tekan Execute agar data siap disalurkan.</p>
 <p>Dari node CSV Reader tersebut, saya menarik garis ke empat node <strong>Python Script</strong> yang telah saya siapkan. Setiap Python script hanya mengandalkan satu output table saja untuk mencegah error indeks. Selanjutnya, saya hubungkan masing-masing script tersebut ke node <strong>Table View</strong> untuk melihat hasilnya.</p>
 </section>
 <section id="kode-python-script-1-ringkasan-data">
-<h3>💻 Kode Python Script 1: Ringkasan Data<a class="headerlink" href="#kode-python-script-1-ringkasan-data" title="Permalink to this heading">#</a></h3>
+<h3>💻 Kode Python Script 1: Ringkasan Data<a class="headerlink" href="#kode-python-script-1-ringkasan-data" title="Link to this heading">#</a></h3>
 <p>Pada node script pertama ini, tujuan saya adalah memberikan informasi dasar mengenai dataset dan skema pembagian data yang saya gunakan.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">knime.scripting.io</span> <span class="k">as</span> <span class="nn">knio</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">knime.scripting.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">knio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
 
 <span class="c1"># Saya membaca data yang dikirimkan oleh CSV Reader</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">knio</span><span class="o">.</span><span class="n">input_tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
@@ -836,14 +860,14 @@ CSV Reader ──────┼── Python Script Evaluasi Model   ──&gt;
 Dalam sel ini, saya menggunakan fungsi <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> untuk memecah dataset menjadi 80% data latih (training) dan 20% data uji (testing). Saya juga mengaktifkan parameter <code class="docutils literal notranslate"><span class="pre">stratify</span></code> agar proporsi tiap spesies tetap seimbang di kedua bagian data. Kemudian saya menyusun informasinya ke dalam sebuah DataFrame Pandas baru dan mengembalikannya ke KNIME melalui perintah <code class="docutils literal notranslate"><span class="pre">knio.output_tables</span></code>.</p>
 </section>
 <section id="kode-python-script-2-evaluasi-model">
-<h3>💻 Kode Python Script 2: Evaluasi Model<a class="headerlink" href="#kode-python-script-2-evaluasi-model" title="Permalink to this heading">#</a></h3>
+<h3>💻 Kode Python Script 2: Evaluasi Model<a class="headerlink" href="#kode-python-script-2-evaluasi-model" title="Link to this heading">#</a></h3>
 <p>Pada script kedua, saya melatih model Gaussian Naive Bayes lalu langsung menghitung kinerja model tersebut menggunakan metrik standar.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">knime.scripting.io</span> <span class="k">as</span> <span class="nn">knio</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">knime.scripting.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">knio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span>
 
 <span class="c1"># Proses baca data</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">knio</span><span class="o">.</span><span class="n">input_tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
@@ -883,14 +907,14 @@ Dalam sel ini, saya menggunakan fungsi <code class="docutils literal notranslate
 Setelah data dipecah, saya memanggil algoritma <code class="docutils literal notranslate"><span class="pre">GaussianNB()</span></code> dan melatihnya dengan data training (<code class="docutils literal notranslate"><span class="pre">model.fit</span></code>). Setelah itu, model diminta menebak data uji (<code class="docutils literal notranslate"><span class="pre">model.predict</span></code>). Hasil tebakan ini lalu saya bandingkan dengan kunci jawaban aslinya untuk mencari nilai Accuracy, Precision, Recall, dan F1 Score. Semua nilai tersebut dikumpulkan ke dalam tabel evaluasi.</p>
 </section>
 <section id="kode-python-script-3-confusion-matrix">
-<h3>💻 Kode Python Script 3: Confusion Matrix<a class="headerlink" href="#kode-python-script-3-confusion-matrix" title="Permalink to this heading">#</a></h3>
+<h3>💻 Kode Python Script 3: Confusion Matrix<a class="headerlink" href="#kode-python-script-3-confusion-matrix" title="Link to this heading">#</a></h3>
 <p>Untuk melihat sebaran prediksi yang benar dan yang meleset, saya menyusun confusion matrix.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">knime.scripting.io</span> <span class="k">as</span> <span class="nn">knio</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">knime.scripting.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">knio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">confusion_matrix</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">knio</span><span class="o">.</span><span class="n">input_tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
 
@@ -928,19 +952,19 @@ Setelah data dipecah, saya memanggil algoritma <code class="docutils literal not
 <p><strong>Penjelasan Kode:</strong>
 Fungsi <code class="docutils literal notranslate"><span class="pre">confusion_matrix</span></code> akan menghasilkan matriks perbandingan antara nilai nyata (<em>actual</em>) dengan nilai tebakan model (<em>predicted</em>). Saya mengubah format matriks keluaran tersebut menjadi DataFrame Pandas dan merapikan penamaan kolomnya agar tabelnya cantik dan mudah dibaca ketika ditampilkan di KNIME.</p>
 <section id="solusi-jika-confusion-matrix-hanya-muncul-rowid">
-<h4>Solusi Jika Confusion Matrix Hanya Muncul RowID<a class="headerlink" href="#solusi-jika-confusion-matrix-hanya-muncul-rowid" title="Permalink to this heading">#</a></h4>
+<h4>Solusi Jika Confusion Matrix Hanya Muncul RowID<a class="headerlink" href="#solusi-jika-confusion-matrix-hanya-muncul-rowid" title="Link to this heading">#</a></h4>
 <p>Terkadang, Table View hanya menampilkan RowID tanpa memperlihatkan kolom datanya. Padahal datanya sudah ada di sana. Untuk mengatasinya, saya biasa membuka konfigurasi Table View lalu mengubah pengaturan kolom. Pada tab Wildcard, saya menampilkan semua kolom dengan mengetik pola bintang lalu menekan apply. Atau bisa juga melalui tab Manual dengan mencentang semua kolom yang ingin ditampilkan.</p>
 </section>
 </section>
 <section id="kode-python-script-4-prediksi-testing">
-<h3>💻 Kode Python Script 4: Prediksi Testing<a class="headerlink" href="#kode-python-script-4-prediksi-testing" title="Permalink to this heading">#</a></h3>
+<h3>💻 Kode Python Script 4: Prediksi Testing<a class="headerlink" href="#kode-python-script-4-prediksi-testing" title="Link to this heading">#</a></h3>
 <p>Terakhir, saya ingin melihat secara rinci data mana saja yang tebakannya benar dan mana yang salah, beserta probabilitas keyakinan model.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">knime.scripting.io</span> <span class="k">as</span> <span class="nn">knio</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">knime.scripting.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">knio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">knio</span><span class="o">.</span><span class="n">input_tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
 
@@ -984,17 +1008,17 @@ Fungsi <code class="docutils literal notranslate"><span class="pre">confusion_ma
 Selain <code class="docutils literal notranslate"><span class="pre">predict</span></code>, di sini saya juga menggunakan <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> untuk melihat seberapa yakin model menebak sebuah kelas. Nilainya dalam persentase desimal (0 sampai 1). Kemudian, dengan menggunakan <code class="docutils literal notranslate"><span class="pre">np.where</span></code>, saya secara otomatis memberikan label “Benar” jika tebakan cocok dengan kunci jawaban, atau “Salah” jika tebakan meleset. Hal ini sangat mempermudah saya mengamati data uji yang gagal diprediksi dengan tepat.</p>
 </section>
 <section id="urutan-eksekusi">
-<h3>Urutan Eksekusi<a class="headerlink" href="#urutan-eksekusi" title="Permalink to this heading">#</a></h3>
+<h3>Urutan Eksekusi<a class="headerlink" href="#urutan-eksekusi" title="Link to this heading">#</a></h3>
 <p>Agar tidak ada error, saya mengeksekusi node secara berurutan. Saya mulai dari mengeksekusi CSV Reader, kemudian menjalankan keempat node Python Script secara bersamaan atau berurutan. Setelah status node menjadi hijau, barulah saya membuka Table View satu per satu.</p>
 </section>
 </section>
 <section id="kesimpulan">
-<h2>Kesimpulan<a class="headerlink" href="#kesimpulan" title="Permalink to this heading">#</a></h2>
+<h2>Kesimpulan<a class="headerlink" href="#kesimpulan" title="Link to this heading">#</a></h2>
 <p>Dari proses panjang yang telah saya jabarkan, saya berhasil menerapkan algoritma Gaussian Naive Bayes dengan perpaduan apik antara KNIME dan Python. Saya telah membagi data dengan perbandingan 80% untuk pelatihan dan 20% untuk pengujian.</p>
 <p>Hasil akhirnya sangat memuaskan. Model mampu menebak kelas spesies bunga dengan akurasi yang luar biasa tinggi. Kesalahan prediksi terbilang sangat kecil, yang mana wajar karena ada kemiripan fisik antara spesies Versicolor dan Virginica. Secara keseluruhan, pemanfaatan Python Script di dalam KNIME memberikan fleksibilitas tinggi tanpa mengorbankan kerapian visual dari alur kerja.</p>
 </section>
 <section id="referensi">
-<h2>Referensi<a class="headerlink" href="#referensi" title="Permalink to this heading">#</a></h2>
+<h2>Referensi<a class="headerlink" href="#referensi" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Fisher, R.A., 1936. The Use of Multiple Measurements in Taxonomic Problems. Annals of Eugenics, 7(2): 179-188.</p></li>
 <li><p>scikit-learn Naive Bayes API Documentation</p></li>
@@ -1031,11 +1055,10 @@ Selain <code class="docutils literal notranslate"><span class="pre">predict</spa
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="pertemuan9.html"
@@ -1055,10 +1078,7 @@ Selain <code class="docutils literal notranslate"><span class="pre">predict</spa
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1066,6 +1086,7 @@ Selain <code class="docutils literal notranslate"><span class="pre">predict</spa
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1138,6 +1159,7 @@ By Zakaria Mujur Prasetyo
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright Copyright 2026 Zakaria Mujur Prasetyo.
@@ -1164,8 +1186,8 @@ By Zakaria Mujur Prasetyo
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

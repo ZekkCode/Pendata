@@ -436,11 +436,12 @@ document.write(`
 <li><p><strong>Di Orange:</strong> Dilakukan dengan menggunakan widget <strong>Select Columns</strong> untuk membuang kolom yang tidak perlu dan memisahkan fitur dengan target.</p></li>
 </ul>
 </li>
-<li><p><strong>Kategorisasi Label Target:</strong> Target <em>Grade</em> bawaan dataset memiliki 8 tingkatan/kelas (angka <code class="docutils literal notranslate"><span class="pre">0</span></code> hingga <code class="docutils literal notranslate"><span class="pre">7</span></code>). Memprediksi 8 kelas hanya dengan 145 baris data akan membuat model sangat tidak stabil dan akurasinya terpecah. Sebagai solusinya, target disederhanakan menjadi 3 kategori performa:</p>
+<li><p><strong>Kategorisasi Label Target:</strong> Target <em>Grade</em> bawaan dataset memiliki 8 tingkatan/kelas (angka <code class="docutils literal notranslate"><span class="pre">0</span></code> hingga <code class="docutils literal notranslate"><span class="pre">7</span></code>). Memprediksi 8 kelas hanya dengan 145 baris data akan membuat model sangat tidak stabil dan akurasinya terpecah. Sebagai solusinya, target disederhanakan menjadi 3 kategori performa:
+Pengelompokan target ke dalam 3 level performa ini tidak hanya sekadar untuk menyiasati sedikitnya baris data, tetapi juga sejalan dengan evaluasi capaian kemampuan edukasional yang logis di dunia nyata:</p>
 <ul class="simple">
-<li><p><strong>Rendah:</strong> Menggabungkan Grade 0, 1, dan 2</p></li>
-<li><p><strong>Sedang:</strong> Menggabungkan Grade 3, 4, dan 5</p></li>
-<li><p><strong>Tinggi:</strong> Menggabungkan Grade 6 dan 7</p></li>
+<li><p><strong>Rendah (Grade 0, 1, dan 2):</strong> Mewakili kelompok mahasiswa yang <em>underperforming</em>, berisiko, atau membutuhkan bimbingan akademik yang intensif.</p></li>
+<li><p><strong>Sedang (Grade 3, 4, dan 5):</strong> Mewakili kelompok mahasiswa dengan kemampuan rata-rata yang sudah memenuhi standar kompetensi dasar kelas.</p></li>
+<li><p><strong>Tinggi (Grade 6 dan 7):</strong> Mewakili kelompok unggulan dari mahasiswa berprestasi yang menguasai materi pembelajaran secara optimal.</p></li>
 <li><p><strong>Di Python:</strong> Transformasi ini diterapkan menggunakan fungsi Python (kondisional <em>If-Else</em>) yang dipetakan (<em>apply</em>) ke seluruh baris target.</p></li>
 <li><p><strong>Di Orange:</strong> Proses konversi kategori ini juga disiapkan di awal aliran data agar klasifikasi (<em>Test &amp; Score</em>) berjalan seimbang memprediksi 3 kategori tersebut.</p></li>
 </ul>

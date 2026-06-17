@@ -28,5 +28,8 @@ chapters:
 - file: pertemuan14
 - file: tugas_eo_mojokerto_no2
 - file: tugas_skforecast
-- file: UAS-Analisis-Higher Education Students Performance Evaluation
+- file: UAS_Master
+  sections:
+  - file: UAS-Analisis-Higher Education Students Performance Evaluation
+  - file: UAS-Pendat/Laporan-UAS-Orange-Data-Mining
 

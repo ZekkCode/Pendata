@@ -5,6 +5,19 @@ Evaluasi performa akademik mahasiswa ("Higher Education Students Performance Eva
 Analisis komprehensif ini dibagi menjadi dua pendekatan (berbasis *code* dan berbasis *visual*), yang dapat Anda akses melalui daftar isi di bawah ini:
 
 
+
+## Informasi Dataset Asli (Raw Data)
+
+Berdasarkan dokumentasi resmi dari situs *UCI Machine Learning Repository*, berikut adalah rincian asli dari dataset sebelum dilakukan pra-pemrosesan:
+- **Asal Data:** Data ini dikumpulkan pada tahun 2019 dari mahasiswa Fakultas Teknik (*Faculty of Engineering*) dan Fakultas Ilmu Pendidikan (*Faculty of Educational Sciences*). 
+- **Tujuan Utama:** Tujuan dibuatnya dataset ini adalah untuk memprediksi performa mahasiswa di akhir semester (*end-of-term performances*) menggunakan teknik-teknik *Machine Learning*.
+- **Karakteristik Atribut:** Dataset ini berisi 31 fitur (*Features*) dengan rincian:
+  - Pertanyaan 1 hingga 10: Merupakan pertanyaan terkait informasi personal mahasiswa (*personal questions*).
+  - Pertanyaan 11 hingga 16: Berisi pertanyaan seputar latar belakang keluarga (*family questions*).
+  - Pertanyaan sisanya: Mencakup kebiasaan belajar dan pola pendidikan (*education habits*).
+- **Nilai Kosong (Missing Values):** Dataset ini sudah dalam keadaan bersih dan tidak memiliki nilai yang hilang (*No*).
+- **Lisensi Penggunaan:** Dataset ini dilisensikan di bawah *Creative Commons Attribution 4.0 International (CC BY 4.0)*. Lisensi ini mengizinkan penyebarluasan (*sharing*) dan adaptasi data untuk tujuan apa pun, dengan syarat bahwa kredit/sumber asli tetap dicantumkan dengan layak (*provided that the appropriate credit is given*).
+
 ## Ringkasan Dataset & Pra-pemrosesan Data
 
 Sebelum masuk ke tahap analisis dan klasifikasi, berikut adalah ringkasan singkat mengenai dataset dan proses transformasi yang dilakukan secara seragam, baik di Python (Jupyter Notebook) maupun Orange Data Mining:

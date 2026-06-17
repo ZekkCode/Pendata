@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Tugas Mata Kuliah Penambangan Data – Reproduksi Analisis Explainability Skforecast &#8212; Penambangan Data A - Materi Perkuliahan</title>
   
@@ -14,53 +15,57 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
-  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9a2dae69"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=f930bc37"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'tugas_skforecast';</script>
-    <link rel="icon" href="_static/logo.png"/>
+    <link rel="shortcut icon" href="_static/logo.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Analisis Perbandingan Decision Tree dan Random Forest untuk Prediksi Kategori Performa Mahasiswa" href="UAS-Analisis-Higher%20Education%20Students%20Performance%20Evaluation.html" />
     <link rel="prev" title="Peramalan Kadar NO2 di Daerah Mojokerto" href="tugas_eo_mojokerto_no2.html" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -86,23 +91,19 @@
 
   
   
-  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -124,20 +125,12 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
-
-  <div class="pst-async-banner-revealer d-none">
-  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
-</div>
-
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -152,13 +145,9 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
-
-  
-    
   
 
 <a class="navbar-brand logo" href="intro.html">
-  
   
   
   
@@ -168,23 +157,12 @@
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Penambangan Data A - Materi Perkuliahan - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Penambangan Data A - Materi Perkuliahan - Home"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -212,9 +190,6 @@
 
 <li class="toctree-l1"><a class="reference internal" href="pertemuan3.html">Materi Pertemuan 3 — Data Preparation (Extensi)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pertemuan4.html">Materi Pertemuan 4 — Preprocessing &amp; Normalisasi</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tugas%20-%20Missing%20Values%20Inputation%20%2B%20Materi%20Normalisasi%20Data.html">Tugas — Missing Values (WKNN) &amp; Normalisasi Data</a></li>
-
-
 <li class="toctree-l1"><a class="reference internal" href="pertemuan5.html">Materi Pertemuan 5 — Mengukur Jarak/Similaritas Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pertemuan6.html">Materi Pertemuan 6 — Praproses Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pertemuan7.html">Materi Pertemuan 7 — Modeling</a></li>
@@ -235,6 +210,8 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Tugas Mata Kuliah Penambangan Data – Reproduksi Analisis Explainability Skforecast</a></li>
 
 
+<li class="toctree-l1"><a class="reference internal" href="UAS-Analisis-Higher%20Education%20Students%20Performance%20Evaluation.html">Analisis Perbandingan Decision Tree dan Random Forest untuk Prediksi Kategori Performa Mahasiswa</a></li>
+
 </ul>
 
     </div>
@@ -250,7 +227,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main" role="main">
+      <main id="main-content" class="bd-main">
         
         
 
@@ -259,14 +236,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article d-print-none">
+              <div class="bd-header-article">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</button></div>
+</label></div>
       
     </div>
   
@@ -388,28 +365,26 @@
 </button>
 
 
-
 <script>
 document.write(`
-  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
-    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
-    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
 `);
 </script>
 
-
 <script>
 document.write(`
-  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</button>
+</label>
 </div></div>
       
     </div>
@@ -497,10 +472,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="tugas-mata-kuliah-penambangan-data-reproduksi-analisis-explainability-skforecast">
-<h1>Tugas Mata Kuliah Penambangan Data – Reproduksi Analisis Explainability Skforecast<a class="headerlink" href="#tugas-mata-kuliah-penambangan-data-reproduksi-analisis-explainability-skforecast" title="Link to this heading">#</a></h1>
+<h1>Tugas Mata Kuliah Penambangan Data – Reproduksi Analisis Explainability Skforecast<a class="headerlink" href="#tugas-mata-kuliah-penambangan-data-reproduksi-analisis-explainability-skforecast" title="Permalink to this heading">#</a></h1>
 <p><strong>Nama:</strong> Zakaria Mujur Prasetyo<br />
 <strong>NIM:</strong> 240411100144<br />
 <strong>Mata Kuliah:</strong> Penambangan Data Kelas A<br />
@@ -517,42 +492,42 @@ Saya memilih kasus ini karena relevan dengan topik <em>penambangan data</em>, kh
 </ol>
 <hr class="docutils" />
 <section id="daftar-isi">
-<h2>Daftar Isi<a class="headerlink" href="#daftar-isi" title="Link to this heading">#</a></h2>
+<h2>Daftar Isi<a class="headerlink" href="#daftar-isi" title="Permalink to this heading">#</a></h2>
 <p><strong>Bagian A – Reproduksi Kode</strong></p>
 <ol class="arabic simple">
-<li><p><a class="reference internal" href="#instalasi-library"><span class="xref myst">Instalasi Library</span></a></p></li>
-<li><p><a class="reference internal" href="#import-library"><span class="xref myst">Import Library</span></a></p></li>
-<li><p><a class="reference internal" href="#mengambil-dataset"><span class="xref myst">Mengambil Dataset</span></a></p></li>
-<li><p><a class="reference internal" href="#agregasi-data-ke-harian"><span class="xref myst">Agregasi Data ke Harian</span></a></p></li>
-<li><p><a class="reference internal" href="#visualisasi-data-harian"><span class="xref myst">Visualisasi Data Harian</span></a></p></li>
-<li><p><a class="reference internal" href="#split-data-training-dan-testing"><span class="xref myst">Split Data Training dan Testing</span></a></p></li>
-<li><p><a class="reference internal" href="#membuat-dan-melatih-model-forecasting"><span class="xref myst">Membuat dan Melatih Model Forecasting</span></a></p></li>
-<li><p><a class="reference internal" href="#membentuk-data-training-model"><span class="xref myst">Membentuk Data Training Model</span></a></p></li>
-<li><p><a class="reference internal" href="#model-specific-feature-importance"><span class="xref myst">Model-specific Feature Importance</span></a></p></li>
-<li><p><a class="reference internal" href="#shap-values"><span class="xref myst">SHAP Values</span></a></p></li>
-<li><p><a class="reference internal" href="#explain-individual-observation"><span class="xref myst">Explain Individual Observation</span></a></p></li>
-<li><p><a class="reference internal" href="#shap-dependence-plot"><span class="xref myst">SHAP Dependence Plot</span></a></p></li>
-<li><p><a class="reference internal" href="#prediksi-10-hari-ke-depan"><span class="xref myst">Prediksi 10 Hari ke Depan</span></a></p></li>
-<li><p><a class="reference internal" href="#membuat-matriks-input-untuk-prediksi"><span class="xref myst">Membuat Matriks Input untuk Prediksi</span></a></p></li>
-<li><p><a class="reference internal" href="#menjelaskan-nilai-prediksi-dengan-shap"><span class="xref myst">Menjelaskan Nilai Prediksi dengan SHAP</span></a></p></li>
-<li><p><a class="reference internal" href="#permutation-feature-importance"><span class="xref myst">Permutation Feature Importance</span></a></p></li>
-<li><p><a class="reference internal" href="#partial-dependence-plot"><span class="xref myst">Partial Dependence Plot</span></a></p></li>
+<li><p><span class="xref myst">Instalasi Library</span></p></li>
+<li><p><span class="xref myst">Import Library</span></p></li>
+<li><p><span class="xref myst">Mengambil Dataset</span></p></li>
+<li><p><span class="xref myst">Agregasi Data ke Harian</span></p></li>
+<li><p><span class="xref myst">Visualisasi Data Harian</span></p></li>
+<li><p><span class="xref myst">Split Data Training dan Testing</span></p></li>
+<li><p><span class="xref myst">Membuat dan Melatih Model Forecasting</span></p></li>
+<li><p><span class="xref myst">Membentuk Data Training Model</span></p></li>
+<li><p><span class="xref myst">Model-specific Feature Importance</span></p></li>
+<li><p><span class="xref myst">SHAP Values</span></p></li>
+<li><p><span class="xref myst">Explain Individual Observation</span></p></li>
+<li><p><span class="xref myst">SHAP Dependence Plot</span></p></li>
+<li><p><span class="xref myst">Prediksi 10 Hari ke Depan</span></p></li>
+<li><p><span class="xref myst">Membuat Matriks Input untuk Prediksi</span></p></li>
+<li><p><span class="xref myst">Menjelaskan Nilai Prediksi dengan SHAP</span></p></li>
+<li><p><span class="xref myst">Permutation Feature Importance</span></p></li>
+<li><p><span class="xref myst">Partial Dependence Plot</span></p></li>
 </ol>
 <p><strong>Bagian B – Jawaban Pertanyaan Tugas</strong></p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#pertanyaan-1-analisa-prediksi-tentang-apa"><span class="xref myst">Pertanyaan 1: Analisa prediksi tentang apa?</span></a></p></li>
-<li><p><a class="reference internal" href="#pertanyaan-2-bagaimana-bentuk-data-trainingnya-apa-input-dan-outputnya"><span class="xref myst">Pertanyaan 2: Bentuk data training, input dan output</span></a></p></li>
-<li><p><a class="reference internal" href="#pertanyaan-3-apa-itu-lag"><span class="xref myst">Pertanyaan 3: Apa itu lag?</span></a></p></li>
-<li><p><a class="reference internal" href="#pertanyaan-4-jelaskan-proses-analysis-yang-dilakukan"><span class="xref myst">Pertanyaan 4: Proses analysis</span></a></p></li>
+<li><p><span class="xref myst">Pertanyaan 1: Analisa prediksi tentang apa?</span></p></li>
+<li><p><span class="xref myst">Pertanyaan 2: Bentuk data training, input dan output</span></p></li>
+<li><p><span class="xref myst">Pertanyaan 3: Apa itu lag?</span></p></li>
+<li><p><span class="xref myst">Pertanyaan 4: Proses analysis</span></p></li>
 </ul>
 <p><strong>Bagian C – Ringkasan Akhir</strong></p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#ringkasan-akhir"><span class="xref myst">Ringkasan Akhir</span></a></p></li>
+<li><p><span class="xref myst">Ringkasan Akhir</span></p></li>
 </ul>
 </section>
 <hr class="docutils" />
 <section id="instalasi-library">
-<h2>1. Instalasi Library<a class="headerlink" href="#instalasi-library" title="Link to this heading">#</a></h2>
+<h2>1. Instalasi Library<a class="headerlink" href="#instalasi-library" title="Permalink to this heading">#</a></h2>
 <p>Pertama-tama, saya perlu menginstal beberapa library yang dibutuhkan.<br />
 Saya menjalankan notebook ini di Google Colab, jadi saya menginstal library di sini.<br />
 Kalau teman-teman menjalankan di localhost dan library-nya sudah terpasang, bagian ini bisa dilewati saja.</p>
@@ -571,26 +546,26 @@ Kalau teman-teman menjalankan di localhost dan library-nya sudah terpasang, bagi
 </div>
 </section>
 <section id="import-library">
-<h2>2. Import Library<a class="headerlink" href="#import-library" title="Link to this heading">#</a></h2>
+<h2>2. Import Library<a class="headerlink" href="#import-library" title="Permalink to this heading">#</a></h2>
 <p>Setelah instalasi selesai, saya meng-import semua library yang saya butuhkan.<br />
 Library yang saya pakai mengikuti dokumentasi Skforecast, yaitu <code class="docutils literal notranslate"><span class="pre">pandas</span></code> untuk manipulasi data, <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> untuk visualisasi, <code class="docutils literal notranslate"><span class="pre">shap</span></code> untuk explainability, <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> untuk evaluasi model, <code class="docutils literal notranslate"><span class="pre">lightgbm</span></code> sebagai algoritma machine learning, dan <code class="docutils literal notranslate"><span class="pre">skforecast</span></code> sebagai framework forecasting.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">shap</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">shap</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">lightgbm</span><span class="w"> </span><span class="kn">import</span> <span class="n">LGBMRegressor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.inspection</span><span class="w"> </span><span class="kn">import</span> <span class="n">permutation_importance</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.inspection</span><span class="w"> </span><span class="kn">import</span> <span class="n">PartialDependenceDisplay</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
+<span class="kn">from</span> <span class="nn">lightgbm</span> <span class="kn">import</span> <span class="n">LGBMRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">permutation_importance</span>
+<span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">PartialDependenceDisplay</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">skforecast.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_dataset</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">skforecast.recursive</span><span class="w"> </span><span class="kn">import</span> <span class="n">ForecasterRecursive</span>
+<span class="kn">from</span> <span class="nn">skforecast.datasets</span> <span class="kn">import</span> <span class="n">fetch_dataset</span>
+<span class="kn">from</span> <span class="nn">skforecast.recursive</span> <span class="kn">import</span> <span class="n">ForecasterRecursive</span>
 
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.max_columns&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.width&quot;</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
@@ -600,10 +575,10 @@ Library yang saya pakai mengikuti dokumentasi Skforecast, yaitu <code class="doc
 </div>
 </section>
 <section id="mengambil-dataset">
-<h2>3. Mengambil Dataset<a class="headerlink" href="#mengambil-dataset" title="Link to this heading">#</a></h2>
+<h2>3. Mengambil Dataset<a class="headerlink" href="#mengambil-dataset" title="Permalink to this heading">#</a></h2>
 <p>Di sini saya mengambil dataset <code class="docutils literal notranslate"><span class="pre">vic_electricity</span></code> yang sudah disediakan oleh Skforecast.<br />
 Dataset ini berisi data permintaan listrik di Victoria, Australia. Saya menggunakan kolom-kolom berikut:</p>
-<div class="pst-scrollable-table-container"><table class="table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Kolom</p></th>
 <th class="head"><p>Keterangan</p></th>
@@ -624,7 +599,6 @@ Dataset ini berisi data permintaan listrik di Victoria, Australia. Saya mengguna
 </tr>
 </tbody>
 </table>
-</div>
 <p>Saya memilih dataset ini karena datanya cukup lengkap dan cocok untuk menunjukkan bagaimana <em>time series forecasting</em> bekerja dalam konteks penambangan data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -790,7 +764,7 @@ Ukuran data awal: (52608, 4)
 </div>
 </section>
 <section id="agregasi-data-ke-harian">
-<h2>4. Agregasi Data ke Harian<a class="headerlink" href="#agregasi-data-ke-harian" title="Link to this heading">#</a></h2>
+<h2>4. Agregasi Data ke Harian<a class="headerlink" href="#agregasi-data-ke-harian" title="Permalink to this heading">#</a></h2>
 <p>Data aslinya memiliki interval pencatatan setiap setengah jam, jadi terlalu detail kalau langsung dipakai.<br />
 Maka dari itu, saya mengubah data ini menjadi data harian dengan cara:</p>
 <ul class="simple">
@@ -929,7 +903,7 @@ Maka dari itu, saya mengubah data ini menjadi data harian dengan cara:</p>
 </div>
 </section>
 <section id="visualisasi-data-harian">
-<h2>5. Visualisasi Data Harian<a class="headerlink" href="#visualisasi-data-harian" title="Link to this heading">#</a></h2>
+<h2>5. Visualisasi Data Harian<a class="headerlink" href="#visualisasi-data-harian" title="Permalink to this heading">#</a></h2>
 <p>Selanjutnya saya membuat grafik untuk melihat pola permintaan listrik dan suhu dari waktu ke waktu.<br />
 Dari visualisasi ini, saya bisa mengamati apakah ada pola musiman atau tren tertentu yang bisa dimanfaatkan oleh model.</p>
 <div class="cell docutils container">
@@ -957,9 +931,9 @@ Dari visualisasi ini, saya bisa mengamati apakah ada pola musiman atau tren tert
 </div>
 </section>
 <section id="split-data-training-dan-testing">
-<h2>6. Split Data Training dan Testing<a class="headerlink" href="#split-data-training-dan-testing" title="Link to this heading">#</a></h2>
+<h2>6. Split Data Training dan Testing<a class="headerlink" href="#split-data-training-dan-testing" title="Permalink to this heading">#</a></h2>
 <p>Di tahap ini saya membagi data menjadi dua bagian:</p>
-<div class="pst-scrollable-table-container"><table class="table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Bagian</p></th>
 <th class="head"><p>Rentang</p></th>
@@ -974,7 +948,6 @@ Dari visualisasi ini, saya bisa mengamati apakah ada pola musiman atau tren tert
 </tr>
 </tbody>
 </table>
-</div>
 <p>Data training saya gunakan untuk melatih model, sedangkan data testing saya pakai untuk menguji seberapa akurat prediksi model.<br />
 Pembagian ini penting dalam penambangan data agar kita bisa mengevaluasi performa model secara objektif, yaitu dengan data yang belum pernah dilihat oleh model sebelumnya.</p>
 <div class="cell docutils container">
@@ -1126,7 +1099,7 @@ Jumlah data testing : (10, 2)
 </div>
 </section>
 <section id="membuat-dan-melatih-model-forecasting">
-<h2>7. Membuat dan Melatih Model Forecasting<a class="headerlink" href="#membuat-dan-melatih-model-forecasting" title="Link to this heading">#</a></h2>
+<h2>7. Membuat dan Melatih Model Forecasting<a class="headerlink" href="#membuat-dan-melatih-model-forecasting" title="Permalink to this heading">#</a></h2>
 <p>Di sini saya membuat model peramalan menggunakan:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ForecasterRecursive</span></code> sebagai metode peramalan multi-step secara rekursif.</p></li>
@@ -1281,7 +1254,7 @@ Saya memilih LightGBM karena algoritma ini dikenal cepat dan cocok untuk data ta
 </div>
 </section>
 <section id="membentuk-data-training-model">
-<h2>8. Membentuk Data Training Model<a class="headerlink" href="#membentuk-data-training-model" title="Link to this heading">#</a></h2>
+<h2>8. Membentuk Data Training Model<a class="headerlink" href="#membentuk-data-training-model" title="Permalink to this heading">#</a></h2>
 <p>Pada bagian ini, saya ingin menunjukkan bagaimana Skforecast mengubah data <em>time series</em> menjadi bentuk tabel <em>supervised learning</em>.<br />
 Ini adalah konsep penting dalam penambangan data, yaitu <strong>transformasi data</strong> agar bisa diolah oleh algoritma machine learning.</p>
 <p>Input model yang terbentuk terdiri dari:</p>
@@ -1422,9 +1395,9 @@ Freq: D, Name: y, dtype: float64
 </div>
 </div>
 <section id="penjelasan-bentuk-data-training">
-<h3>Penjelasan Bentuk Data Training<a class="headerlink" href="#penjelasan-bentuk-data-training" title="Link to this heading">#</a></h3>
+<h3>Penjelasan Bentuk Data Training<a class="headerlink" href="#penjelasan-bentuk-data-training" title="Permalink to this heading">#</a></h3>
 <p>Untuk lebih jelasnya, berikut arti dari setiap kolom yang saya dapatkan:</p>
-<div class="pst-scrollable-table-container"><table class="table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Kolom</p></th>
 <th class="head"><p>Arti</p></th>
@@ -1460,12 +1433,11 @@ Freq: D, Name: y, dtype: float64
 </tr>
 </tbody>
 </table>
-</div>
 <p>Jadi bisa saya simpulkan bahwa model ini belajar dari pola 7 hari terakhir ditambah informasi suhu untuk memprediksi permintaan listrik hari berikutnya.</p>
 </section>
 </section>
 <section id="model-specific-feature-importance">
-<h2>9. Model-specific Feature Importance<a class="headerlink" href="#model-specific-feature-importance" title="Link to this heading">#</a></h2>
+<h2>9. Model-specific Feature Importance<a class="headerlink" href="#model-specific-feature-importance" title="Permalink to this heading">#</a></h2>
 <p>Di sini saya melihat fitur mana yang dianggap paling penting oleh model <code class="docutils literal notranslate"><span class="pre">LGBMRegressor</span></code>.<br />
 Feature importance ini merupakan salah satu teknik <em>explainability</em> dalam penambangan data yang membantu saya memahami alasan di balik prediksi model.</p>
 <div class="cell docutils container">
@@ -1566,7 +1538,7 @@ Feature importance ini merupakan salah satu teknik <em>explainability</em> dalam
 </div>
 </section>
 <section id="shap-values">
-<h2>10. SHAP Values<a class="headerlink" href="#shap-values" title="Link to this heading">#</a></h2>
+<h2>10. SHAP Values<a class="headerlink" href="#shap-values" title="Permalink to this heading">#</a></h2>
 <p>Selanjutnya saya menggunakan SHAP (SHapley Additive exPlanations) untuk menjelaskan kontribusi setiap fitur terhadap hasil prediksi model.<br />
 SHAP ini berbasis teori permainan dan bisa menunjukkan seberapa besar pengaruh masing-masing fitur, baik positif maupun negatif.<br />
 Karena model saya berbasis pohon keputusan (LightGBM), saya menggunakan <code class="docutils literal notranslate"><span class="pre">TreeExplainer</span></code> yang lebih cepat.</p>
@@ -1594,7 +1566,7 @@ Karena model saya berbasis pohon keputusan (LightGBM), saya menggunakan <code cl
 </div>
 </div>
 <section id="shap-summary-plot-dalam-bentuk-bar">
-<h3>SHAP Summary Plot dalam Bentuk Bar<a class="headerlink" href="#shap-summary-plot-dalam-bentuk-bar" title="Link to this heading">#</a></h3>
+<h3>SHAP Summary Plot dalam Bentuk Bar<a class="headerlink" href="#shap-summary-plot-dalam-bentuk-bar" title="Permalink to this heading">#</a></h3>
 <p>Plot bar ini menunjukkan rata-rata pengaruh setiap fitur terhadap prediksi.<br />
 Dari sini saya bisa melihat fitur mana yang secara umum paling berpengaruh terhadap model.</p>
 <div class="cell docutils container">
@@ -1609,7 +1581,7 @@ Dari sini saya bisa melihat fitur mana yang secara umum paling berpengaruh terha
 </div>
 </section>
 <section id="shap-summary-plot-detail">
-<h3>SHAP Summary Plot Detail<a class="headerlink" href="#shap-summary-plot-detail" title="Link to this heading">#</a></h3>
+<h3>SHAP Summary Plot Detail<a class="headerlink" href="#shap-summary-plot-detail" title="Permalink to this heading">#</a></h3>
 <p>Berbeda dengan plot bar sebelumnya, plot ini menunjukkan <strong>arah pengaruh</strong> fitur.<br />
 Saya bisa melihat apakah nilai fitur yang tinggi mendorong prediksi naik atau turun.<br />
 Warna merah menunjukkan nilai fitur tinggi, sedangkan biru menunjukkan nilai rendah.</p>
@@ -1626,7 +1598,7 @@ Warna merah menunjukkan nilai fitur tinggi, sedangkan biru menunjukkan nilai ren
 </section>
 </section>
 <section id="explain-individual-observation">
-<h2>11. Explain Individual Observation<a class="headerlink" href="#explain-individual-observation" title="Link to this heading">#</a></h2>
+<h2>11. Explain Individual Observation<a class="headerlink" href="#explain-individual-observation" title="Permalink to this heading">#</a></h2>
 <p>Di bagian ini saya mencoba menjelaskan satu data training secara individual.<br />
 Tujuannya agar saya bisa melihat fitur mana yang menaikkan atau menurunkan hasil prediksi pada satu baris data tertentu.<br />
 Ini yang disebut sebagai <strong>local explanation</strong> dalam konteks explainability.</p>
@@ -1659,7 +1631,7 @@ Ini yang disebut sebagai <strong>local explanation</strong> dalam konteks explai
 </div>
 </section>
 <section id="shap-dependence-plot">
-<h2>12. SHAP Dependence Plot<a class="headerlink" href="#shap-dependence-plot" title="Link to this heading">#</a></h2>
+<h2>12. SHAP Dependence Plot<a class="headerlink" href="#shap-dependence-plot" title="Permalink to this heading">#</a></h2>
 <p>Dependence plot ini saya gunakan untuk melihat hubungan antara satu fitur dengan nilai SHAP-nya.<br />
 Pada contoh ini saya memilih fitur <code class="docutils literal notranslate"><span class="pre">Temperature</span></code> karena saya ingin tahu bagaimana suhu memengaruhi prediksi permintaan listrik.<br />
 Hasilnya cukup menarik karena bisa terlihat pola non-linear.</p>
@@ -1677,7 +1649,7 @@ Hasilnya cukup menarik karena bisa terlihat pola non-linear.</p>
 </div>
 </section>
 <section id="prediksi-10-hari-ke-depan">
-<h2>13. Prediksi 10 Hari ke Depan<a class="headerlink" href="#prediksi-10-hari-ke-depan" title="Link to this heading">#</a></h2>
+<h2>13. Prediksi 10 Hari ke Depan<a class="headerlink" href="#prediksi-10-hari-ke-depan" title="Permalink to this heading">#</a></h2>
 <p>Sekarang saya menggunakan model yang sudah dilatih untuk memprediksi 10 hari pertama pada data testing.<br />
 Saya ingin melihat seberapa akurat model dalam memprediksi permintaan listrik di hari-hari yang belum pernah dilihat sebelumnya.</p>
 <div class="cell docutils container">
@@ -1848,7 +1820,7 @@ MAPE : 23.68%
 </div>
 </section>
 <section id="membuat-matriks-input-untuk-prediksi">
-<h2>14. Membuat Matriks Input untuk Prediksi<a class="headerlink" href="#membuat-matriks-input-untuk-prediksi" title="Link to this heading">#</a></h2>
+<h2>14. Membuat Matriks Input untuk Prediksi<a class="headerlink" href="#membuat-matriks-input-untuk-prediksi" title="Permalink to this heading">#</a></h2>
 <p>Di sini saya membuat matriks <code class="docutils literal notranslate"><span class="pre">X_predict</span></code> yang berisi fitur-fitur yang dipakai model ketika melakukan prediksi.<br />
 Kolomnya sama seperti data training, yaitu <code class="docutils literal notranslate"><span class="pre">lag_1</span></code> sampai <code class="docutils literal notranslate"><span class="pre">lag_7</span></code> dan <code class="docutils literal notranslate"><span class="pre">Temperature</span></code>.<br />
 Ini berguna untuk saya analisis lebih lanjut menggunakan SHAP di langkah berikutnya.</p>
@@ -2009,7 +1981,7 @@ Ini berguna untuk saya analisis lebih lanjut menggunakan SHAP di langkah berikut
 </div>
 </section>
 <section id="menjelaskan-nilai-prediksi-dengan-shap">
-<h2>15. Menjelaskan Nilai Prediksi dengan SHAP<a class="headerlink" href="#menjelaskan-nilai-prediksi-dengan-shap" title="Link to this heading">#</a></h2>
+<h2>15. Menjelaskan Nilai Prediksi dengan SHAP<a class="headerlink" href="#menjelaskan-nilai-prediksi-dengan-shap" title="Permalink to this heading">#</a></h2>
 <p>Pada bagian ini saya menjelaskan prediksi pada tanggal tertentu, yaitu <code class="docutils literal notranslate"><span class="pre">2014-12-22</span></code>, menggunakan SHAP.<br />
 Dengan cara ini saya bisa memahami mengapa model memberikan prediksi tertentu pada tanggal tersebut — fitur mana yang mendorong nilai naik dan mana yang menariknya turun.</p>
 <div class="cell docutils container">
@@ -2048,7 +2020,7 @@ Dengan cara ini saya bisa memahami mengapa model memberikan prediksi tertentu pa
 </div>
 </section>
 <section id="permutation-feature-importance">
-<h2>16. Permutation Feature Importance<a class="headerlink" href="#permutation-feature-importance" title="Link to this heading">#</a></h2>
+<h2>16. Permutation Feature Importance<a class="headerlink" href="#permutation-feature-importance" title="Permalink to this heading">#</a></h2>
 <p>Selain SHAP, saya juga menggunakan metode <em>permutation importance</em>.<br />
 Cara kerjanya adalah dengan mengacak nilai satu fitur, lalu melihat seberapa besar performa model menurun.<br />
 Kalau performa model turun banyak setelah fitur diacak, berarti fitur itu memang penting buat model.<br />
@@ -2174,7 +2146,7 @@ Metode ini saya anggap lebih “jujur” karena model-agnostic, artinya bisa dip
 </div>
 </section>
 <section id="partial-dependence-plot">
-<h2>17. Partial Dependence Plot<a class="headerlink" href="#partial-dependence-plot" title="Link to this heading">#</a></h2>
+<h2>17. Partial Dependence Plot<a class="headerlink" href="#partial-dependence-plot" title="Permalink to this heading">#</a></h2>
 <p>Terakhir, saya membuat Partial Dependence Plot (PDP) untuk melihat hubungan antara fitur tertentu dengan hasil prediksi model.<br />
 Saya memilih fitur <code class="docutils literal notranslate"><span class="pre">Temperature</span></code> dan <code class="docutils literal notranslate"><span class="pre">lag_1</span></code> karena dari analisis sebelumnya kedua fitur ini termasuk yang paling berpengaruh.<br />
 PDP ini membantu saya memahami bagaimana perubahan nilai suatu fitur memengaruhi prediksi secara rata-rata.</p>
@@ -2204,10 +2176,10 @@ PDP ini membantu saya memahami bagaimana perubahan nilai suatu fitur memengaruhi
 </section>
 <hr class="docutils" />
 <section class="tex2jax_ignore mathjax_ignore" id="jawaban-pertanyaan-tugas">
-<h1>Jawaban Pertanyaan Tugas<a class="headerlink" href="#jawaban-pertanyaan-tugas" title="Link to this heading">#</a></h1>
+<h1>Jawaban Pertanyaan Tugas<a class="headerlink" href="#jawaban-pertanyaan-tugas" title="Permalink to this heading">#</a></h1>
 <p>Berikut adalah jawaban saya terhadap pertanyaan-pertanyaan yang diberikan dalam tugas mata kuliah <strong>Penambangan Data Kelas A</strong>.</p>
 <section id="pertanyaan-1-analisa-prediksi-tentang-apa">
-<h2>Pertanyaan 1: Analisa prediksi tentang apa?<a class="headerlink" href="#pertanyaan-1-analisa-prediksi-tentang-apa" title="Link to this heading">#</a></h2>
+<h2>Pertanyaan 1: Analisa prediksi tentang apa?<a class="headerlink" href="#pertanyaan-1-analisa-prediksi-tentang-apa" title="Permalink to this heading">#</a></h2>
 <p>Menurut pemahaman saya, analisis prediksi pada kasus ini membahas tentang <strong>prediksi permintaan (demand) listrik harian</strong> di wilayah Victoria, Australia.</p>
 <p>Secara lebih rinci:</p>
 <ul class="simple">
@@ -2219,12 +2191,12 @@ PDP ini membantu saya memahami bagaimana perubahan nilai suatu fitur memengaruhi
 <p>Dalam konteks mata kuliah Penambangan Data, kasus ini relevan karena menunjukkan bagaimana teknik <em>data mining</em> dapat diaplikasikan pada data <em>time series</em> untuk menghasilkan prediksi yang <strong>bukan hanya akurat, tetapi juga bisa dijelaskan</strong>. Ini penting karena dalam dunia nyata, kita tidak cukup hanya mengetahui “angka prediksinya berapa”, tetapi juga perlu tahu “kenapa model memberikan angka itu”.</p>
 </section>
 <section id="pertanyaan-2-bagaimana-bentuk-data-trainingnya-apa-input-dan-outputnya">
-<h2>Pertanyaan 2: Bagaimana bentuk data trainingnya, apa input dan outputnya?<a class="headerlink" href="#pertanyaan-2-bagaimana-bentuk-data-trainingnya-apa-input-dan-outputnya" title="Link to this heading">#</a></h2>
+<h2>Pertanyaan 2: Bagaimana bentuk data trainingnya, apa input dan outputnya?<a class="headerlink" href="#pertanyaan-2-bagaimana-bentuk-data-trainingnya-apa-input-dan-outputnya" title="Permalink to this heading">#</a></h2>
 <p>Data awal yang saya gunakan berbentuk <em>time series</em> (data runtun waktu), yaitu data yang tersusun berdasarkan urutan waktu.<br />
 Setelah saya ubah dari interval setengah jam menjadi data harian, library Skforecast secara otomatis mengubah data ini menjadi format <strong>supervised learning</strong> — yaitu format tabel yang terdiri dari kolom input (fitur) dan kolom output (target).</p>
 <section id="input-model-fitur">
-<h3>Input Model (Fitur)<a class="headerlink" href="#input-model-fitur" title="Link to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="table">
+<h3>Input Model (Fitur)<a class="headerlink" href="#input-model-fitur" title="Permalink to this heading">#</a></h3>
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Fitur</p></th>
 <th class="head"><p>Keterangan</p></th>
@@ -2266,11 +2238,10 @@ Setelah saya ubah dari interval setengah jam menjadi data harian, library Skfore
 </tr>
 </tbody>
 </table>
-</div>
 </section>
 <section id="output-model-target">
-<h3>Output Model (Target)<a class="headerlink" href="#output-model-target" title="Link to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="table">
+<h3>Output Model (Target)<a class="headerlink" href="#output-model-target" title="Permalink to this heading">#</a></h3>
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Output</p></th>
 <th class="head"><p>Keterangan</p></th>
@@ -2282,10 +2253,9 @@ Setelah saya ubah dari interval setengah jam menjadi data harian, library Skfore
 </tr>
 </tbody>
 </table>
-</div>
 </section>
 <section id="ilustrasi">
-<h3>Ilustrasi<a class="headerlink" href="#ilustrasi" title="Link to this heading">#</a></h3>
+<h3>Ilustrasi<a class="headerlink" href="#ilustrasi" title="Permalink to this heading">#</a></h3>
 <p>Misalnya, untuk memprediksi permintaan listrik pada tanggal <strong>8 Januari 2012</strong>, model akan menggunakan:</p>
 <ul class="simple">
 <li><p>Permintaan listrik tanggal 7 Januari (<code class="docutils literal notranslate"><span class="pre">lag_1</span></code>), 6 Januari (<code class="docutils literal notranslate"><span class="pre">lag_2</span></code>), …, hingga 1 Januari (<code class="docutils literal notranslate"><span class="pre">lag_7</span></code>)</p></li>
@@ -2296,15 +2266,15 @@ Proses transformasi dari time series ke tabel ini merupakan contoh nyata dari <s
 </section>
 </section>
 <section id="pertanyaan-3-apa-itu-lag">
-<h2>Pertanyaan 3: Apa itu lag?<a class="headerlink" href="#pertanyaan-3-apa-itu-lag" title="Link to this heading">#</a></h2>
+<h2>Pertanyaan 3: Apa itu lag?<a class="headerlink" href="#pertanyaan-3-apa-itu-lag" title="Permalink to this heading">#</a></h2>
 <p>Dari yang saya pelajari, <strong>lag</strong> (atau <em>lagged variable</em>) adalah nilai data pada <strong>periode sebelumnya</strong> yang digunakan sebagai input untuk memprediksi nilai saat ini atau masa depan.</p>
 <section id="penjelasan-sederhana">
-<h3>Penjelasan Sederhana<a class="headerlink" href="#penjelasan-sederhana" title="Link to this heading">#</a></h3>
+<h3>Penjelasan Sederhana<a class="headerlink" href="#penjelasan-sederhana" title="Permalink to this heading">#</a></h3>
 <p>Bayangkan kita ingin memprediksi permintaan listrik <strong>hari ini</strong>. Salah satu informasi yang berguna adalah mengetahui permintaan listrik <strong>kemarin</strong>, <strong>2 hari lalu</strong>, <strong>3 hari lalu</strong>, dan seterusnya. Nah, nilai-nilai di masa lalu inilah yang disebut “lag”.</p>
 </section>
 <section id="dalam-kasus-ini">
-<h3>Dalam Kasus Ini<a class="headerlink" href="#dalam-kasus-ini" title="Link to this heading">#</a></h3>
-<div class="pst-scrollable-table-container"><table class="table">
+<h3>Dalam Kasus Ini<a class="headerlink" href="#dalam-kasus-ini" title="Permalink to this heading">#</a></h3>
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Lag</p></th>
 <th class="head"><p>Arti</p></th>
@@ -2334,11 +2304,10 @@ Proses transformasi dari time series ke tabel ini merupakan contoh nyata dari <s
 </tr>
 </tbody>
 </table>
-</div>
 <p>Karena saya memakai <code class="docutils literal notranslate"><span class="pre">lags</span> <span class="pre">=</span> <span class="pre">7</span></code>, artinya model saya menggunakan data permintaan listrik selama <strong>7 hari terakhir</strong> sebagai “jendela” (<em>window</em>) untuk memprediksi permintaan listrik hari berikutnya.</p>
 </section>
 <section id="mengapa-lag-penting">
-<h3>Mengapa Lag Penting?<a class="headerlink" href="#mengapa-lag-penting" title="Link to this heading">#</a></h3>
+<h3>Mengapa Lag Penting?<a class="headerlink" href="#mengapa-lag-penting" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><strong>Menangkap pola temporal:</strong> Lag membantu model mengenali pola berulang, misalnya permintaan listrik yang selalu tinggi di hari kerja dan rendah di akhir pekan.</p></li>
 <li><p><strong>Mengubah time series jadi tabel:</strong> Dengan lag, data time series bisa diubah menjadi format supervised learning yang bisa diolah oleh algoritma machine learning biasa.</p></li>
@@ -2347,14 +2316,14 @@ Proses transformasi dari time series ke tabel ini merupakan contoh nyata dari <s
 </section>
 </section>
 <section id="pertanyaan-4-jelaskan-proses-analysis-yang-dilakukan">
-<h2>Pertanyaan 4: Jelaskan proses analysis yang dilakukan<a class="headerlink" href="#pertanyaan-4-jelaskan-proses-analysis-yang-dilakukan" title="Link to this heading">#</a></h2>
+<h2>Pertanyaan 4: Jelaskan proses analysis yang dilakukan<a class="headerlink" href="#pertanyaan-4-jelaskan-proses-analysis-yang-dilakukan" title="Permalink to this heading">#</a></h2>
 <p>Berikut adalah proses analisis yang saya lakukan secara bertahap:</p>
 <section id="tahap-1-pengambilan-data">
-<h3>Tahap 1: Pengambilan Data<a class="headerlink" href="#tahap-1-pengambilan-data" title="Link to this heading">#</a></h3>
+<h3>Tahap 1: Pengambilan Data<a class="headerlink" href="#tahap-1-pengambilan-data" title="Permalink to this heading">#</a></h3>
 <p>Saya mengambil dataset <code class="docutils literal notranslate"><span class="pre">vic_electricity</span></code> dari library Skforecast. Dataset ini berisi data permintaan listrik, suhu, tanggal, dan informasi hari libur di Victoria, Australia. Data awalnya berjumlah sangat banyak karena dicatat setiap setengah jam.</p>
 </section>
 <section id="tahap-2-preprocessing-data">
-<h3>Tahap 2: Preprocessing Data<a class="headerlink" href="#tahap-2-preprocessing-data" title="Link to this heading">#</a></h3>
+<h3>Tahap 2: Preprocessing Data<a class="headerlink" href="#tahap-2-preprocessing-data" title="Permalink to this heading">#</a></h3>
 <p>Saya melakukan <em>preprocessing</em> dengan mengagregasi data menjadi data harian:</p>
 <ul class="simple">
 <li><p>Kolom <code class="docutils literal notranslate"><span class="pre">Demand</span></code> dijumlahkan per hari (untuk mendapat total permintaan satu hari penuh)</p></li>
@@ -2363,11 +2332,11 @@ Proses transformasi dari time series ke tabel ini merupakan contoh nyata dari <s
 <p>Tahap ini penting karena data yang terlalu granular bisa menyulitkan model dan membuat proses training lebih lama.</p>
 </section>
 <section id="tahap-3-eksplorasi-visualisasi-data">
-<h3>Tahap 3: Eksplorasi &amp; Visualisasi Data<a class="headerlink" href="#tahap-3-eksplorasi-visualisasi-data" title="Link to this heading">#</a></h3>
+<h3>Tahap 3: Eksplorasi &amp; Visualisasi Data<a class="headerlink" href="#tahap-3-eksplorasi-visualisasi-data" title="Permalink to this heading">#</a></h3>
 <p>Saya membuat grafik time series untuk melihat pola dari data <code class="docutils literal notranslate"><span class="pre">Demand</span></code> dan <code class="docutils literal notranslate"><span class="pre">Temperature</span></code>. Dari visualisasi ini, saya bisa mengamati adanya <strong>pola musiman</strong> (seasonal pattern) di mana permintaan listrik naik di musim panas dan dingin.</p>
 </section>
 <section id="tahap-4-split-data-training-testing">
-<h3>Tahap 4: Split Data Training &amp; Testing<a class="headerlink" href="#tahap-4-split-data-training-testing" title="Link to this heading">#</a></h3>
+<h3>Tahap 4: Split Data Training &amp; Testing<a class="headerlink" href="#tahap-4-split-data-training-testing" title="Permalink to this heading">#</a></h3>
 <p>Data saya bagi menjadi:</p>
 <ul class="simple">
 <li><p><strong>Training:</strong> sampai 2014-12-21 (untuk melatih model)</p></li>
@@ -2376,17 +2345,17 @@ Proses transformasi dari time series ke tabel ini merupakan contoh nyata dari <s
 <p>Pembagian ini sesuai dengan prinsip evaluasi objektif dalam penambangan data, di mana model diuji pada data yang belum pernah dilihat sebelumnya.</p>
 </section>
 <section id="tahap-5-pembuatan-training-model">
-<h3>Tahap 5: Pembuatan &amp; Training Model<a class="headerlink" href="#tahap-5-pembuatan-training-model" title="Link to this heading">#</a></h3>
+<h3>Tahap 5: Pembuatan &amp; Training Model<a class="headerlink" href="#tahap-5-pembuatan-training-model" title="Permalink to this heading">#</a></h3>
 <p>Saya membuat model <code class="docutils literal notranslate"><span class="pre">ForecasterRecursive</span></code> dengan algoritma <code class="docutils literal notranslate"><span class="pre">LGBMRegressor</span></code>, menggunakan 7 lag dan variabel eksogen <code class="docutils literal notranslate"><span class="pre">Temperature</span></code>. Model dilatih menggunakan data training.</p>
 </section>
 <section id="tahap-6-transformasi-data-ke-supervised-learning">
-<h3>Tahap 6: Transformasi Data ke Supervised Learning<a class="headerlink" href="#tahap-6-transformasi-data-ke-supervised-learning" title="Link to this heading">#</a></h3>
+<h3>Tahap 6: Transformasi Data ke Supervised Learning<a class="headerlink" href="#tahap-6-transformasi-data-ke-supervised-learning" title="Permalink to this heading">#</a></h3>
 <p>Skforecast secara otomatis mengubah time series menjadi tabel supervised learning dengan kolom <code class="docutils literal notranslate"><span class="pre">lag_1</span></code> s.d. <code class="docutils literal notranslate"><span class="pre">lag_7</span></code> + <code class="docutils literal notranslate"><span class="pre">Temperature</span></code> sebagai input dan <code class="docutils literal notranslate"><span class="pre">Demand</span></code> sebagai output.</p>
 </section>
 <section id="tahap-7-analisis-explainability">
-<h3>Tahap 7: Analisis Explainability<a class="headerlink" href="#tahap-7-analisis-explainability" title="Link to this heading">#</a></h3>
+<h3>Tahap 7: Analisis Explainability<a class="headerlink" href="#tahap-7-analisis-explainability" title="Permalink to this heading">#</a></h3>
 <p>Ini adalah <strong>bagian inti</strong> dari kasus ini. Saya menggunakan beberapa metode untuk menjelaskan model:</p>
-<div class="pst-scrollable-table-container"><table class="table">
+<table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Metode</p></th>
 <th class="head"><p>Penjelasan</p></th>
@@ -2410,10 +2379,9 @@ Proses transformasi dari time series ke tabel ini merupakan contoh nyata dari <s
 </tr>
 </tbody>
 </table>
-</div>
 </section>
 <section id="tahap-8-prediksi-evaluasi">
-<h3>Tahap 8: Prediksi &amp; Evaluasi<a class="headerlink" href="#tahap-8-prediksi-evaluasi" title="Link to this heading">#</a></h3>
+<h3>Tahap 8: Prediksi &amp; Evaluasi<a class="headerlink" href="#tahap-8-prediksi-evaluasi" title="Permalink to this heading">#</a></h3>
 <p>Model saya gunakan untuk memprediksi 10 hari pertama pada data testing. Hasilnya saya bandingkan dengan data aktual dan evaluasi menggunakan metrik:</p>
 <ul class="simple">
 <li><p><strong>MAE (Mean Absolute Error):</strong> rata-rata kesalahan absolut</p></li>
@@ -2422,14 +2390,14 @@ Proses transformasi dari time series ke tabel ini merupakan contoh nyata dari <s
 </ul>
 </section>
 <section id="kesimpulan-proses">
-<h3>Kesimpulan Proses<a class="headerlink" href="#kesimpulan-proses" title="Link to this heading">#</a></h3>
+<h3>Kesimpulan Proses<a class="headerlink" href="#kesimpulan-proses" title="Permalink to this heading">#</a></h3>
 <p>Keseluruhan proses ini menunjukkan bahwa model machine learning tidak hanya bisa dipakai untuk forecasting, tetapi juga bisa <strong>dijelaskan hasilnya</strong> menggunakan teknik explainability. Ini sejalan dengan apa yang saya pelajari di mata kuliah Penambangan Data, bahwa <strong>memahami model sama pentingnya dengan membangun model itu sendiri</strong>.</p>
 </section>
 </section>
 </section>
 <hr class="docutils" />
 <section class="tex2jax_ignore mathjax_ignore" id="ringkasan-akhir">
-<h1>Ringkasan Akhir<a class="headerlink" href="#ringkasan-akhir" title="Link to this heading">#</a></h1>
+<h1>Ringkasan Akhir<a class="headerlink" href="#ringkasan-akhir" title="Permalink to this heading">#</a></h1>
 <p>Dari reproduksi yang saya lakukan dalam tugas Penambangan Data ini, saya dapat menyimpulkan bahwa:</p>
 <ol class="arabic simple">
 <li><p><strong>Target prediksi</strong> dalam kasus ini adalah <code class="docutils literal notranslate"><span class="pre">Demand</span></code> (permintaan listrik harian di Victoria, Australia).</p></li>
@@ -2468,10 +2436,11 @@ Proses transformasi dari time series ke tabel ini merupakan contoh nyata dari <s
 
               
               
-              
-              
-                <footer class="prev-next-footer d-print-none">
+                <footer class="bd-footer-article">
                   
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="tugas_eo_mojokerto_no2.html"
@@ -2482,7 +2451,19 @@ Proses transformasi dari time series ke tabel ini merupakan contoh nyata dari <s
         <p class="prev-next-title">Peramalan Kadar NO2 di Daerah Mojokerto</p>
       </div>
     </a>
+    <a class="right-next"
+       href="UAS-Analisis-Higher%20Education%20Students%20Performance%20Evaluation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Analisis Perbandingan Decision Tree dan Random Forest untuk Prediksi Kategori Performa Mahasiswa</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -2490,7 +2471,6 @@ Proses transformasi dari time series ke tabel ini merupakan contoh nyata dari <s
             
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -2577,7 +2557,6 @@ By Zakaria Mujur Prasetyo
   
   <div class="footer-item">
     
-
   <p class="copyright">
     
       © Copyright Copyright 2026 Zakaria Mujur Prasetyo.
@@ -2604,8 +2583,8 @@ By Zakaria Mujur Prasetyo
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

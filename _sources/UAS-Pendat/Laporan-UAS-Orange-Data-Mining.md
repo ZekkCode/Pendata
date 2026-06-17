@@ -9,7 +9,7 @@ Berikut adalah visualisasi alur kerja (*workflow*) yang dibangun di Orange:
 
 **Penjelasan Alur:**
 1. **File:** Memuat dataset original.
-2. **Formula & Select Columns:** Digunakan untuk melakukan pra-pemrosesan data secara visual dan menentukan mana kolom yang menjadi *Target* (kolom `GRADE`) dan mana yang menjadi kumpulan atribut / *Features*.
+2. **Formula & Select Columns:** Digunakan untuk melakukan pra-pemrosesan data secara visual. Widget **Formula** secara spesifik dipakai untuk memetakan Grade angka (0-7) menjadi kategori performa (Rendah, Sedang, Tinggi) menggunakan rumus kondisi: `0 if GRADE <= 2 else (1 if GRADE <= 5 else 2)`. Selanjutnya, widget **Select Columns** membuang kolom yang tidak relevan, menyeleksi 8 kolom pertanyaan sebagai *Features*, dan menetapkan kolom hasil *Formula* tadi sebagai *Target*.
    ![Select Kolom](select-kolom-menentukan-features-dan-targer.png)
 3. **Tree & Random Forest:** Merupakan algoritma pembelajaran mesin (*Learners*) yang digunakan untuk membangun model pemodelan guna memprediksi nilai (Grade) siswa.
 4. **Test and Score:** Merupakan pusat evaluasi (arena pengujian) di mana kinerja kedua model diuji dan diukur secara berdampingan pada dataset yang sama.

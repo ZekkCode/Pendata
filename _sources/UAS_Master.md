@@ -14,9 +14,10 @@ Sebelum masuk ke tahap analisis dan klasifikasi, berikut adalah ringkasan singka
    - **Di Python:** Dilakukan dengan melakukan *slicing* / *subsetting* kolom pada *DataFrame* pandas (`df[['1', '2', ..., '8']]`).
    - **Di Orange:** Dilakukan dengan menggunakan widget **Select Columns** untuk membuang kolom yang tidak perlu dan memisahkan fitur dengan target.
 3. **Kategorisasi Label Target:** Target *Grade* bawaan dataset memiliki 8 tingkatan/kelas (angka `0` hingga `7`). Memprediksi 8 kelas hanya dengan 145 baris data akan membuat model sangat tidak stabil dan akurasinya terpecah. Sebagai solusinya, target disederhanakan menjadi 3 kategori performa:
-   - **Rendah:** Menggabungkan Grade 0, 1, dan 2
-   - **Sedang:** Menggabungkan Grade 3, 4, dan 5
-   - **Tinggi:** Menggabungkan Grade 6 dan 7
+   Pengelompokan target ke dalam 3 level performa ini tidak hanya sekadar untuk menyiasati sedikitnya baris data, tetapi juga sejalan dengan evaluasi capaian kemampuan edukasional yang logis di dunia nyata:
+   - **Rendah (Grade 0, 1, dan 2):** Mewakili kelompok mahasiswa yang *underperforming*, berisiko, atau membutuhkan bimbingan akademik yang intensif.
+   - **Sedang (Grade 3, 4, dan 5):** Mewakili kelompok mahasiswa dengan kemampuan rata-rata yang sudah memenuhi standar kompetensi dasar kelas.
+   - **Tinggi (Grade 6 dan 7):** Mewakili kelompok unggulan dari mahasiswa berprestasi yang menguasai materi pembelajaran secara optimal.
    
    - **Di Python:** Transformasi ini diterapkan menggunakan fungsi Python (kondisional *If-Else*) yang dipetakan (*apply*) ke seluruh baris target.
    - **Di Orange:** Proses konversi kategori ini juga disiapkan di awal aliran data agar klasifikasi (*Test & Score*) berjalan seimbang memprediksi 3 kategori tersebut.

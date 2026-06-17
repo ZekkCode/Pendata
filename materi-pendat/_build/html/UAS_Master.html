@@ -386,7 +386,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -402,6 +404,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-dataset-pra-pemrosesan-data">Ringkasan Dataset &amp; Pra-pemrosesan Data</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -415,6 +425,27 @@ document.write(`
 <h1>UAS | Analisis Perbandingan Decision Tree dan Random Forest<a class="headerlink" href="#uas-analisis-perbandingan-decision-tree-dan-random-forest" title="Permalink to this heading">#</a></h1>
 <p>Evaluasi performa akademik mahasiswa (“Higher Education Students Performance Evaluation”) menggunakan algoritma Decision Tree dan Random Forest.</p>
 <p>Analisis komprehensif ini dibagi menjadi dua pendekatan (berbasis <em>code</em> dan berbasis <em>visual</em>), yang dapat Anda akses melalui daftar isi di bawah ini:</p>
+<section id="ringkasan-dataset-pra-pemrosesan-data">
+<h2>Ringkasan Dataset &amp; Pra-pemrosesan Data<a class="headerlink" href="#ringkasan-dataset-pra-pemrosesan-data" title="Permalink to this heading">#</a></h2>
+<p>Sebelum masuk ke tahap analisis dan klasifikasi, berikut adalah ringkasan singkat mengenai dataset dan proses transformasi yang dilakukan secara seragam, baik di Python (Jupyter Notebook) maupun Orange Data Mining:</p>
+<ol class="arabic simple">
+<li><p><strong>Jumlah Data:</strong> Dataset ini terdiri dari <strong>145 baris</strong> data mahasiswa. Pada format aslinya, dataset ini memiliki 33 kolom (terdiri dari <em>Student ID</em>, <em>Course ID</em>, 30 kolom pertanyaan, dan 1 target <em>Grade</em>).</p></li>
+<li><p><strong>Pemilihan 8 Fitur Utama (<em>Feature Selection</em>):</strong> Dari 30 atribut pertanyaan yang tersedia, analisis ini mengerucut dan difokuskan pada <strong>8 fitur pertama saja</strong> (Fitur 1 sampai 8). Penyederhanaan dimensi ini bertujuan agar struktur pohon (<em>Decision Tree</em>) yang nantinya terbentuk tidak terlalu kompleks, lebih mudah diinterpretasikan secara visual, serta meminimalisir risiko <em>overfitting</em>.</p>
+<ul class="simple">
+<li><p><strong>Di Python:</strong> Dilakukan dengan melakukan <em>slicing</em> / <em>subsetting</em> kolom pada <em>DataFrame</em> pandas (<code class="docutils literal notranslate"><span class="pre">df[['1',</span> <span class="pre">'2',</span> <span class="pre">...,</span> <span class="pre">'8']]</span></code>).</p></li>
+<li><p><strong>Di Orange:</strong> Dilakukan dengan menggunakan widget <strong>Select Columns</strong> untuk membuang kolom yang tidak perlu dan memisahkan fitur dengan target.</p></li>
+</ul>
+</li>
+<li><p><strong>Kategorisasi Label Target:</strong> Target <em>Grade</em> bawaan dataset memiliki 8 tingkatan/kelas (angka <code class="docutils literal notranslate"><span class="pre">0</span></code> hingga <code class="docutils literal notranslate"><span class="pre">7</span></code>). Memprediksi 8 kelas hanya dengan 145 baris data akan membuat model sangat tidak stabil dan akurasinya terpecah. Sebagai solusinya, target disederhanakan menjadi 3 kategori performa:</p>
+<ul class="simple">
+<li><p><strong>Rendah:</strong> Menggabungkan Grade 0, 1, dan 2</p></li>
+<li><p><strong>Sedang:</strong> Menggabungkan Grade 3, 4, dan 5</p></li>
+<li><p><strong>Tinggi:</strong> Menggabungkan Grade 6 dan 7</p></li>
+<li><p><strong>Di Python:</strong> Transformasi ini diterapkan menggunakan fungsi Python (kondisional <em>If-Else</em>) yang dipetakan (<em>apply</em>) ke seluruh baris target.</p></li>
+<li><p><strong>Di Orange:</strong> Proses konversi kategori ini juga disiapkan di awal aliran data agar klasifikasi (<em>Test &amp; Score</em>) berjalan seimbang memprediksi 3 kategori tersebut.</p></li>
+</ul>
+</li>
+</ol>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="UAS-Analisis-Higher%20Education%20Students%20Performance%20Evaluation.html">Bagian 1: Analisis Menggunakan Python (Jupyter Notebook)</a></li>
@@ -422,6 +453,7 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="UAS-Pendat/Laporan-UAS-Orange-Data-Mining.html">Bagian 2: Analisis Menggunakan Orange Data Mining</a></li>
 </ul>
 </div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -482,6 +514,20 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ringkasan-dataset-pra-pemrosesan-data">Ringkasan Dataset &amp; Pra-pemrosesan Data</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -1,108 +1,110 @@
-# Penambangan Data - A
+<div align="center">
 
-Repository ini dibuat untuk Mata Kuliah Penambangan Data Kelas A Semester 4, Program Studi Teknik Informatika.
+# Student Performance Data Mining
 
-Nama: Zakaria Mujur Prasetyo
-NIM: 240411100144
+**Academic Project · Data Mining · Semester 4**
 
-## Panduan Cepat Jupyter Book (`materi-pendat`)
+[![Live Documentation](https://img.shields.io/badge/Live_Documentation-GitHub_Pages-222222?style=flat-square&logo=github)](https://zekkcode.github.io/Pendata/)
+![Python](https://img.shields.io/badge/Python-Data_Analysis-3776AB?style=flat-square&logo=python&logoColor=white)
+![Jupyter Book](https://img.shields.io/badge/Jupyter_Book-Documentation-F37626?style=flat-square&logo=jupyter&logoColor=white)
 
-### 1. Persiapan Environment (PowerShell)
+</div>
+
+## Tentang Project
+
+Repository ini berisi project akademik Mata Kuliah **Penambangan Data** pada Program Studi Teknik Informatika, Universitas Trunojoyo Madura.
+
+Project berfokus pada proses pengolahan dan klasifikasi performa mahasiswa menggunakan dataset **Higher Education Students Performance Evaluation** dari UCI Machine Learning Repository. Hasil performa dikelompokkan menjadi tiga kategori, yaitu **Rendah, Sedang, dan Tinggi**.
+
+Dokumentasi materi, eksperimen, dan hasil analisis disusun menggunakan Jupyter Book agar proses pengerjaan dapat dibaca secara runtut melalui website.
+
+## Tujuan Project
+
+- Menyiapkan dan memahami dataset performa mahasiswa.
+- Melakukan preprocessing serta eksplorasi data.
+- Membangun model klasifikasi performa mahasiswa.
+- Membandingkan pendekatan **Decision Tree** dan **Random Forest**.
+- Membandingkan workflow analisis menggunakan Python, Orange, dan KNIME.
+- Menyajikan proses serta hasil analisis dalam dokumentasi interaktif.
+
+## Kontribusi Saya
+
+- Menyiapkan dan membersihkan data.
+- Menentukan target klasifikasi Rendah, Sedang, dan Tinggi.
+- Melakukan eksperimen serta perbandingan model.
+- Menyusun workflow analisis pada Python, Orange, dan KNIME.
+- Membuat dokumentasi project menggunakan Jupyter Book.
+- Mempublikasikan dokumentasi melalui GitHub Pages.
+
+## Teknologi dan Tools
+
+| Kategori | Teknologi |
+|---|---|
+| Bahasa | Python |
+| Analisis Data | Pandas, NumPy |
+| Machine Learning | Decision Tree, Random Forest |
+| Notebook | Jupyter Notebook |
+| Visual Workflow | Orange, KNIME |
+| Dokumentasi | Jupyter Book |
+| Deployment | GitHub Pages |
+
+## Dokumentasi Online
+
+Dokumentasi project dapat dibaca melalui:
+
+**https://zekkcode.github.io/Pendata/**
+
+## Menjalankan Dokumentasi Secara Lokal
+
+### 1. Aktifkan environment
 
 ```powershell
-# Dari folder Pendata
 ..\.venv\Scripts\Activate.ps1
-
-# Jika terkendala execution policy
-# Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 ```
 
-### 2. Instalasi Dependensi
+Apabila PowerShell membatasi eksekusi script:
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+```
+
+### 2. Instal dependensi dokumentasi
 
 ```bash
 pip install "jupyter-book==1.0.0" ghp-import
 ```
 
-Catatan:
-- `jupyter-book==1.0.0` dipakai agar versi Jupyter Book konsisten untuk mata kuliah ini dan tetap mendukung alur `jupyter-book create`.
-- `ghp-import` dipakai untuk deploy GitHub Pages dari hasil build HTML.
-
-### 3. Membuat Struktur Buku Baru
-
-```bash
-jupyter-book create materi-pendat
-```
-
-### 4. Menambahkan Halaman Baru
-
-1. Buat file markdown, misalnya `materi-pendat/logika.md`.
-2. Daftarkan ke daftar isi di `materi-pendat/_toc.yml`.
-
-Contoh:
-
-```yaml
-format: jb-book
-root: intro
-chapters:
-	- file: pertemuan1
-	- file: Penambangan_Data_A_Pertemuan_2
-	- file: pertemuan3
-	- file: logika
-```
-
-### 5. Build Website
+### 3. Build Jupyter Book
 
 ```bash
 jupyter-book build materi-pendat
 ```
 
-Hasil website ada di:
+Hasil build tersedia di:
 
-`materi-pendat/_build/html/index.html`
-
-## Panduan Git (Push ke `origin`)
-
-### 1. Cek perubahan
-
-```bash
-git status
+```text
+materi-pendat/_build/html/index.html
 ```
 
-### 2. Stage semua perubahan
-
-```bash
-git add .
-```
-
-### 3. Commit
-
-```bash
-git commit -m "update materi pertemuan 3"
-```
-
-### 4. Push ke branch utama
-
-```bash
-git push origin main
-```
-
-## Deploy GitHub Pages
-
-Setelah build berhasil, deploy folder HTML ke branch `gh-pages`:
+## Deployment GitHub Pages
 
 ```bash
 ghp-import -n -p -f materi-pendat/_build/html
 ```
 
-Keterangan opsi:
-- `-n`: membuat file `.nojekyll`
-- `-p`: langsung push ke remote
-- `-f`: force overwrite branch `gh-pages`
+Keterangan:
 
-URL situs biasanya:
+- `-n` membuat file `.nojekyll`.
+- `-p` langsung melakukan push.
+- `-f` menimpa branch deployment sebelumnya.
 
-`https://username-kamu.github.io/nama-repo-kamu/`
+## Konteks Akademik
 
-Untuk repo ini formatnya umumnya:
+- **Mata Kuliah:** Penambangan Data
+- **Program Studi:** Teknik Informatika
+- **Universitas:** Universitas Trunojoyo Madura
+- **Pengembang:** Zakaria Mujur Prasetyo
 
-`https://zekkcode.github.io/Pendata/`
+## Catatan
+
+Repository ini dibuat untuk kebutuhan pembelajaran dan evaluasi akademik. Dataset, model, serta hasil eksperimen digunakan sebagai bahan analisis dan tidak ditujukan sebagai sistem penilaian mahasiswa secara nyata.
